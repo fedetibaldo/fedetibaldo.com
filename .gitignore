@@ -75,4 +75,7 @@ yarn-error.log
 .netlify/
 
 # Ghost Storage
-.ghost
+.ghost/*
+!.ghost/data
+.ghost/data/*
+!.ghost/data/redirects.json

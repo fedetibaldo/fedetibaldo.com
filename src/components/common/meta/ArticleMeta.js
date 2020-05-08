@@ -119,7 +119,7 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
 ArticleMetaGhost.propTypes = {
     data: PropTypes.shape({
         title: PropTypes.string.isRequired,
-        published_at: PropTypes.string.isRequired,
+        published_at: PropTypes.string,
         updated_at: PropTypes.string.isRequired,
         meta_title: PropTypes.string,
         meta_description: PropTypes.string,
