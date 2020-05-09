@@ -61,16 +61,21 @@ class PreviewPage extends React.Component {
             }
         }
 
-        // get the full document
-        const document = await type.endpoint.read({ id }, readParams)
-
-        // store state
-        this.setState({ document, type })
+        if (id) {
+            // get the full document
+            const document = await type.endpoint.read({ id }, readParams)
+    
+            // store state
+            this.setState({ document, type })
+        }
     }
     render() {
         // when ghost answers back
         if (this.state.document !== null) {
-            const data = { ghostPost: this.state.document }
+            const data = {
+                ghostPost: this.state.document,
+                ghostPage: this.state.document,
+            }
             const location = this.props.location
             const DocElement = this.state.type.element
             return (<DocElement data={data} location={location} />)
