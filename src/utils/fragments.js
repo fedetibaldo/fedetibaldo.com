@@ -52,15 +52,10 @@ export const ghostPostFields = graphql`
         custom_excerpt
         visibility
 
-        # Dates formatted
-        created_at_pretty: created_at(formatString: "DD MMMM, YYYY")
-        published_at_pretty: published_at(formatString: "DD MMMM, YYYY")
-        updated_at_pretty: updated_at(formatString: "DD MMMM, YYYY")
-
-        # Dates unformatted
-        created_at
-        published_at
-        updated_at
+        # Dates
+        created_at(formatString: "YYYY-MM-DD")
+        published_at(formatString: "YYYY-MM-DD")
+        updated_at(formatString: "YYYY-MM-DD")
 
         # SEO
         meta_title
