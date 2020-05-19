@@ -1,9 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
+import { getLocalizedUrl } from '../../utils/localization'
 
-const PostCard = ({ post }) => {
-    const url = `/${post.slug}/`
+const PostCard = ({ post, language }) => {
+    const url = getLocalizedUrl(language, post.slug)
     const pubDate = new Date(post.published_at)
 
     return (
@@ -46,6 +47,7 @@ PostCard.propTypes = {
             name: PropTypes.string.isRequired,
         }).isRequired,
     }).isRequired,
+    language: PropTypes.string.isRequired,
 }
 
 export default PostCard

@@ -24,7 +24,7 @@ const Index = ({ data, location, pageContext }) => {
                     <section className="post-feed">
                         {posts.map(({ node }) => (
                             // The tag below includes the markup for each post - components/common/PostCard.js
-                            <PostCard key={node.id} post={node} />
+                            <PostCard key={node.id} post={node} language={pageContext.language} />
                         ))}
                     </section>
                     <Pagination pageContext={pageContext} />
@@ -49,11 +49,12 @@ export default Index
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination
 export const pageQuery = graphql`
-  query GhostPostQuery($limit: Int!, $skip: Int!) {
+  query GhostPostQuery($limit: Int!, $skip: Int!, $languageTag: String!) {
     allGhostPost(
         sort: { order: DESC, fields: [published_at] },
         limit: $limit,
-        skip: $skip
+        skip: $skip,
+        filter: { tags: { elemMatch: { name: { eq: $languageTag } } } }
     ) {
       edges {
         node {
