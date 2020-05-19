@@ -1,5 +1,6 @@
 const path = require(`path`)
-const { postsPerPage } = require(`./src/utils/siteConfig`)
+const { postsPerPage, languages } = require(`./src/utils/siteConfig`)
+const { getLocalizedUrl } = require(`./src/utils/localization`)
 const { paginate } = require(`gatsby-awesome-pagination`)
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
@@ -16,194 +17,104 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
-    const result = await graphql(`
+    await Promise.all(languages.map(async (language) => {
+        // Retrieve localized pages and posts by tag
+        const tag = `#${language}`
+        const result = await graphql(`
         {
-            allGhostPost(sort: { order: ASC, fields: published_at }) {
+            allGhostPost (
+                sort: {
+                    order: ASC,
+                    fields: published_at
+                },
+                filter: {
+                    tags: {
+                        elemMatch: {
+                            name: { eq: "${tag}" }
+                        }
+                    }
+                }
+            ) {
                 edges {
                     node {
                         slug
                     }
                 }
             }
-            allGhostTag(sort: { order: ASC, fields: name }) {
-                edges {
-                    node {
-                        slug
-                        url
-                        postCount
+            allGhostPage(
+                sort: {
+                    order: ASC,
+                    fields: published_at
+                },
+                filter: {
+                    tags: {
+                        elemMatch: {
+                            name: { eq: "${tag}" }
+                        }
                     }
                 }
-            }
-            allGhostAuthor(sort: { order: ASC, fields: name }) {
+            ) {
                 edges {
                     node {
                         slug
-                        url
-                        postCount
-                    }
-                }
-            }
-            allGhostPage(sort: { order: ASC, fields: published_at }) {
-                edges {
-                    node {
-                        slug
-                        url
                     }
                 }
             }
         }
-    `)
+        `)
 
-    // Check for any errors
-    if (result.errors) {
-        throw new Error(result.errors)
-    }
+        // Check for any errors
+        if (result.errors) {
+            throw new Error(result.errors)
+        }
 
-    // Extract query results
-    const tags = result.data.allGhostTag.edges
-    const authors = result.data.allGhostAuthor.edges
-    const pages = result.data.allGhostPage.edges
-    const posts = result.data.allGhostPost.edges
+        // Extract query results
+        const pages = result.data.allGhostPage.edges
+        const posts = result.data.allGhostPost.edges
 
-    // Load templates
-    const indexTemplate = path.resolve(`./src/templates/index.js`)
-    const tagsTemplate = path.resolve(`./src/templates/tag.js`)
-    const authorTemplate = path.resolve(`./src/templates/author.js`)
-    const pageTemplate = path.resolve(`./src/templates/page.js`)
-    const postTemplate = path.resolve(`./src/templates/post.js`)
+        // Load templates
+        const indexTemplate = path.resolve(`./src/templates/index.js`)
+        const pageTemplate = path.resolve(`./src/templates/page.js`)
+        const postTemplate = path.resolve(`./src/templates/post.js`)
 
-    // Create tag pages
-    tags.forEach(({ node }) => {
-        const totalPosts = node.postCount !== null ? node.postCount : 0
-        const numberOfPages = Math.ceil(totalPosts / postsPerPage)
-
-        // This part here defines, that our tag pages will use
-        // a `/tag/:slug/` permalink.
-        node.url = `/tag/${node.slug}/`
-
-        Array.from({ length: numberOfPages }).forEach((_, i) => {
-            const currentPage = i + 1
-            const prevPageNumber = currentPage <= 1 ? null : currentPage - 1
-            const nextPageNumber =
-                currentPage + 1 > numberOfPages ? null : currentPage + 1
-            const previousPagePath = prevPageNumber
-                ? prevPageNumber === 1
-                    ? node.url
-                    : `${node.url}page/${prevPageNumber}/`
-                : null
-            const nextPagePath = nextPageNumber
-                ? `${node.url}page/${nextPageNumber}/`
-                : null
+        function createDocument({ node, template }) {
+            node.url = getLocalizedUrl(language, node.slug)
 
             createPage({
-                path: i === 0 ? node.url : `${node.url}page/${i + 1}/`,
-                component: tagsTemplate,
+                path: node.url,
+                component: template,
                 context: {
                     // Data passed to context is available
                     // in page queries as GraphQL variables.
                     slug: node.slug,
-                    limit: postsPerPage,
-                    skip: i * postsPerPage,
-                    numberOfPages: numberOfPages,
-                    humanPageNumber: currentPage,
-                    prevPageNumber: prevPageNumber,
-                    nextPageNumber: nextPageNumber,
-                    previousPagePath: previousPagePath,
-                    nextPagePath: nextPagePath,
+                    language,
+                    languageTag: tag,
                 },
             })
-        })
-    })
+        }
 
-    // Create author pages
-    authors.forEach(({ node }) => {
-        const totalPosts = node.postCount !== null ? node.postCount : 0
-        const numberOfPages = Math.ceil(totalPosts / postsPerPage)
+        // Create pages
+        pages.forEach(({ node }) => createDocument({ node, template: pageTemplate }))
+        // Create post pages
+        posts.forEach(({ node }) => createDocument({ node, template: postTemplate }))
 
-        // This part here defines, that our author pages will use
-        // a `/author/:slug/` permalink.
-        node.url = `/author/${node.slug}/`
-
-        Array.from({ length: numberOfPages }).forEach((_, i) => {
-            const currentPage = i + 1
-            const prevPageNumber = currentPage <= 1 ? null : currentPage - 1
-            const nextPageNumber =
-                currentPage + 1 > numberOfPages ? null : currentPage + 1
-            const previousPagePath = prevPageNumber
-                ? prevPageNumber === 1
-                    ? node.url
-                    : `${node.url}page/${prevPageNumber}/`
-                : null
-            const nextPagePath = nextPageNumber
-                ? `${node.url}page/${nextPageNumber}/`
-                : null
-
-            createPage({
-                path: i === 0 ? node.url : `${node.url}page/${i + 1}/`,
-                component: authorTemplate,
-                context: {
-                    // Data passed to context is available
-                    // in page queries as GraphQL variables.
-                    slug: node.slug,
-                    limit: postsPerPage,
-                    skip: i * postsPerPage,
-                    numberOfPages: numberOfPages,
-                    humanPageNumber: currentPage,
-                    prevPageNumber: prevPageNumber,
-                    nextPageNumber: nextPageNumber,
-                    previousPagePath: previousPagePath,
-                    nextPagePath: nextPagePath,
-                },
-            })
-        })
-    })
-
-    // Create pages
-    pages.forEach(({ node }) => {
-        // This part here defines, that our pages will use
-        // a `/:slug/` permalink.
-        node.url = `/${node.slug}/`
-
-        createPage({
-            path: node.url,
-            component: pageTemplate,
+        // Create pagination
+        paginate({
+            createPage,
+            items: posts,
+            itemsPerPage: postsPerPage,
+            component: indexTemplate,
+            pathPrefix: ({ pageNumber }) => {
+                if (pageNumber === 0) {
+                    return getLocalizedUrl(language)
+                } else {
+                    return getLocalizedUrl(language, `page`)
+                }
+            },
             context: {
-                // Data passed to context is available
-                // in page queries as GraphQL variables.
-                slug: node.slug,
+                language,
+                languageTag: tag,
             },
         })
-    })
-
-    // Create post pages
-    posts.forEach(({ node }) => {
-        // This part here defines, that our posts will use
-        // a `/:slug/` permalink.
-        node.url = `/${node.slug}/`
-
-        createPage({
-            path: node.url,
-            component: postTemplate,
-            context: {
-                // Data passed to context is available
-                // in page queries as GraphQL variables.
-                slug: node.slug,
-            },
-        })
-    })
-
-    // Create pagination
-    paginate({
-        createPage,
-        items: posts,
-        itemsPerPage: postsPerPage,
-        component: indexTemplate,
-        pathPrefix: ({ pageNumber }) => {
-            if (pageNumber === 0) {
-                return `/`
-            } else {
-                return `/page`
-            }
-        },
-    })
+    }))
 }
