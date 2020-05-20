@@ -16,4 +16,7 @@ module.exports = {
 
     languages: [`it`, `en`],
     mainLanguage: `en`,
+
+    credits: `Designed with Figma, powered by Ghost and Gatsby, hosted on Netlify`,
+    copyright: `© Some rights reserved`,
 }

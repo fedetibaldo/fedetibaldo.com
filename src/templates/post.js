@@ -12,7 +12,7 @@ import { MetaData } from '../components/common/meta'
 * This file renders a single post and loads all the content.
 *
 */
-const Post = ({ data, location }) => {
+const Post = ({ data, location, pageContext }) => {
     const post = data.ghostPost
 
     return (
@@ -25,7 +25,7 @@ const Post = ({ data, location }) => {
             <Helmet>
                 <style type="text/css">{`${post.codeinjection_styles}`}</style>
             </Helmet>
-            <Layout>
+            <Layout language={pageContext.language}>
                 <div className="container">
                     <article className="content">
                         { post.feature_image ?
@@ -58,6 +58,9 @@ Post.propTypes = {
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
+    pageContext: PropTypes.shape({
+        language: PropTypes.string.isRequired,
+    }),
 }
 
 export default Post
