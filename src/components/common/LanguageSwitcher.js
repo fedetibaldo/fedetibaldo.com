@@ -1,16 +1,20 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 
 import config from '../../utils/siteConfig'
-import { getLocalizedUrl } from '../../utils/localization'
+import { getLanguage, getLocalizedUrl } from '../../utils/localization'
 
+/**
+ * Renders a list of links to the many localized homepages.
+ * Sets the link class according to the current language
+ * @see /src/utils/localization
+ */
 class LanguageSwitcher extends React.Component {
     renderLanguageLink(language) {
         const activeClass = `current`
-        const isActive = language === this.props.currentLanguage
+        const isActive = language === getLanguage()
         return (
-            <Link to={getLocalizedUrl(language)} className={isActive && activeClass}>
+            <Link to={getLocalizedUrl(``, language)} key={language} className={isActive && activeClass || ``}>
                 {language}
             </Link>
         )
@@ -18,10 +22,6 @@ class LanguageSwitcher extends React.Component {
     render() {
         return config.languages.map(language => this.renderLanguageLink(language))
     }
-}
-
-LanguageSwitcher.propTypes = {
-    currentLanguage: PropTypes.string.isRequired,
 }
 
 export default LanguageSwitcher

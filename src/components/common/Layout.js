@@ -18,7 +18,7 @@ import '../../styles/app.css'
 * styles, and meta data for each page.
 *
 */
-const DefaultLayout = ({ data, children, bodyClass, /* isHome, */ language }) => {
+const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
     const site = data.allGhostSettings.edges[0].node
 
     return (
@@ -30,11 +30,11 @@ const DefaultLayout = ({ data, children, bodyClass, /* isHome, */ language }) =>
             </Helmet>
 
             <header>
-                <Link to={getLocalizedUrl(language)}>
+                <Link to={getLocalizedUrl()}>
                     {site.title}
                 </Link>
                 <hr />
-                <LanguageSwitcher currentLanguage={language} />
+                <LanguageSwitcher />
             </header>
 
             <main>
@@ -60,7 +60,6 @@ DefaultLayout.propTypes = {
     }).isRequired,
     bodyClass: PropTypes.string,
     isHome: PropTypes.bool,
-    language: PropTypes.string.isRequired,
 }
 
 const DefaultLayoutSettingsQuery = props => (

@@ -1,6 +1,6 @@
 const path = require(`path`)
 const { postsPerPage, languages } = require(`./src/utils/siteConfig`)
-const { getLocalizedUrl } = require(`./src/utils/localization`)
+const { setLanguage, getLocalizedUrl } = require(`./src/utils/localization`)
 const { paginate } = require(`gatsby-awesome-pagination`)
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
@@ -68,6 +68,8 @@ exports.createPages = async ({ graphql, actions }) => {
             throw new Error(result.errors)
         }
 
+        setLanguage(language)
+
         // Extract query results
         const pages = result.data.allGhostPage.edges
         const posts = result.data.allGhostPost.edges
@@ -78,7 +80,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const postTemplate = path.resolve(`./src/templates/post.js`)
 
         function createDocument({ node, template }) {
-            node.url = getLocalizedUrl(language, node.slug)
+            node.url = getLocalizedUrl(node.slug)
 
             createPage({
                 path: node.url,
@@ -106,9 +108,9 @@ exports.createPages = async ({ graphql, actions }) => {
             component: indexTemplate,
             pathPrefix: ({ pageNumber }) => {
                 if (pageNumber === 0) {
-                    return getLocalizedUrl(language)
+                    return getLocalizedUrl()
                 } else {
-                    return getLocalizedUrl(language, `page`)
+                    return getLocalizedUrl(`page`)
                 }
             },
             context: {
