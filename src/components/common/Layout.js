@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
@@ -6,6 +6,7 @@ import { Link, StaticQuery, graphql } from 'gatsby'
 import { Navigation, LanguageSwitcher } from '.'
 import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
+import { LocaleContext } from '../../contexts/locale'
 
 // Styles
 import '../../styles/app.css'
@@ -20,6 +21,7 @@ import '../../styles/app.css'
 */
 const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
     const site = data.allGhostSettings.edges[0].node
+    const locale = useContext(LocaleContext)
 
     return (
         <>
@@ -30,7 +32,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
             </Helmet>
 
             <header>
-                <Link to={getLocalizedUrl()}>
+                <Link to={getLocalizedUrl(locale)}>
                     {site.title}
                 </Link>
                 <hr />

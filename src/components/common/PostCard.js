@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { getLocalizedUrl } from '../../utils/localization'
+import { LocaleContext } from '../../contexts/locale'
 
 const PostCard = ({ post }) => {
-    const url = getLocalizedUrl(post.slug)
+    const locale = useContext(LocaleContext)
+    const url = getLocalizedUrl(locale, post.slug)
     const pubDate = new Date(post.published_at)
 
     return (

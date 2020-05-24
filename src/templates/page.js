@@ -5,7 +5,8 @@ import Helmet from 'react-helmet'
 
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
-import LanguageAwareTemplate from '../components/abstract/LanguageAwareTemplate'
+
+import withLocalization from '../components/higher-order/withLocalization'
 
 /**
 * Single page (/:slug)
@@ -13,37 +14,34 @@ import LanguageAwareTemplate from '../components/abstract/LanguageAwareTemplate'
 * This file renders a single page and loads all the content.
 *
 */
-class Page extends LanguageAwareTemplate {
-    render() {
-        const { data, location, pageContext } = this.props
-        const page = data.ghostPage
+const Page = ({ data, location }) => {
+    const page = data.ghostPage
 
-        return (
-            <>
-                <MetaData
-                    data={data}
-                    location={location}
-                    type="website"
-                />
-                <Helmet>
-                    <style type="text/css">{`${page.codeinjection_styles}`}</style>
-                </Helmet>
-                <Layout language={pageContext.language}>
-                    <div className="container">
-                        <article className="content">
-                            <h1 className="content-title">{page.title}</h1>
+    return (
+        <>
+            <MetaData
+                data={data}
+                location={location}
+                type="website"
+            />
+            <Helmet>
+                <style type="text/css">{`${page.codeinjection_styles}`}</style>
+            </Helmet>
+            <Layout>
+                <div className="container">
+                    <article className="content">
+                        <h1 className="content-title">{page.title}</h1>
 
-                            {/* The main page content */}
-                            <section
-                                className="content-body load-external-scripts"
-                                dangerouslySetInnerHTML={{ __html: page.html }}
-                            />
-                        </article>
-                    </div>
-                </Layout>
-            </>
-        )
-    }
+                        {/* The main page content */}
+                        <section
+                            className="content-body load-external-scripts"
+                            dangerouslySetInnerHTML={{ __html: page.html }}
+                        />
+                    </article>
+                </div>
+            </Layout>
+        </>
+    )
 }
 
 Page.propTypes = {
@@ -56,12 +54,9 @@ Page.propTypes = {
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
-    pageContext: PropTypes.shape({
-        language: PropTypes.string.isRequired,
-    }),
 }
 
-export default Page
+export default withLocalization(Page)
 
 export const postQuery = graphql`
     query($slug: String!) {

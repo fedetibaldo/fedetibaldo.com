@@ -1,30 +1,10 @@
-/**
- * Language store and utility functions
- * Used both by `gatsby-node` and by the language aware templates
- * @see /src/components/abstract/LanguageAwareTemplate
- */
-const config = require(`./siteConfig`)
+const { mainLanguage } = require(`./siteConfig`)
 
-/** @private */
-const store = {
-    language: config.mainLanguage,
-}
-
-/**
- * Getter and setter
- */
-function getLanguage() {
-    return store.language
-}
-function setLanguage(language) {
-    store.language = language
-}
-
-function getLocalizedUrl(slug = ``, language = getLanguage()) {
+function getLocalizedUrl(locale = mainLanguage, slug = ``) {
     const path = []
 
-    if (language !== config.mainLanguage) {
-        path.push(`${language}`)
+    if (locale !== mainLanguage) {
+        path.push(`${locale}`)
     }
     path.push(`${slug}`)
 
@@ -32,7 +12,5 @@ function getLocalizedUrl(slug = ``, language = getLanguage()) {
 }
 
 module.exports = {
-    setLanguage,
-    getLanguage,
     getLocalizedUrl,
 }

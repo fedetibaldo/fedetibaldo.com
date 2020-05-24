@@ -1,6 +1,6 @@
 const path = require(`path`)
 const { postsPerPage, languages } = require(`./src/utils/siteConfig`)
-const { setLanguage, getLocalizedUrl } = require(`./src/utils/localization`)
+const { getLocalizedUrl } = require(`./src/utils/localization`)
 const { paginate } = require(`gatsby-awesome-pagination`)
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
@@ -17,9 +17,9 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
-    await Promise.all(languages.map(async (language) => {
+    await Promise.all(languages.map(async (locale) => {
         // Retrieve localized pages and posts by tag
-        const tag = `#${language}`
+        const localeTag = `#${locale}`
         const result = await graphql(`
         {
             allGhostPost (
@@ -30,7 +30,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 filter: {
                     tags: {
                         elemMatch: {
-                            name: { eq: "${tag}" }
+                            name: { eq: "${localeTag}" }
                         }
                     }
                 }
@@ -49,7 +49,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 filter: {
                     tags: {
                         elemMatch: {
-                            name: { eq: "${tag}" }
+                            name: { eq: "${localeTag}" }
                         }
                     }
                 }
@@ -68,8 +68,6 @@ exports.createPages = async ({ graphql, actions }) => {
             throw new Error(result.errors)
         }
 
-        setLanguage(language)
-
         // Extract query results
         const pages = result.data.allGhostPage.edges
         const posts = result.data.allGhostPost.edges
@@ -80,17 +78,14 @@ exports.createPages = async ({ graphql, actions }) => {
         const postTemplate = path.resolve(`./src/templates/post.js`)
 
         function createDocument({ node, template }) {
-            node.url = getLocalizedUrl(node.slug)
+            node.url = getLocalizedUrl(locale, node.slug)
 
             createPage({
                 path: node.url,
                 component: template,
                 context: {
-                    // Data passed to context is available
-                    // in page queries as GraphQL variables.
                     slug: node.slug,
-                    language,
-                    languageTag: tag,
+                    locale,
                 },
             })
         }
@@ -108,14 +103,14 @@ exports.createPages = async ({ graphql, actions }) => {
             component: indexTemplate,
             pathPrefix: ({ pageNumber }) => {
                 if (pageNumber === 0) {
-                    return getLocalizedUrl()
+                    return getLocalizedUrl(locale)
                 } else {
-                    return getLocalizedUrl(`page`)
+                    return getLocalizedUrl(locale, `page`)
                 }
             },
             context: {
-                language,
-                languageTag: tag,
+                locale,
+                localeTag,
             },
         })
     }))
