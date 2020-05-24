@@ -7,6 +7,7 @@ import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
 import withLocalization from '../components/higher-order/withLocalization'
+import withStyles from '../components/higher-order/withStyles'
 
 /**
 * Single page (/:slug)
@@ -56,7 +57,7 @@ Page.propTypes = {
     location: PropTypes.object.isRequired,
 }
 
-export default withLocalization(Page)
+export default withStyles(withLocalization(Page))
 
 export const postQuery = graphql`
     query($slug: String!) {

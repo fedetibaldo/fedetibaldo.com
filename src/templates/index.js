@@ -6,6 +6,7 @@ import { Layout, PostCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
 import withLocalization from '../components/higher-order/withLocalization'
+import withStyles from '../components/higher-order/withStyles'
 
 /**
  * Main index page (home page)
@@ -45,7 +46,7 @@ Index.propTypes = {
     pageContext: PropTypes.object,
 }
 
-export default withLocalization(Index)
+export default withStyles(withLocalization(Index))
 
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination

@@ -8,9 +8,6 @@ import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
 import { LocaleContext } from '../../contexts/locale'
 
-// Styles
-import '../../styles/app.css'
-
 /**
 * Main layout component
 *
@@ -28,6 +25,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
             <Helmet>
                 <html lang={site.lang} />
                 <style type="text/css">{`${site.codeinjection_styles}`}</style>
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/base.css" />
                 <body className={bodyClass} />
             </Helmet>
 
