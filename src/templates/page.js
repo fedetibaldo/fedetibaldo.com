@@ -6,8 +6,7 @@ import Helmet from 'react-helmet'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-import withLocalization from '../components/higher-order/withLocalization'
-import withStyles from '../components/higher-order/withStyles'
+import { withLocalization, withStyles } from '../components/higher-order'
 
 /**
 * Single page (/:slug)

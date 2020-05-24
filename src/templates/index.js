@@ -5,14 +5,13 @@ import { graphql } from 'gatsby'
 import { Layout, PostCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-import withLocalization from '../components/higher-order/withLocalization'
-import withStyles from '../components/higher-order/withStyles'
+import { withLocalization, withStyles } from '../components/higher-order'
 
 /**
  * Main index page (home page)
  *
  * Loads all posts from Ghost and uses pagination to navigate through them.
- * Filters the content based on the `languageTag` prop
+ * Filters the content based on the `localeTag` prop
  * The number of posts that should appear per page can be setup
  * in /utils/siteConfig.js under `postsPerPage`.
  *

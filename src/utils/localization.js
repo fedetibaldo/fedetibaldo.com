@@ -1,9 +1,9 @@
-const { mainLanguage } = require(`./siteConfig`)
+const { mainLocale } = require(`./siteConfig`)
 
-function getLocalizedUrl(locale = mainLanguage, slug = ``) {
+function getLocalizedUrl(locale = mainLocale, slug = ``) {
     const path = []
 
-    if (locale !== mainLanguage) {
+    if (locale !== mainLocale) {
         path.push(`${locale}`)
     }
     path.push(`${slug}`)

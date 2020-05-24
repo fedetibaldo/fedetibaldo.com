@@ -1,5 +1,5 @@
 const path = require(`path`)
-const { postsPerPage, languages } = require(`./src/utils/siteConfig`)
+const { postsPerPage, locales } = require(`./src/utils/siteConfig`)
 const { getLocalizedUrl } = require(`./src/utils/localization`)
 const { paginate } = require(`gatsby-awesome-pagination`)
 
@@ -17,7 +17,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
 exports.createPages = async ({ graphql, actions }) => {
     const { createPage } = actions
 
-    await Promise.all(languages.map(async (locale) => {
+    await Promise.all(locales.map(async (locale) => {
         // Retrieve localized pages and posts by tag
         const localeTag = `#${locale}`
         const result = await graphql(`

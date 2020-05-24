@@ -14,8 +14,8 @@ module.exports = {
     backgroundColor: `#e9e9e9`, // Used for Offline Manifest
     themeColor: `#15171A`, // Used for Offline Manifest
 
-    languages: [`it`, `en`],
-    mainLanguage: `en`,
+    locales: [`it`, `en`],
+    mainLocale: `en`,
 
     credits: `Designed with Figma, powered by Ghost and Gatsby, hosted on Netlify`,
     copyright: `© Some rights reserved`,

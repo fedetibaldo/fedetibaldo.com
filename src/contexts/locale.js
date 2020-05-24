@@ -1,7 +1,7 @@
 import { createContext } from 'react'
-import { mainLanguage } from '../utils/siteConfig'
+import { mainLocale } from '../utils/siteConfig'
 
-const LocaleContext = createContext(mainLanguage)
+const LocaleContext = createContext(mainLocale)
 
 export {
     LocaleContext,

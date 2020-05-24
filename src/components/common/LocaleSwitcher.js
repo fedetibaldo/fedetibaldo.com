@@ -7,16 +7,15 @@ import { LocaleContext } from '../../contexts/locale'
 
 /**
  * Renders a list of links to the many localized homepages.
- * Sets the link class according to the current language
- * @see /src/utils/localization
+ * Sets the link class according to the current locale
  */
-const LanguageSwitcher = () => {
+const LocaleSwitcher = () => {
     const currentLocale = useContext(LocaleContext)
 
     return (
         <>
             {
-                config.languages.map(locale => (
+                config.locales.map(locale => (
                     <Link
                         to={getLocalizedUrl(locale)}
                         key={locale}
@@ -30,4 +29,4 @@ const LanguageSwitcher = () => {
     )
 }
 
-export default LanguageSwitcher
+export default LocaleSwitcher
