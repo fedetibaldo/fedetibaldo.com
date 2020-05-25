@@ -1,8 +1,11 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
+
 import { getLocalizedUrl } from '../../utils/localization'
 import { LocaleContext } from '../../contexts/locale'
+
+import Title from '../styled/Title'
 
 const PostCard = ({ post }) => {
     const locale = useContext(LocaleContext)
@@ -22,11 +25,11 @@ const PostCard = ({ post }) => {
             <time itemProp="datePublished" dateTime={post.published_at}>{pubDate.toLocaleDateString()}</time>
             <meta itemProp="dateModified" content={post.updated_at} />
 
-            <h2 itemProp="headline">
+            <Title as="h2" itemProp="headline">
                 <Link to={url} itemProp="url">
                     {post.title}
                 </Link>
-            </h2>
+            </Title>
 
             <section itemProp="description">{post.excerpt}</section>
 
