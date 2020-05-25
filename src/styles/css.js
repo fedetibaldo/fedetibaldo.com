@@ -1,7 +1,5 @@
 import { createStyled } from "@stitches/styled"
-import { createConfig } from "@stitches/tailwind"
-
-const config = createConfig({})
+import { tailwind as config } from "@stitches/tailwind"
 
 const { Provider, useCss, styled } = createStyled()
 
