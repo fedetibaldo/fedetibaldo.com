@@ -25,7 +25,6 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
             <Helmet>
                 <html lang={site.lang} />
                 <style type="text/css">{`${site.codeinjection_styles}`}</style>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/1.2.0/base.css" />
                 <body className={bodyClass} />
             </Helmet>
 

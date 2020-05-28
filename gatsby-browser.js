@@ -9,6 +9,8 @@
  * via ids/classnames etc.
  *
  */
+require('./src/styles/global.css')
+
 var trustAllScripts = function () {
     var scriptNodes = document.querySelectorAll('.load-external-scripts script');
 

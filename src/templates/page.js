@@ -6,7 +6,7 @@ import Helmet from 'react-helmet'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-import { withLocalization, withStyles } from '../components/higher-order'
+import { withLocalization } from '../components/higher-order'
 
 /**
 * Single page (/:slug)
@@ -56,7 +56,7 @@ Page.propTypes = {
     location: PropTypes.object.isRequired,
 }
 
-export default withStyles(withLocalization(Page))
+export default withLocalization(Page)
 
 export const postQuery = graphql`
     query($slug: String!) {

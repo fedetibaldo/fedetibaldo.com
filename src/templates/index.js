@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import { Layout, PostCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-import { withLocalization, withStyles } from '../components/higher-order'
+import { withLocalization } from '../components/higher-order'
 
 /**
  * Main index page (home page)
@@ -45,7 +45,7 @@ Index.propTypes = {
     pageContext: PropTypes.object,
 }
 
-export default withStyles(withLocalization(Index))
+export default withLocalization(Index)
 
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination

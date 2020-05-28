@@ -1,7 +1,9 @@
-import { styled } from '../../styles/css'
+import React from 'react'
 
-const Title = styled.h1(css => css.compose(
-    css.text(`teal-500`)
-))
+const Title = ({ children }) => (
+    <h1 className="text-teal-500">
+        {children}
+    </h1>
+)
 
 export default Title

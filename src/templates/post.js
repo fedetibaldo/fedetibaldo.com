@@ -6,7 +6,7 @@ import Helmet from 'react-helmet'
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
-import { withLocalization, withStyles } from '../components/higher-order'
+import { withLocalization } from '../components/higher-order'
 
 /**
 * Single post view (/:slug)
@@ -62,7 +62,7 @@ Post.propTypes = {
     location: PropTypes.object.isRequired,
 }
 
-export default withStyles(withLocalization(Post))
+export default withLocalization(Post)
 
 export const postQuery = graphql`
     query($slug: String!) {
