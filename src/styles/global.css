@@ -1,5 +1,36 @@
 @tailwind base;
 
+html {
+	font-size: 19px;
+}
+@media (min-width: 800px) {
+	html {
+		font-size: 22px;
+	}
+}
+
+h1, h2, h3, h4, h5, h6 {
+	@apply leading-tight;
+}
+p {
+	@apply leading-relaxed;
+}
+
 @tailwind components;
 
+.content {
+	@apply px-3;
+}
+@media (min-width: 800px) {
+	.content {
+		@apply px-0;
+	}
+}
+
 @tailwind utilities;
+
+.center {
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}

@@ -13,25 +13,31 @@ const PostCard = ({ post }) => {
     const pubDate = new Date(post.published_at)
 
     return (
-        <article itemScope itemType="http://schema.org/Article">
+        <article className="flex" itemScope itemType="http://schema.org/Article">
 
             <meta itemProp="author" content={post.primary_author.name} />
             <meta itemProp="mainEntityOfPage" content="false" />
-
-            <picture>
-                <img itemProp="image" src={post.feature_image} />
-            </picture>
-
-            <time itemProp="datePublished" dateTime={post.published_at}>{pubDate.toLocaleDateString()}</time>
             <meta itemProp="dateModified" content={post.updated_at} />
 
-            <Title as="h2" itemProp="headline">
-                <Link to={url} itemProp="url">
-                    {post.title}
-                </Link>
-            </Title>
+            <picture className="w-1/3 w-lg-40 flex-shrink-0 relative overflow-hidden">
+                <img className="absolute center h-full max-w-none" itemProp="image" src={post.feature_image} />
+            </picture>
 
-            <section itemProp="description">{post.excerpt}</section>
+            <section className="content lg:pl-6">
+                <time className="block relative border-t" itemProp="datePublished" dateTime={post.published_at}>
+                    <span className="absolute center px-2 bg-white">{pubDate.toLocaleDateString()}</span>
+                </time>
+
+                <div className="my-8">
+                    <Title itemProp="headline">
+                        <Link to={url} itemProp="url">
+                            {post.title}
+                        </Link>
+                    </Title>
+
+                    <p itemProp="description">{post.excerpt}</p>
+                </div>
+            </section>
 
         </article>
     )

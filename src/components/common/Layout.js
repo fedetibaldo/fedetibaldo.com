@@ -37,7 +37,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
 
                 {/* The header features a  bottom line that spans the whole width of the page */}
                 <header className="border-b">
-                    <nav className="container flex">
+                    <nav className="content container flex items-center">
 
                         {/* Site name */}
                         <h1>
@@ -56,12 +56,12 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                 </header>
 
                 {/* All the main content gets inserted here, index.js, post.js */}
-                <main className="container flex-grow">
+                <main className="flex-grow">
                     {children}
                 </main>
 
                 {/* The footer at the very bottom of the screen */}
-                <footer className="container">
+                <footer className="content container">
 
                     {/* A list of useful links */}
                     <Navigation data={site.navigation} />

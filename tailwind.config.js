@@ -15,15 +15,20 @@ module.exports = {
             sm: `640px`,
             lg: `800px`,
         },
-        fontFamily: {
-            sans: [
-                // custom font
-                `Source Sans Pro`,
-                // default sans stack
-                `system-ui`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, `Helvetica Neue`, `Arial`, `Noto Sans`, `sans-serif`, `Apple Color Emoji`, `Segoe UI Emoji`, `Segoe UI Symbol`, `Noto Color Emoji`
-            ],
+        extend: {
+            fontFamily: {
+                sans: [
+                    // custom font
+                    `Source Sans Pro`,
+                    // default sans stack
+                    `system-ui`, `-apple-system`, `BlinkMacSystemFont`, `Segoe UI`, `Roboto`, `Helvetica Neue`, `Arial`, `Noto Sans`, `sans-serif`, `Apple Color Emoji`, `Segoe UI Emoji`, `Segoe UI Symbol`, `Noto Color Emoji`,
+                ],
+            },
+            lineHeight: {
+                tight: `1.2`,
+                relaxed: `1.6`,
+            },
         },
-        extend: {},
     },
     variants: {},
     plugins: [],
