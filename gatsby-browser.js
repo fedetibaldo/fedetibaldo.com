@@ -9,6 +9,7 @@
  * via ids/classnames etc.
  *
  */
+require('typeface-source-sans-pro')
 require('./src/styles/global.css')
 
 var trustAllScripts = function () {
