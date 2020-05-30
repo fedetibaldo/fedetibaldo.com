@@ -28,25 +28,51 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                 <body className={bodyClass} />
             </Helmet>
 
-            <header>
-                <Link to={getLocalizedUrl(locale)}>
-                    {site.title}
-                </Link>
-                <hr />
-                <LocaleSwitcher />
-            </header>
+            {/*
+                Apparently, the content is not a direct child of the body, hence we must wrap the
+                page in yet another container. This way, we can apply the Holy Grail Layout
+                @see https://philipwalton.github.io/solved-by-flexbox/demos/holy-grail/
+            */}
+            <div className="flex flex-col min-h-screen">
 
-            <main>
+                {/* The header features a  bottom line that spans the whole width of the page */}
+                <header className="border-b">
+                    <nav className="container flex">
+
+                        {/* Site name */}
+                        <h1>
+                            <Link to={getLocalizedUrl(locale)}>
+                                {site.title}
+                            </Link>
+                        </h1>
+
+                        {/* Keep the two elements far apart */}
+                        <hr className="border-0 flex-grow" />
+
+                        {/* Locale switcher */}
+                        <LocaleSwitcher />
+
+                    </nav>
+                </header>
+
                 {/* All the main content gets inserted here, index.js, post.js */}
-                {children}
-            </main>
+                <main className="container flex-grow">
+                    {children}
+                </main>
 
-            {/* The footer at the very bottom of the screen */}
-            <footer>
-                <Navigation data={site.navigation} />
-                <p>{config.credits}</p>
-                <p>{config.copyright}</p>
-            </footer>
+                {/* The footer at the very bottom of the screen */}
+                <footer className="container">
+
+                    {/* A list of useful links */}
+                    <Navigation data={site.navigation} />
+
+                    {/* Copyright and credits */}
+                    <p>{config.credits}</p>
+                    <p>{config.copyright}</p>
+
+                </footer>
+
+            </div>
         </>
     )
 }

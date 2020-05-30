@@ -17,6 +17,6 @@ module.exports = {
     locales: [`it`, `en`],
     mainLocale: `en`,
 
-    credits: `Designed with Figma, powered by Ghost and Gatsby, hosted on Netlify`,
+    credits: `Designed with Figma, powered by Ghost, Gatsby, and Tailwind, hosted on Netlify`,
     copyright: `© Some rights reserved`,
 }
