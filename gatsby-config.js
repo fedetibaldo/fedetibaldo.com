@@ -56,6 +56,14 @@ module.exports = {
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
         {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `markdown-embeds`),
+                name: `markdown-embeds`,
+            },
+        },
+        `gatsby-transformer-remark`,
+        {
             resolve: `gatsby-plugin-create-client-paths`,
             options: { prefixes: [`/preview/*`] },
         },

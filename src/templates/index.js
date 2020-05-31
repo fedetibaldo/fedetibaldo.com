@@ -6,6 +6,7 @@ import { Layout, PostCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
 import { withLocalization } from '../components/higher-order'
+import { Title } from '../components/styled'
 
 /**
  * Main index page (home page)
@@ -18,11 +19,22 @@ import { withLocalization } from '../components/higher-order'
  */
 const Index = ({ data, location, pageContext }) => {
     const posts = data.allGhostPost.edges
+    const embed = data.markdownRemark
 
     return (
         <>
             <MetaData location={location} />
             <Layout isHome={true}>
+
+                {/* markdown embed. Customize in `src/markdown-embeds` */}
+                <article className="content container">
+                    <Title>
+                        {embed.frontmatter.title}
+                    </Title>
+                    <section dangerouslySetInnerHTML={ { __html: embed.html } } />
+                </article>
+
+                {/* post feed */}
                 <section className="container">
                     {posts.map(({ node }) => (
                         // The tag below includes the markup for each post - components/common/PostCard.js
@@ -38,6 +50,7 @@ const Index = ({ data, location, pageContext }) => {
 Index.propTypes = {
     data: PropTypes.shape({
         allGhostPost: PropTypes.object.isRequired,
+        markdownRemark: PropTypes.object.isRequired,
     }).isRequired,
     location: PropTypes.shape({
         pathname: PropTypes.string.isRequired,
@@ -50,18 +63,29 @@ export default withLocalization(Index)
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination
 export const pageQuery = graphql`
-  query GhostPostQuery($limit: Int!, $skip: Int!, $localeTag: String!) {
-    allGhostPost(
-        sort: { order: DESC, fields: [published_at] },
-        limit: $limit,
-        skip: $skip,
-        filter: { tags: { elemMatch: { name: { eq: $localeTag } } } }
-    ) {
-      edges {
-        node {
-          ...GhostPostFields
+    query GhostPostQuery($limit: Int!, $skip: Int!, $localeTag: String!, $locale: String!) {
+        allGhostPost(
+            sort: { order: DESC, fields: [published_at] },
+            limit: $limit,
+            skip: $skip,
+            filter: { tags: { elemMatch: { name: { eq: $localeTag } } } }
+        ) {
+            edges {
+                node {
+                ...GhostPostFields
+                }
+            }
         }
-      }
+        markdownRemark(
+            frontmatter: {
+                slug: { eq: "/" },
+                locale: { eq: $locale },
+            }
+        ) {
+            frontmatter {
+                title
+            }
+            html
+        }
     }
-  }
 `

@@ -5,7 +5,7 @@ import { Link } from 'gatsby'
 import { getLocalizedUrl } from '../../utils/localization'
 import { LocaleContext } from '../../contexts/locale'
 
-import Title from '../styled/Title'
+import { Title } from '../styled'
 
 const PostCard = ({ post }) => {
     const locale = useContext(LocaleContext)
