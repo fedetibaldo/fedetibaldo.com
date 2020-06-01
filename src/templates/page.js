@@ -7,6 +7,7 @@ import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
 import { withLocalization } from '../components/higher-order'
+import { Title } from '../components/styled'
 
 /**
 * Single page (/:slug)
@@ -28,8 +29,8 @@ const Page = ({ data, location }) => {
                 <style type="text/css">{`${page.codeinjection_styles}`}</style>
             </Helmet>
             <Layout>
-                <article className="content container">
-                    <h1>{page.title}</h1>
+                <article className="content container space-around">
+                    <Title>{page.title}</Title>
 
                     {/* The main page content */}
                     <section dangerouslySetInnerHTML={{ __html: page.html }} />

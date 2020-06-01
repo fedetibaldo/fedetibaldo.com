@@ -27,7 +27,7 @@ const Index = ({ data, location, pageContext }) => {
             <Layout isHome={true}>
 
                 {/* markdown embed. Customize in `src/markdown-embeds` */}
-                <article className="content container">
+                <article className="content container space-around">
                     <Title>
                         {embed.frontmatter.title}
                     </Title>
@@ -35,7 +35,7 @@ const Index = ({ data, location, pageContext }) => {
                 </article>
 
                 {/* post feed */}
-                <section className="container">
+                <section className="container space-around">
                     {posts.map(({ node }) => (
                         // The tag below includes the markup for each post - components/common/PostCard.js
                         <PostCard key={node.id} post={node} />

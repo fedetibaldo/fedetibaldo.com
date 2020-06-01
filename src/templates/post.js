@@ -7,6 +7,7 @@ import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
 import { withLocalization } from '../components/higher-order'
+import { Title } from '../components/styled'
 
 /**
 * Single post view (/:slug)
@@ -30,11 +31,11 @@ const Post = ({ data, location }) => {
             <Layout>
                 <article>
                     {post.feature_image ?
-                        <figure>
-                            <img src={post.feature_image} alt={post.title} />
-                        </figure> : null}
-                    <section className="content container">
-                        <h1 >{post.title}</h1>
+                        <picture className="block h-64 relative overflow-hidden">
+                            <img className="absolute center" src={post.feature_image} alt={post.title} />
+                        </picture> : null}
+                    <section className="content container space-around mt-10">
+                        <Title>{post.title}</Title>
 
                         {/* The main post content */}
                         <section dangerouslySetInnerHTML={{ __html: post.html }} />

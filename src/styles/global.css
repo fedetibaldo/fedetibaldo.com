@@ -27,6 +27,15 @@ p {
 	}
 }
 
+.space-around {
+	@apply my-20;
+}
+@media (min-width: 800px) {
+	.space-around {
+		@apply my-32;
+	}
+}
+
 @tailwind utilities;
 
 .center {
