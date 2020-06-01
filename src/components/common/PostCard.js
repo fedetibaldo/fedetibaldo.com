@@ -19,7 +19,7 @@ const PostCard = ({ post }) => {
             <meta itemProp="mainEntityOfPage" content="false" />
             <meta itemProp="dateModified" content={post.updated_at} />
 
-            <picture className="w-1/3 w-lg-40 flex-shrink-0 relative overflow-hidden">
+            <picture className="w-1/3 lg:w-40 flex-shrink-0 relative overflow-hidden">
                 <img className="absolute center h-full max-w-none" itemProp="image" src={post.feature_image} />
             </picture>
 
