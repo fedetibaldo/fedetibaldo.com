@@ -2,6 +2,7 @@
 
 html {
 	font-size: 19px;
+	color: theme('colors.gray.800');
 }
 @media (min-width: 800px) {
 	html {
@@ -14,6 +15,17 @@ h1, h2, h3, h4, h5, h6 {
 }
 p {
 	@apply leading-relaxed;
+}
+
+a {
+	@apply
+		font-bold
+		bg-image-teal-200 bg-thin bg-no-repeat
+		transition-bg-size duration-200 ease-in-out
+	;
+}
+a:hover, a:focus, a:active {
+	@apply bg-block;
 }
 
 @tailwind components;
@@ -42,4 +54,33 @@ p {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
+}
+
+.transition-bg-size {
+	transition-property: background-size;
+}
+
+@responsive {
+	@variants hover, focus {
+		/* Ideally, every color should be generated. However, I'll focus on just this one */
+		.bg-image-teal-200 {
+			background-image: linear-gradient(to left, theme("colors.teal.200"), theme("colors.teal.200"));
+		}
+	}
+}
+
+@responsive {
+	@variants hover, focus {
+		.bg-block {
+			background-size: 100% 100%;
+		}
+		.bg-thick {
+			background-size: 100% .4em;
+			background-position: left .67em;
+		}
+		.bg-thin {
+			background-size: 100% 2px;
+			background-position: left bottom;
+		}
+	}
 }

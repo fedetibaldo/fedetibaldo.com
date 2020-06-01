@@ -5,8 +5,6 @@ import { Link } from 'gatsby'
 import { getLocalizedUrl } from '../../utils/localization'
 import { LocaleContext } from '../../contexts/locale'
 
-import { Title } from '../styled'
-
 const PostCard = ({ post }) => {
     const locale = useContext(LocaleContext)
     const url = getLocalizedUrl(locale, post.slug)
@@ -29,11 +27,11 @@ const PostCard = ({ post }) => {
                 </time>
 
                 <div className="my-8">
-                    <Title itemProp="headline">
-                        <Link to={url} itemProp="url">
+                    <h2 itemProp="headline">
+                        <Link to={url} className="text-2xl" itemProp="url">
                             {post.title}
                         </Link>
-                    </Title>
+                    </h2>
 
                     <p itemProp="description">{post.excerpt}</p>
                 </div>
