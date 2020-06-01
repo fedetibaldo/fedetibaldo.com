@@ -31,8 +31,8 @@ const Post = ({ data, location }) => {
             <Layout>
                 <article>
                     {post.feature_image ?
-                        <picture className="block h-64 relative overflow-hidden">
-                            <img className="absolute center" src={post.feature_image} alt={post.title} />
+                        <picture className="block h-64">
+                            <img className="w-full h-full object-cover" src={post.feature_image} alt={post.title} />
                         </picture> : null}
                     <section className="content container space-around mt-10">
                         <Title>{post.title}</Title>
