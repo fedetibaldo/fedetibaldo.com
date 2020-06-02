@@ -44,17 +44,6 @@ module.exports = {
                 name: `pages`,
             },
         },
-        // Setup for optimised images.
-        // See https://www.gatsbyjs.org/packages/gatsby-image/
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                path: path.join(__dirname, `src`, `images`),
-                name: `images`,
-            },
-        },
-        `gatsby-plugin-sharp`,
-        `gatsby-transformer-sharp`,
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -64,19 +53,37 @@ module.exports = {
         },
         `gatsby-transformer-remark`,
         {
-            resolve: `gatsby-plugin-create-client-paths`,
-            options: { prefixes: [`/preview/*`] },
-        },
-        {
             resolve: `gatsby-source-ghost`,
             options:
                 process.env.NODE_ENV === `development`
                     ? ghostConfig.development
                     : ghostConfig.production,
         },
+        // Setup for optimised images.
+        // See https://www.gatsbyjs.org/packages/gatsby-image/
+        {
+            resolve: `gatsby-plugin-remote-images`,
+            options: {
+                nodeType: `GhostPost`,
+                imagePath: `feature_image`,
+            },
+        },
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                path: path.join(__dirname, `src`, `images`),
+                name: `images`,
+            },
+        },
+        `gatsby-plugin-sharp`,
+        `gatsby-transformer-sharp`,
         /**
          *  Utility Plugins
          */
+        {
+            resolve: `gatsby-plugin-create-client-paths`,
+            options: { prefixes: [`/preview/*`] },
+        },
         {
             resolve: `gatsby-plugin-ghost-manifest`,
             options: {
