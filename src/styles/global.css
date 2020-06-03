@@ -20,12 +20,12 @@ p {
 a {
 	@apply
 		font-bold
-		bg-image-teal-200 bg-thin bg-no-repeat
+		underline-teal-200 underline-thin bg-no-repeat
 		transition-bg-size duration-200 ease-in-out
 	;
 }
 a:hover, a:focus, a:active {
-	@apply bg-block;
+	@apply underline-block;
 }
 
 @tailwind components;
@@ -73,23 +73,27 @@ a:hover, a:focus, a:active {
 @responsive {
 	@variants hover, focus {
 		/* Ideally, every color should be generated. However, I'll focus on just this one */
-		.bg-image-teal-200 {
-			background-image: linear-gradient(to left, theme("colors.teal.200"), theme("colors.teal.200"));
+		.underline-teal-200 {
+			background-image: linear-gradient(
+				to top,
+				white 0 .15em,
+				theme("colors.teal.200") .15em
+			);
 		}
 	}
 }
 
 @responsive {
 	@variants hover, focus {
-		.bg-block {
-			background-size: 100% 100%;
+		.underline-block {
+			background-size: 100% calc(100% - .3rem);
 		}
-		.bg-thick {
-			background-size: 100% .4em;
-			background-position: left .67em;
+		.underline-thick {
+			background-size: 100% .6em;
+			background-position: left bottom;
 		}
-		.bg-thin {
-			background-size: 100% 2px;
+		.underline-thin {
+			background-size: 100% calc(.15em + 2px);
 			background-position: left bottom;
 		}
 	}
