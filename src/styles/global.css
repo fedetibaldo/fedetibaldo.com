@@ -48,6 +48,16 @@ a:hover, a:focus, a:active {
 	}
 }
 
+/* Unfortunately, the gatsby fixed image tries to override the width I set */
+.card-image {
+	@apply w-1/3 h-auto flex-shrink-0 !important; /* That's why I add !important */
+}
+@media (min-width: 800px) {
+	.card-image {
+		@apply w-40 !important;
+	}
+}
+
 @tailwind utilities;
 
 .center {

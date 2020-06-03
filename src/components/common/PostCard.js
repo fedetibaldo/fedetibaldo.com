@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
+import Img from 'gatsby-image'
 
 import { getLocalizedUrl } from '../../utils/localization'
 import { LocaleContext } from '../../contexts/locale'
@@ -17,9 +18,12 @@ const PostCard = ({ post }) => {
             <meta itemProp="mainEntityOfPage" content="false" />
             <meta itemProp="dateModified" content={post.updated_at} />
 
-            <picture className="w-1/3 lg:w-40 flex-shrink-0">
-                <img className="w-full h-full object-cover" itemProp="image" src={post.feature_image} />
-            </picture>
+            <Img
+                className="card-image w-1/3 lg:w-40 flex-shrink-0 h-auto"
+                fixed={post.localImage.childImageSharp.fixed}
+                objectFit="cover"
+                alt={post.title}
+            />
 
             <section className="content lg:pl-6">
                 <time className="block relative border-t" itemProp="datePublished" dateTime={post.published_at}>
@@ -46,7 +50,7 @@ PostCard.propTypes = {
         // Basic Info
         slug: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        feature_image: PropTypes.string,
+        localImage: PropTypes.object,
         excerpt: PropTypes.string.isRequired,
         // Dates
         published_at: PropTypes.string,

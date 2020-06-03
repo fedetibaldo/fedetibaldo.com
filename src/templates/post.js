@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 
 import { Layout } from '../components/common'
@@ -30,10 +31,13 @@ const Post = ({ data, location }) => {
             </Helmet>
             <Layout>
                 <article>
-                    {post.feature_image ?
-                        <picture className="block h-64">
-                            <img className="w-full h-full object-cover" src={post.feature_image} alt={post.title} />
-                        </picture> : null}
+                    {post.localImage ?
+                        <Img
+                            className="h-64"
+                            fluid={post.localImage.childImageSharp.fluid}
+                            objectFit="cover"
+                            alt={post.title}
+                        /> : null}
                     <section className="content container space-around mt-10">
                         <Title>{post.title}</Title>
 
@@ -52,7 +56,7 @@ Post.propTypes = {
             codeinjection_styles: PropTypes.object,
             title: PropTypes.string.isRequired,
             html: PropTypes.string.isRequired,
-            feature_image: PropTypes.string,
+            localImage: PropTypes.object,
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
@@ -64,6 +68,9 @@ export const postQuery = graphql`
     query($slug: String!) {
         ghostPost(slug: { eq: $slug }) {
             ...GhostPostFields
+            localImage {
+                ...PostFeatureImage
+            }
         }
     }
 `

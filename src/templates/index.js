@@ -72,7 +72,10 @@ export const pageQuery = graphql`
         ) {
             edges {
                 node {
-                ...GhostPostFields
+                    ...GhostPostFields
+                    localImage {
+                        ...CardFeatureImage
+                    }
                 }
             }
         }

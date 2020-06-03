@@ -238,3 +238,30 @@ export const ghostSettingsFields = graphql`
         }
     }
 `
+
+export const postFeatureImage = graphql`
+    fragment PostFeatureImage on File {
+        childImageSharp {
+            fluid(
+                quality: 100,
+                srcSetBreakpoints: [ 800, 1920 ],
+                sizes: "100vw"
+            ) {
+                ...GatsbyImageSharpFluid_tracedSVG
+            }
+        }
+    }
+`
+
+export const cardFeatureImage = graphql`
+    fragment CardFeatureImage on File {
+        childImageSharp {
+            fixed(
+                quality: 100,
+                width: 400
+            ) {
+                ...GatsbyImageSharpFixed_tracedSVG
+            }
+        }
+    }
+`
