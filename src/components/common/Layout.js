@@ -36,12 +36,12 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
             <div className="flex flex-col min-h-screen">
 
                 {/* The header features a  bottom line that spans the whole width of the page */}
-                <header className="border-b">
-                    <nav className="content container flex items-center">
+                <header className="sticky top-0 z-10 bg-white border-b py-4 lg:py-3">
+                    <div className="content container flex items-center">
 
                         {/* Site name */}
-                        <h1>
-                            <Link to={getLocalizedUrl(locale)}>
+                        <h1 className="logo">
+                            <Link className="underline-none" to={getLocalizedUrl(locale)}>
                                 {site.title}
                             </Link>
                         </h1>
@@ -52,7 +52,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                         {/* Locale switcher */}
                         <LocaleSwitcher />
 
-                    </nav>
+                    </div>
                 </header>
 
                 {/* All the main content gets inserted here, index.js, post.js */}
@@ -61,14 +61,16 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                 </main>
 
                 {/* The footer at the very bottom of the screen */}
-                <footer className="content container">
+                <footer className="content container text-center text-xs mb-3">
 
                     {/* A list of useful links */}
                     <Navigation data={site.navigation} />
 
-                    {/* Copyright and credits */}
-                    <p>{config.credits}</p>
-                    <p>{config.copyright}</p>
+                    <div className="text-gray-400">
+                        {/* Copyright and credits */}
+                        <p className="my-1">{config.credits}</p>
+                        <p className="my-1">{config.copyright}</p>
+                    </div>
 
                 </footer>
 

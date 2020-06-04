@@ -1,5 +1,8 @@
 @tailwind base;
 
+/**
+ * FONT
+ */
 html {
 	font-size: 19px;
 	color: theme('colors.gray.800');
@@ -10,13 +13,22 @@ html {
 	}
 }
 
+/**
+ * VERTICAL RHYTHM & TYPOGRAPHY
+ */
 h1, h2, h3, h4, h5, h6 {
 	@apply leading-tight;
+	@apply mb-3;
+	@apply font-bold;
 }
-p {
+p, ol, ul {
 	@apply leading-relaxed;
+	@apply mb-6;
 }
 
+/**
+ * LINKS
+ */
 a {
 	@apply
 		font-bold
@@ -29,6 +41,11 @@ a:hover, a:focus, a:active {
 }
 
 @tailwind components;
+
+.logo {
+	font-size: 24px;
+	@apply mb-0;
+}
 
 .content {
 	@apply px-3;
@@ -97,4 +114,8 @@ a:hover, a:focus, a:active {
 			background-position: left bottom;
 		}
 	}
+}
+
+.underline-none {
+	background-image: none;
 }

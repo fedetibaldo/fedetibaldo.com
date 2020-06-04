@@ -26,12 +26,12 @@ const PostCard = ({ post }) => {
             />
 
             <section className="content lg:pl-6">
-                <time className="block relative border-t" itemProp="datePublished" dateTime={post.published_at}>
+                <time className="block relative border-t text-sm text-gray-400" itemProp="datePublished" dateTime={post.published_at}>
                     <span className="absolute center px-2 bg-white">{pubDate.toLocaleDateString()}</span>
                 </time>
 
                 <div className="my-8">
-                    <h2 itemProp="headline">
+                    <h2 className="mb-2" itemProp="headline">
                         <Link to={url} className="text-2xl" itemProp="url">
                             {post.title}
                         </Link>

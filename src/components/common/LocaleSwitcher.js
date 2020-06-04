@@ -13,19 +13,19 @@ const LocaleSwitcher = () => {
     const currentLocale = useContext(LocaleContext)
 
     return (
-        <>
+        <nav>
             {
                 config.locales.map(locale => (
                     <Link
                         to={getLocalizedUrl(locale)}
                         key={locale}
-                        className={locale === currentLocale ? `current` : ``}
+                        className={[`uppercase ml-2 lg:text-sm`, locale === currentLocale ? `underline-none` : `font-normal`].join(` `)}
                     >
                         {locale}
                     </Link>
                 ))
             }
-        </>
+        </nav>
     )
 }
 
