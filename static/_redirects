@@ -1,5 +1,5 @@
-# Netlify redirects file, edit with your domain
+# Netlify redirects file
 # https://www.netlify.com/docs/redirects/
 
-https://gatsby-starter-ghost.netlify.com/*      https://gatsby.ghost.org/:splat    301!
-http://gatsby-starter-ghost.netlify.com/*       https://gatsby.ghost.org/:splat    301!
+# Redirect users with Italian language preference from / to /it
+/  /it/  302  Language=it

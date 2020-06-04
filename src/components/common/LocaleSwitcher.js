@@ -12,6 +12,10 @@ import { LocaleContext } from '../../contexts/locale'
 const LocaleSwitcher = () => {
     const currentLocale = useContext(LocaleContext)
 
+    function setLocaleCookie(locale) {
+        document.cookie = `nf_lang=${locale};path=/`
+    }
+
     return (
         <nav>
             {
@@ -20,6 +24,7 @@ const LocaleSwitcher = () => {
                         to={getLocalizedUrl(locale)}
                         key={locale}
                         className={[`uppercase ml-2 lg:text-sm`, locale === currentLocale ? `underline-none` : `font-normal`].join(` `)}
+                        onClick={setLocaleCookie.bind(null, locale)}
                     >
                         {locale}
                     </Link>
