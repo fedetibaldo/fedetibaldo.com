@@ -18,6 +18,7 @@ import { Title } from '../components/styled'
 */
 const Post = ({ data, location }) => {
     const post = data.ghostPost
+    const pubDate = new Date(post.published_at)
 
     return (
         <>
@@ -40,6 +41,10 @@ const Post = ({ data, location }) => {
                         /> : null}
                     <section className="content container space-around mt-10">
                         <Title>{post.title}</Title>
+
+                        <time className="block text-gray-400 my-6" itemProp="datePublished" dateTime={post.published_at}>
+                            &#47;&#47; {pubDate.toLocaleDateString()}
+                        </time>
 
                         {/* The main post content */}
                         <section dangerouslySetInnerHTML={{ __html: post.html }} />
