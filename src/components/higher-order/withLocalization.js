@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { LocaleContext } from '../../contexts/locale'
+import { IntlProvider } from 'react-intl'
 
 function withLocalization(WrappedComponent) {
     const LocaleWrapper = (props) => {
         const locale = props.pageContext.locale
         return (
-            <LocaleContext.Provider value={locale}>
+            <IntlProvider locale={locale}>
                 <WrappedComponent {...props} />
-            </LocaleContext.Provider>
+            </IntlProvider>
         )
     }
     LocaleWrapper.propTypes = {

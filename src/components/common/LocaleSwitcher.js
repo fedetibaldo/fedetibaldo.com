@@ -1,16 +1,18 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Link } from 'gatsby'
+
+import { useIntl } from 'react-intl'
 
 import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
-import { LocaleContext } from '../../contexts/locale'
 
 /**
  * Renders a list of links to the many localized homepages.
  * Sets the link class according to the current locale
  */
 const LocaleSwitcher = () => {
-    const currentLocale = useContext(LocaleContext)
+    const intl = useIntl()
+    const currentLocale = intl.locale
 
     function setLocaleCookie(locale) {
         document.cookie = `nf_lang=${locale};path=/`

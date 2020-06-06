@@ -1,14 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
+import { useIntl } from 'react-intl'
+
 import { getLocalizedUrl } from '../../utils/localization'
-import { LocaleContext } from '../../contexts/locale'
 
 const PostCard = ({ post }) => {
-    const locale = useContext(LocaleContext)
-    const url = getLocalizedUrl(locale, post.slug)
+    const intl = useIntl()
+    const url = getLocalizedUrl(intl.locale, post.slug)
     const pubDate = new Date(post.published_at)
 
     return (

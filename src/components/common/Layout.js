@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
+
 import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
+import { useIntl } from 'react-intl'
 
 import { Navigation, LocaleSwitcher } from '.'
 import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
-import { LocaleContext } from '../../contexts/locale'
 
 /**
 * Main layout component
@@ -18,7 +19,7 @@ import { LocaleContext } from '../../contexts/locale'
 */
 const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
     const site = data.allGhostSettings.edges[0].node
-    const locale = useContext(LocaleContext)
+    const intl = useIntl()
 
     return (
         <>
@@ -41,7 +42,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
 
                         {/* Site name */}
                         <h1 className="logo">
-                            <Link className="underline-none" to={getLocalizedUrl(locale)}>
+                            <Link className="underline-none" to={getLocalizedUrl(intl.locale)}>
                                 {site.title}
                             </Link>
                         </h1>
