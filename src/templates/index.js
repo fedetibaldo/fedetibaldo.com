@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
 
+import { FormattedMessage } from 'react-intl'
+
 import { Layout, PostCard, Pagination } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
@@ -31,11 +33,14 @@ const Index = ({ data, location, pageContext }) => {
                     <Title>
                         {embed.frontmatter.title}
                     </Title>
-                    <section dangerouslySetInnerHTML={ { __html: embed.html } } />
+                    <section dangerouslySetInnerHTML={{ __html: embed.html }} />
                 </article>
 
                 {/* post feed */}
                 <section className="container space-around">
+
+                    <Title className="mb-6"><FormattedMessage id="recent" /></Title>
+
                     {posts.map(({ node }) => (
                         // The tag below includes the markup for each post - components/common/PostCard.js
                         <PostCard key={node.id} post={node} />

@@ -4,6 +4,8 @@ import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 
+import { FormattedDate } from 'react-intl'
+
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
 
@@ -43,7 +45,13 @@ const Post = ({ data, location }) => {
                         <Title>{post.title}</Title>
 
                         <time className="block text-gray-400 my-6" itemProp="datePublished" dateTime={post.published_at}>
-                            &#47;&#47; {pubDate.toLocaleDateString()}
+                            &#47;&#47;&nbsp;
+                            <FormattedDate
+                                value={pubDate}
+                                year="numeric"
+                                month="long"
+                                day="numeric"
+                            />
                         </time>
 
                         {/* The main post content */}
@@ -62,6 +70,7 @@ Post.propTypes = {
             title: PropTypes.string.isRequired,
             html: PropTypes.string.isRequired,
             localImage: PropTypes.object,
+            published_at: PropTypes.string,
         }).isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,

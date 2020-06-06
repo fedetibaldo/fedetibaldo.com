@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-import { useIntl } from 'react-intl'
+import { useIntl, FormattedDate } from 'react-intl'
 
 import { getLocalizedUrl } from '../../utils/localization'
 
@@ -28,7 +28,14 @@ const PostCard = ({ post }) => {
 
             <section className="content lg:pl-6">
                 <time className="block relative border-t text-sm text-gray-400" itemProp="datePublished" dateTime={post.published_at}>
-                    <span className="absolute center px-2 bg-white">{pubDate.toLocaleDateString()}</span>
+                    <span className="absolute center px-2 bg-white">
+                        <FormattedDate
+                            value={pubDate}
+                            year="numeric"
+                            month="long"
+                            day="numeric"
+                        />
+                    </span>
                 </time>
 
                 <div className="my-8">

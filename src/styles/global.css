@@ -40,6 +40,14 @@ a:hover, a:focus, a:active {
 	@apply underline-block;
 }
 
+/**
+ * TIME
+ * I hate lowercase months
+ */
+time {
+	@apply capitalize;	
+}
+
 @tailwind components;
 
 .logo {
@@ -65,7 +73,7 @@ a:hover, a:focus, a:active {
 	}
 }
 
-/* Unfortunately, the gatsby fixed image tries to override the width I set */
+/* Unfortunately, gatsby fixed images try to override the width I set */
 .card-image {
 	@apply w-1/3 h-auto flex-shrink-0 !important; /* That's why I add !important */
 }
