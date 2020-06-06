@@ -40,7 +40,13 @@ const Post = ({ data, location }) => {
                             fluid={post.localImage.childImageSharp.fluid}
                             objectFit="cover"
                             alt={post.title}
-                        /> : null}
+                        /> :
+                        post.feature_image ?
+                            <picture className="block h-64">
+                                <img className="w-full h-full object-cover" src={post.feature_image} alt={post.title} />
+                            </picture> :
+                            null
+                    }
                     <section className="content container space-around mt-10">
                         <Title>{post.title}</Title>
 
@@ -70,6 +76,7 @@ Post.propTypes = {
             title: PropTypes.string.isRequired,
             html: PropTypes.string.isRequired,
             localImage: PropTypes.object,
+            feature_image: PropTypes.string,
             published_at: PropTypes.string,
         }).isRequired,
     }).isRequired,

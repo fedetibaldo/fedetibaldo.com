@@ -19,7 +19,6 @@ exports.createPages = async ({ graphql, actions }) => {
 
     await Promise.all(locales.map(async (locale) => {
         // Retrieve localized pages and posts by tag
-        const localeTag = `#${locale}`
         const result = await graphql(`
         {
             allGhostPost (
@@ -30,7 +29,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 filter: {
                     tags: {
                         elemMatch: {
-                            name: { eq: "${localeTag}" }
+                            slug: { eq: "${locale}" }
                         }
                     }
                 }
@@ -49,7 +48,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 filter: {
                     tags: {
                         elemMatch: {
-                            name: { eq: "${localeTag}" }
+                            slug: { eq: "${locale}" }
                         }
                     }
                 }
@@ -110,7 +109,6 @@ exports.createPages = async ({ graphql, actions }) => {
             },
             context: {
                 locale,
-                localeTag,
             },
         })
     }))

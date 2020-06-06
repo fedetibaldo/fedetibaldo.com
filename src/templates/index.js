@@ -68,12 +68,12 @@ export default withLocalization(Index)
 // This page query loads all posts sorted descending by published date
 // The `limit` and `skip` values are used for pagination
 export const pageQuery = graphql`
-    query GhostPostQuery($limit: Int!, $skip: Int!, $localeTag: String!, $locale: String!) {
+    query GhostPostQuery($limit: Int!, $skip: Int!, $locale: String!) {
         allGhostPost(
             sort: { order: DESC, fields: [published_at] },
             limit: $limit,
             skip: $skip,
-            filter: { tags: { elemMatch: { name: { eq: $localeTag } } } }
+            filter: { tags: { elemMatch: { slug: { eq: $locale } } } }
         ) {
             edges {
                 node {

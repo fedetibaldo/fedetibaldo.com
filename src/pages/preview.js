@@ -7,6 +7,8 @@ import Page from "../templates/page"
 
 import GhostAdminAPI from "@tryghost/admin-api"
 
+import { locales, defaultLocale } from "../utils/siteConfig"
+
 const api = new GhostAdminAPI({
     url: `http://localhost:3001`,
     key: `5e976db086825d0001f4f741:415f5ffdbe05917f4ae01a77079bb2a96381ff5439968c82d5118db0ca2a5716`,
@@ -64,7 +66,7 @@ class PreviewPage extends React.Component {
         if (id) {
             // get the full document
             const document = await type.endpoint.read({ id }, readParams)
-    
+
             // store state
             this.setState({ document, type })
         }
@@ -77,8 +79,14 @@ class PreviewPage extends React.Component {
                 ghostPage: this.state.document,
             }
             const location = this.props.location
+            const locale = this.state.document.tags.reduce((detectedLocale, tag) => {
+                if (locales.includes(tag.slug)) {
+                    detectedLocale = tag.slug
+                }
+                return detectedLocale
+            }, defaultLocale)
             const DocElement = this.state.type.element
-            return (<DocElement data={data} location={location} />)
+            return (<DocElement data={data} location={location} pageContext={{ locale }} />)
         }
         return null
     }
