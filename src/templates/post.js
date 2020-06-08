@@ -4,7 +4,7 @@ import { graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 
-import { FormattedDate } from 'react-intl'
+import { FormattedDate, FormattedMessage } from 'react-intl'
 
 import { Layout } from '../components/common'
 import { MetaData } from '../components/common/meta'
@@ -62,6 +62,14 @@ const Post = ({ data, location }) => {
 
                         {/* The main post content */}
                         <section dangerouslySetInnerHTML={{ __html: post.html }} />
+
+                        <p className="italic">
+                            <FormattedMessage id="end" />&nbsp;
+                            <a href="https://twitter.com/intent/tweet?text=%40fedetibaldo" rel="nofollow">
+                                <FormattedMessage id="tweet" />
+                            </a>
+                        </p>
+
                     </section>
                 </article>
             </Layout>
