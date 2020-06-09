@@ -77,6 +77,17 @@ module.exports = {
         },
         `gatsby-plugin-sharp`,
         `gatsby-transformer-sharp`,
+        // Ghost content
+        {
+            resolve: `gatsby-transformer-rehype`,
+            options: {
+                plugins: [
+                    {
+                        resolve: `gatsby-rehype-ghost-links`,
+                    },
+                ],
+            },
+        },
         /**
          *  Utility Plugins
          */
