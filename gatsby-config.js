@@ -81,9 +81,16 @@ module.exports = {
         {
             resolve: `gatsby-transformer-rehype`,
             options: {
+                // Condition for selecting an existing GrapghQL node (optional)
+                // If not set, the transformer operates on file nodes.
+                filter: node => node.internal.type === `GhostPost` || node.internal.type === `GhostPage`,
+                // Plugins configs (optional but most likely you need one)
                 plugins: [
                     {
                         resolve: `gatsby-rehype-ghost-links`,
+                        options: {
+                            cmsUrl: `http://localhost:3001/`,
+                        },
                     },
                 ],
             },

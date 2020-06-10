@@ -21,6 +21,9 @@ import { Title } from '../components/styled'
 const Post = ({ data, location }) => {
     const post = data.ghostPost
     const pubDate = new Date(post.published_at)
+    const content = post.childHtmlRehype
+        ? post.childHtmlRehype.html
+        : post.html
 
     return (
         <>
@@ -61,7 +64,7 @@ const Post = ({ data, location }) => {
                         </time>
 
                         {/* The main post content */}
-                        <section dangerouslySetInnerHTML={{ __html: post.html }} />
+                        <section dangerouslySetInnerHTML={{ __html: content }} />
 
                         <p className="italic">
                             <FormattedMessage id="end" />&nbsp;
@@ -82,7 +85,10 @@ Post.propTypes = {
         ghostPost: PropTypes.shape({
             codeinjection_styles: PropTypes.object,
             title: PropTypes.string.isRequired,
-            html: PropTypes.string.isRequired,
+            html: PropTypes.string,
+            childHtmlRehype: PropTypes.shape({
+                html: PropTypes.string,
+            }),
             localImage: PropTypes.object,
             feature_image: PropTypes.string,
             published_at: PropTypes.string,

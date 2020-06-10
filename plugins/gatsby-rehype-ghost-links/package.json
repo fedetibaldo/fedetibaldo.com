@@ -1,8 +1,8 @@
 {
   "name": "@fedetibaldo/gatsby-rehype-ghost-links",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Configurable Gatsby rehype plugin that rewrites links coming from a Ghost CMS",
-  "main": "index.js",
+  "main": "gatsby-node.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"No build script setup\""
@@ -14,5 +14,8 @@
     "ghost"
   ],
   "author": "fedetibaldo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "unist-util-visit": "^2.0.2"
+  }
 }

@@ -17,6 +17,9 @@ import { Title } from '../components/styled'
 */
 const Page = ({ data, location }) => {
     const page = data.ghostPage
+    const content = page.childHtmlRehype
+        ? page.childHtmlRehype.html
+        : page.html
 
     return (
         <>
@@ -33,7 +36,7 @@ const Page = ({ data, location }) => {
                     <Title>{page.title}</Title>
 
                     {/* The main page content */}
-                    <section dangerouslySetInnerHTML={{ __html: page.html }} />
+                    <section dangerouslySetInnerHTML={{ __html: content }} />
                 </article>
             </Layout>
         </>
@@ -45,7 +48,10 @@ Page.propTypes = {
         ghostPage: PropTypes.shape({
             codeinjection_styles: PropTypes.object,
             title: PropTypes.string.isRequired,
-            html: PropTypes.string.isRequired,
+            html: PropTypes.string,
+            childHtmlRehype: PropTypes.shape({
+                html: PropTypes.string,
+            }),
             feature_image: PropTypes.string,
         }).isRequired,
     }).isRequired,
