@@ -87,13 +87,13 @@ module.exports = {
                 // Plugins configs (optional but most likely you need one)
                 plugins: [
                     {
-                        resolve: `gatsby-rehype-ghost-links`,
+                        resolve: `@fedetibaldo/gatsby-rehype-ghost-links`,
                         options: {
                             cmsUrl: `http://localhost:3001/`,
                         },
                     },
                     {
-                        resolve: `gatsby-rehype-ghost-images`,
+                        resolve: `@fedetibaldo/gatsby-rehype-ghost-images`,
                         options: {},
                     },
                 ],
