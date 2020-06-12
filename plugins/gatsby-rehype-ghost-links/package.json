@@ -1,8 +1,8 @@
 {
   "name": "@fedetibaldo/gatsby-rehype-ghost-links",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Configurable Gatsby rehype plugin that rewrites links coming from a Ghost CMS",
-  "main": "gatsby-node.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"No build script setup\""
