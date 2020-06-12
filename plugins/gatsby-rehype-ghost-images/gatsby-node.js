@@ -11,4 +11,4 @@
  *
  * See: https://www.gatsbyjs.org/docs/creating-a-local-plugin/#developing-a-local-plugin-that-is-outside-your-project
  */
-exports.onPreInit = () => console.log("Loaded gatsby-rehype-ghost-images")
+// exports.onPreInit = () => console.log("Loaded gatsby-rehype-ghost-images")

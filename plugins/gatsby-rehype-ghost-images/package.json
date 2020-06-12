@@ -1,8 +1,8 @@
 {
   "name": "@fedetibaldo/gatsby-rehype-ghost-images",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Gatsby rehype plugin that transforms images coming from a Ghost CMS",
-  "main": "gatsby-node.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "echo \"No build script setup\""
@@ -14,5 +14,10 @@
     "ghost"
   ],
   "author": "fedetibaldo",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "fs-extra": "^9.0.1",
+    "gatsby-source-filesystem": "^2.3.11",
+    "unist-util-select": "^3.0.1"
+  }
 }

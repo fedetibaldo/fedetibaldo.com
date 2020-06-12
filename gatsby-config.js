@@ -92,6 +92,10 @@ module.exports = {
                             cmsUrl: `http://localhost:3001/`,
                         },
                     },
+                    {
+                        resolve: `gatsby-rehype-ghost-images`,
+                        options: {},
+                    },
                 ],
             },
         },
