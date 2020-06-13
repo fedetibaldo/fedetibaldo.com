@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import { useIntl } from 'react-intl'
 
-import { Navigation, LocaleSwitcher } from '.'
+import { Navigation, LocaleSwitcher } from '..'
 import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
 

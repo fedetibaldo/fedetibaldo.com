@@ -5,7 +5,7 @@ import Img from 'gatsby-image'
 
 import { useIntl, FormattedDate } from 'react-intl'
 
-import { getLocalizedUrl } from '../../utils/localization'
+import { getLocalizedUrl } from '../utils/localization'
 
 const PostCard = ({ post }) => {
     const intl = useIntl()

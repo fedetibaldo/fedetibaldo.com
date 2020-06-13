@@ -6,8 +6,8 @@ import Helmet from 'react-helmet'
 
 import { FormattedDate, FormattedMessage } from 'react-intl'
 
-import { Layout } from '../components/common'
-import { MetaData } from '../components/common/meta'
+import { Layout } from '../components/layout'
+import { MetaData } from '../components/meta'
 
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'

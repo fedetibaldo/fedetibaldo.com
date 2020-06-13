@@ -3,8 +3,8 @@ import { Link } from 'gatsby'
 
 import { useIntl } from 'react-intl'
 
-import config from '../../utils/siteConfig'
-import { getLocalizedUrl } from '../../utils/localization'
+import config from '../utils/siteConfig'
+import { getLocalizedUrl } from '../utils/localization'
 
 /**
  * Renders a list of links to the many localized homepages.
