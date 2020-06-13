@@ -1,5 +1,6 @@
 export { default as PostCard } from './PostCard'
 export { default as PostsList } from './PostsList'
+export { default as PostDivider } from './PostDivider'
 export { default as Pagination } from './Pagination'
 export { default as Navigation } from './Navigation'
 export { default as LocaleSwitcher } from './LocaleSwitcher'

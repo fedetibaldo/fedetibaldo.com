@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
 
-import { useIntl, FormattedDate } from 'react-intl'
+import { useIntl } from 'react-intl'
 
 import { getLocalizedUrl } from '../utils/localization'
+import { PostDivider } from '.'
 
 const PostCard = ({ post }) => {
     const intl = useIntl()
     const url = getLocalizedUrl(intl.locale, post.slug)
-    const pubDate = new Date(post.published_at)
 
     return (
         <article className="flex" itemScope itemType="http://schema.org/Article">
@@ -27,16 +27,7 @@ const PostCard = ({ post }) => {
             />
 
             <section className="content lg:pl-6">
-                <time className="block relative border-t text-sm text-gray-400" itemProp="datePublished" dateTime={post.published_at}>
-                    <span className="absolute center px-2 bg-white">
-                        <FormattedDate
-                            value={pubDate}
-                            year="numeric"
-                            month="long"
-                            day="numeric"
-                        />
-                    </span>
-                </time>
+                <PostDivider date={post.published_at} itemProp="datePublished" />
 
                 <div className="my-8">
                     <h2 className="mb-2" itemProp="headline">

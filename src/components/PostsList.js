@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import { PostCard } from '.'
+import { PostCard, PostDivider } from '.'
 
 const PostsList = ({ posts }) => (
     <>
@@ -9,6 +9,9 @@ const PostsList = ({ posts }) => (
             // The tag below includes the markup for each post - components/PostCard.js
             <PostCard key={node.id} post={node} />
         ))}
+        <div className="content ml-auto w-2/3 lg:w-auto lg:pl-6 lg:ml-40">
+            <PostDivider id="eof" />
+        </div>
     </>
 )
 
