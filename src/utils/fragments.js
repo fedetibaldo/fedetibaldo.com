@@ -271,3 +271,17 @@ export const cardFeatureImage = graphql`
         }
     }
 `
+
+export const socialFeatureImage = graphql`
+    fragment SocialFeatureImage on File {
+        childImageSharp {
+            fixed(
+                quality: 100,
+                width: 1600,
+                height: 900
+            ) {
+                ...GatsbyImageSharpFixed_tracedSVG
+            }
+        }
+    }
+`

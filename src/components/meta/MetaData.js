@@ -6,7 +6,6 @@ import url from 'url'
 import config from '../../utils/siteConfig'
 import ArticleMeta from './ArticleMeta'
 import WebsiteMeta from './WebsiteMeta'
-import AuthorMeta from './AuthorMeta'
 
 /**
 * MetaData will generate all relevant meta data information incl.
@@ -22,28 +21,14 @@ const MetaData = ({
     location,
 }) => {
     const canonical = url.resolve(config.siteUrl, location.pathname)
-    const { ghostPost, ghostTag, ghostAuthor, ghostPage } = data
+    const { ghostPost, ghostPage } = data
+
     settings = settings.allGhostSettings.edges[0].node
 
     if (ghostPost) {
         return (
             <ArticleMeta
                 data={ghostPost}
-                canonical={canonical}
-            />
-        )
-    } else if (ghostTag) {
-        return (
-            <WebsiteMeta
-                data={ghostTag}
-                canonical={canonical}
-                type="Series"
-            />
-        )
-    } else if (ghostAuthor) {
-        return (
-            <AuthorMeta
-                data={ghostAuthor}
                 canonical={canonical}
             />
         )

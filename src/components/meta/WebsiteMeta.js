@@ -11,10 +11,9 @@ import config from '../../utils/siteConfig'
 const WebsiteMeta = ({ data, settings, canonical, title, description, image, type }) => {
     settings = settings.allGhostSettings.edges[0].node
 
-    const publisherLogo = url.resolve(config.siteUrl, (settings.logo || config.siteIcon))
-    let shareImage = image || data.feature_image || _.get(settings, `cover_image`, null)
-
-    shareImage = shareImage ? url.resolve(config.siteUrl, shareImage) : null
+    const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
+    const shareImage = image || data.localImage || _.get(settings, `localImage`, null)
+    const shareImageUrl = shareImage ? url.resolve(config.siteUrl, shareImage.childImageSharp.fixed.src) : null
 
     description = description || data.meta_description || data.description || config.siteDescriptionMeta || settings.description
     title = `${title || data.meta_title || data.name || data.title} - ${settings.title}`
@@ -26,9 +25,9 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
         image: shareImage ?
             {
                 "@type": `ImageObject`,
-                url: shareImage,
-                width: config.shareImageWidth,
-                height: config.shareImageHeight,
+                url: shareImageUrl,
+                width: shareImage.childImageSharp.fixed.width,
+                height: shareImage.childImageSharp.fixed.height,
             } : undefined,
         publisher: {
             "@type": `Organization`,
@@ -36,8 +35,8 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
             logo: {
                 "@type": `ImageObject`,
                 url: publisherLogo,
-                width: 60,
-                height: 60,
+                width: 100,
+                height: 100,
             },
         },
         mainEntityOfPage: {
@@ -65,7 +64,7 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
                 {settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
                 <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
             </Helmet>
-            <ImageMeta image={shareImage} />
+            <ImageMeta image={shareImageUrl} />
         </>
     )
 }
@@ -76,7 +75,7 @@ WebsiteMeta.propTypes = {
         meta_title: PropTypes.string,
         meta_description: PropTypes.string,
         name: PropTypes.string,
-        feature_image: PropTypes.string,
+        localImage: PropTypes.object,
         description: PropTypes.string,
         bio: PropTypes.string,
         profile_image: PropTypes.string,
@@ -103,6 +102,9 @@ const WebsiteMetaQuery = props => (
                     edges {
                         node {
                             ...GhostSettingsFields
+                            localImage {
+                                ...SocialFeatureImage
+                            }
                         }
                     }
                 }

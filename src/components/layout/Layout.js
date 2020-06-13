@@ -24,7 +24,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
     return (
         <>
             <Helmet>
-                <html lang={site.lang} />
+                <html lang={intl.locale} />
                 <style type="text/css">{`${site.codeinjection_styles}`}</style>
                 <body className={bodyClass} />
             </Helmet>
@@ -65,7 +65,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                 <footer className="content container text-center text-xs mb-3">
 
                     {/* A list of useful links */}
-                    <Navigation data={site.navigation} />
+                    {/* <Navigation data={site.navigation} /> */}
 
                     <div className="text-gray-400">
                         {/* Copyright and credits */}

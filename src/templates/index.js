@@ -26,7 +26,10 @@ const Index = ({ data, location, pageContext }) => {
 
     return (
         <>
-            <MetaData location={location} />
+            <MetaData
+                location={location}
+                title="Home"
+            />
             <Layout isHome={true}>
 
                 {/* markdown embed. Customize in `src/markdown-embeds` */}

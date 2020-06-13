@@ -18,8 +18,9 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
     const author = getAuthorProperties(ghostPost.primary_author)
     const publicTags = _.map(tagsHelper(ghostPost, { visibility: `public`, fn: tag => tag }), `name`)
     const primaryTag = publicTags[0] || ``
-    const shareImage = ghostPost.feature_image ? ghostPost.feature_image : _.get(settings, `cover_image`, null)
-    const publisherLogo = (settings.logo || config.siteIcon) ? url.resolve(config.siteUrl, (settings.logo || config.siteIcon)) : null
+    const shareImage = ghostPost.localImage ? ghostPost.localImage : _.get(settings, `localImage`, null)
+    const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
+    const shareImageUrl = shareImage ? url.resolve(config.siteUrl, shareImage.childImageSharp.fixed.src) : null
 
     const jsonLd = {
         "@context": `https://schema.org/`,
@@ -37,9 +38,9 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
         dateModified: ghostPost.updated_at,
         image: shareImage ? {
             "@type": `ImageObject`,
-            url: shareImage,
-            width: config.shareImageWidth,
-            height: config.shareImageHeight,
+            url: shareImageUrl,
+            width: shareImage.childImageSharp.fixed.width,
+            height: shareImage.childImageSharp.fixed.height,
         } : undefined,
         publisher: {
             "@type": `Organization`,
@@ -47,8 +48,8 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
             logo: {
                 "@type": `ImageObject`,
                 url: publisherLogo,
-                width: 60,
-                height: 60,
+                width: 100,
+                height: 100,
             },
         },
         description: ghostPost.meta_description || ghostPost.excerpt,
@@ -111,7 +112,7 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
                 {settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
                 <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
             </Helmet>
-            <ImageMeta image={shareImage} />
+            <ImageMeta image={shareImageUrl} />
         </>
     )
 }
@@ -158,6 +159,9 @@ const ArticleMetaQuery = props => (
                     edges {
                         node {
                             ...GhostSettingsFields
+                            localImage {
+                                ...SocialFeatureImage
+                            }
                         }
                     }
                 }

@@ -54,7 +54,7 @@ const Post = ({
     return (
         <>
             <MetaData
-                data={data}
+                data={{ ghostPost: post }}
                 location={location}
                 type="article"
             />
