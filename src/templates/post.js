@@ -25,6 +25,8 @@ const Post = ({ data, location }) => {
         ? post.childHtmlRehype.html
         : post.html
 
+    const isOutdated = post.tags.some(tag => tag.slug === `archived`)
+
     return (
         <>
             <MetaData
@@ -37,6 +39,8 @@ const Post = ({ data, location }) => {
             </Helmet>
             <Layout>
                 <article>
+
+                    {/* Featured image (previewed posts don't have the localImage node) */}
                     {post.localImage ?
                         <Img
                             className="h-64"
@@ -50,10 +54,21 @@ const Post = ({ data, location }) => {
                             </picture> :
                             null
                     }
+
                     <section className="content container space-around mt-10">
+
+                        {/* Post title */}
                         <Title>{post.title}</Title>
 
-                        <time className="block text-gray-400 my-6" itemProp="datePublished" dateTime={post.published_at}>
+                        {isOutdated ?
+                            <p className="bg-yellow-200 my-6 p-3 lg:px-6">
+                                <FormattedMessage id="outdated" />
+                            </p> :
+                            null
+                        }
+
+                        {/* Publish date */}
+                        <time className="block text-gray-400 my-6" dateTime={post.published_at}>
                             &#47;&#47;&nbsp;
                             <FormattedDate
                                 value={pubDate}
@@ -66,15 +81,19 @@ const Post = ({ data, location }) => {
                         {/* The main post content */}
                         <section className="mb-6" dangerouslySetInnerHTML={{ __html: content }} />
 
+                        {/* Farewell */}
                         <p className="italic mb-8">
                             <FormattedMessage id="end" />&nbsp;
                             <a href="https://twitter.com/intent/tweet?text=%40fedetibaldo" rel="nofollow">
                                 <FormattedMessage id="tweet" />
                             </a>
                         </p>
+
+                        {/* Social buttons */}
                         <Socials />
 
                     </section>
+
                 </article>
             </Layout>
         </>
@@ -90,6 +109,7 @@ Post.propTypes = {
             childHtmlRehype: PropTypes.shape({
                 html: PropTypes.string,
             }),
+            tags: PropTypes.array.isRequired,
             localImage: PropTypes.object,
             feature_image: PropTypes.string,
             published_at: PropTypes.string,
