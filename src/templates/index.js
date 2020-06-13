@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import { FormattedMessage } from 'react-intl'
 
 import { Layout } from '../components/layout'
-import { PostCard, Pagination, Socials } from '../components'
+import { PostsList, Pagination, Socials } from '../components'
 import { MetaData } from '../components/meta'
 
 import { withLocalization } from '../components/higher-order'
@@ -43,11 +43,10 @@ const Index = ({ data, location, pageContext }) => {
 
                     <Title className="mb-6"><FormattedMessage id="recent" /></Title>
 
-                    {posts.map(({ node }) => (
-                        // The tag below includes the markup for each post - components/PostCard.js
-                        <PostCard key={node.id} post={node} />
-                    ))}
+                    <PostsList posts={posts} />
+
                 </section>
+
                 <Pagination pageContext={pageContext} />
             </Layout>
         </>

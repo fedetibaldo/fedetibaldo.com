@@ -76,7 +76,7 @@ exports.createPages = async ({ graphql, actions }) => {
         const pageTemplate = path.resolve(`./src/templates/page.js`)
         const postTemplate = path.resolve(`./src/templates/post.js`)
 
-        function createDocument({ node, template }) {
+        function createDocument({ node, template, ...context }) {
             node.url = getLocalizedUrl(locale, node.slug)
 
             createPage({
@@ -85,6 +85,7 @@ exports.createPages = async ({ graphql, actions }) => {
                 context: {
                     slug: node.slug,
                     locale,
+                    ...context,
                 },
             })
         }
@@ -92,7 +93,21 @@ exports.createPages = async ({ graphql, actions }) => {
         // Create pages
         pages.forEach(({ node }) => createDocument({ node, template: pageTemplate }))
         // Create post pages
-        posts.forEach(({ node }) => createDocument({ node, template: postTemplate }))
+        posts.forEach(({ node }, index) => {
+            let nextSlug = ``, previousSlug = ``
+            if (index + 1 < posts.length) {
+                nextSlug = posts[index + 1].node.slug
+            }
+            if (index > 0) {
+                previousSlug = posts[index - 1].node.slug
+            }
+            createDocument({
+                node,
+                template: postTemplate,
+                next: nextSlug,
+                previous: previousSlug,
+            })
+        })
 
         // Create pagination
         paginate({

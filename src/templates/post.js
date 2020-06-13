@@ -10,7 +10,11 @@ import { Layout } from '../components/layout'
 import { MetaData } from '../components/meta'
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'
-import { Socials } from '../components'
+import { PostsList, Socials } from '../components'
+
+function getPostBySlug(posts, slug) {
+    return posts.edges.find(edge => edge.node.slug === slug)
+}
 
 /**
 * Single post view (/:slug)
@@ -18,14 +22,34 @@ import { Socials } from '../components'
 * This file renders a single post and loads all the content.
 *
 */
-const Post = ({ data, location }) => {
-    const post = data.ghostPost
+const Post = ({
+    data,
+    location,
+    pageContext,
+}) => {
+    // The query includes the current, next, and previous posts
+    const posts = data.allGhostPost
+
+    // This is why I've got to find the current post before continuing
+    const post = getPostBySlug(posts, pageContext.slug).node
+
+    // Prepare content
     const pubDate = new Date(post.published_at)
     const content = post.childHtmlRehype
         ? post.childHtmlRehype.html
         : post.html
 
+    // Check if it's outdated
     const isOutdated = post.tags.some(tag => tag.slug === `archived`)
+
+    // Collect related posts in a single array
+    const relatedPosts = []
+    if (pageContext.next) {
+        relatedPosts.push(getPostBySlug(posts, pageContext.next))
+    }
+    if (pageContext.previous) {
+        relatedPosts.push(getPostBySlug(posts, pageContext.previous))
+    }
 
     return (
         <>
@@ -95,6 +119,17 @@ const Post = ({ data, location }) => {
                     </section>
 
                 </article>
+
+                {relatedPosts.length ?
+                    <section className="container space-around mt-10">
+
+                        <Title className="mb-6"><FormattedMessage id="related" /></Title>
+
+                        <PostsList posts={relatedPosts} />
+
+                    </section> :
+                    null
+                }
             </Layout>
         </>
     )
@@ -102,30 +137,31 @@ const Post = ({ data, location }) => {
 
 Post.propTypes = {
     data: PropTypes.shape({
-        ghostPost: PropTypes.shape({
-            codeinjection_styles: PropTypes.object,
-            title: PropTypes.string.isRequired,
-            html: PropTypes.string,
-            childHtmlRehype: PropTypes.shape({
-                html: PropTypes.string,
-            }),
-            tags: PropTypes.array.isRequired,
-            localImage: PropTypes.object,
-            feature_image: PropTypes.string,
-            published_at: PropTypes.string,
-        }).isRequired,
+        allGhostPost: PropTypes.object.isRequired,
     }).isRequired,
     location: PropTypes.object.isRequired,
+    pageContext: PropTypes.shape({
+        slug: PropTypes.string.isRequired,
+        next: PropTypes.string,
+        previous: PropTypes.string,
+    }),
 }
 
 export default withLocalization(Post)
 
 export const postQuery = graphql`
-    query($slug: String!) {
-        ghostPost(slug: { eq: $slug }) {
-            ...GhostPostFields
-            localImage {
-                ...PostFeatureImage
+    query($slug: String!, $next: String, $previous: String) {
+        allGhostPost(filter: {
+            slug: { in: [$slug, $next, $previous] }
+        }) {
+            edges {
+                node {
+                    ...GhostPostFields
+                    localImage {
+                        ...CardFeatureImage
+                        ...PostFeatureImage
+                    }
+                }
             }
         }
     }

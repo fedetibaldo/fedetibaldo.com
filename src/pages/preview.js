@@ -75,10 +75,15 @@ class PreviewPage extends React.Component {
         // when ghost answers back
         if (this.state.document !== null) {
             const data = {
-                ghostPost: this.state.document,
+                allGhostPost: {
+                    edges: [
+                        { node: this.state.document },
+                    ],
+                },
                 ghostPage: this.state.document,
             }
             const location = this.props.location
+            const slug = this.state.document.slug
             const locale = this.state.document.tags.reduce((detectedLocale, tag) => {
                 if (locales.includes(tag.slug)) {
                     detectedLocale = tag.slug
@@ -86,7 +91,7 @@ class PreviewPage extends React.Component {
                 return detectedLocale
             }, defaultLocale)
             const DocElement = this.state.type.element
-            return (<DocElement data={data} location={location} pageContext={{ locale }} />)
+            return (<DocElement data={data} location={location} pageContext={{ locale, slug }} />)
         }
         return null
     }
