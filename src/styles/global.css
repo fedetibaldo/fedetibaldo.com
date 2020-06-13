@@ -83,6 +83,28 @@ time {
 	}
 }
 
+/* Class of the Ghost inline images */
+.kg-image-card {
+	@apply relative overflow-hidden mb-6;
+}
+.kg-image-card img {
+	@apply w-full;
+}
+.kg-image-card figcaption {
+	@apply absolute right-0 text-right w-3/4;
+	bottom: theme('spacing.2');
+}
+@media (min-width: 800px) {
+	.kg-image-card figcaption {
+		@apply w-1/2;
+	}
+}
+/* Custom wrapper. See plugins/@fedetibaldo/gatsby-rehype-ghost-images */
+.kg-image-card figcaption span {
+	@apply bg-white;
+	box-shadow: 4px 4px 0 theme('colors.teal.200');
+}
+
 @tailwind utilities;
 
 .center {

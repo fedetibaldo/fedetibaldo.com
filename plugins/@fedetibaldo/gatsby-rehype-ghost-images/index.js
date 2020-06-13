@@ -2,6 +2,7 @@ const path = require(`path`)
 const fs = require(`fs-extra`)
 const { createRemoteFileNode } = require(`gatsby-source-filesystem`)
 const { selectAll } = require(`unist-util-select`)
+const visit = require(`unist-util-visit`)
 
 function getPublicUrl({ file, pathPrefix = `` }) {
 	const fileName = `${file.internal.contentDigest}/${file.base}`
@@ -28,6 +29,17 @@ exports.default = ({
 	reporter,
 	pathPrefix
 }, pluginOptions) => {
+
+	// Custom wrapper
+	visit(htmlAst, { tagName: `figcaption` }, (node) => {
+		const wrapper = {
+			type: `element`,
+			tagName: `span`,
+			properties: {},
+			children: node.children
+		}
+		node.children = [wrapper]
+	})
 
 	const nodes = selectAll(`[tagName=img]`, htmlAst)
 
