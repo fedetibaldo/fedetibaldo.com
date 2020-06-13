@@ -17,6 +17,37 @@ module.exports = {
     locales: [`it`, `en`],
     mainLocale: `en`,
 
+    socials: [
+        {
+            name: `Twitter`,
+            color: `1DA1F2`,
+            username: `@fedetibaldo`,
+            url: `https://twitter.com/fedetibaldo`,
+            logo: `/images/social/twitter.png`,
+        },
+        {
+            name: `LinkedIn`,
+            color: `2867B2`,
+            username: `Federico Tibaldo`,
+            url: `https://linkedin.com/in/fedetibaldo/`,
+            logo: `/images/social/linkedin.png`,
+        },
+        {
+            name: `GitHub`,
+            color: `000000`,
+            username: `fedetibaldo`,
+            url: `https://github.com/fedetibaldo`,
+            logo: `/images/social/github.png`,
+        },
+        {
+            name: `Resume`,
+            color: `F5F5F5`,
+            username: `Resume`,
+            url: `/resume.pdf`,
+            logo: `/images/social/pdf.png`,
+        },
+    ],
+
     credits: `Designed with Figma, powered by Ghost, Gatsby, and Tailwind, hosted on Netlify`,
     copyright: `© Some rights reserved`,
 }

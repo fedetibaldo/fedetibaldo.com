@@ -5,7 +5,7 @@ import { graphql } from 'gatsby'
 import { FormattedMessage } from 'react-intl'
 
 import { Layout } from '../components/layout'
-import { PostCard, Pagination } from '../components'
+import { PostCard, Pagination, Socials } from '../components'
 import { MetaData } from '../components/meta'
 
 import { withLocalization } from '../components/higher-order'
@@ -34,7 +34,8 @@ const Index = ({ data, location, pageContext }) => {
                     <Title>
                         {embed.frontmatter.title}
                     </Title>
-                    <section dangerouslySetInnerHTML={{ __html: embed.html }} />
+                    <section className="mb-4" dangerouslySetInnerHTML={{ __html: embed.html }} />
+                    <Socials />
                 </article>
 
                 {/* post feed */}

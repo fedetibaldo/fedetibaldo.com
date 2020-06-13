@@ -25,6 +25,9 @@ p, ol, ul {
 	@apply leading-relaxed;
 	@apply mb-6;
 }
+p:last-child, ol:last-child, ul:last-child {
+	@apply mb-0;
+}
 
 /**
  * LINKS

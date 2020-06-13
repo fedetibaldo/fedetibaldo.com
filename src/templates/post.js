@@ -8,9 +8,9 @@ import { FormattedDate, FormattedMessage } from 'react-intl'
 
 import { Layout } from '../components/layout'
 import { MetaData } from '../components/meta'
-
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'
+import { Socials } from '../components'
 
 /**
 * Single post view (/:slug)
@@ -64,14 +64,15 @@ const Post = ({ data, location }) => {
                         </time>
 
                         {/* The main post content */}
-                        <section dangerouslySetInnerHTML={{ __html: content }} />
+                        <section className="mb-6" dangerouslySetInnerHTML={{ __html: content }} />
 
-                        <p className="italic">
+                        <p className="italic mb-8">
                             <FormattedMessage id="end" />&nbsp;
                             <a href="https://twitter.com/intent/tweet?text=%40fedetibaldo" rel="nofollow">
                                 <FormattedMessage id="tweet" />
                             </a>
                         </p>
+                        <Socials />
 
                     </section>
                 </article>
