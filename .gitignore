@@ -79,3 +79,6 @@ yarn-error.log
 !.ghost/data
 .ghost/data/*
 !.ghost/data/redirects.json
+
+# Local Netlify folder
+.netlify
