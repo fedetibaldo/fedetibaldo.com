@@ -44,7 +44,7 @@ const Index = ({ data, location, pageContext }) => {
                 {/* post feed */}
                 <section className="container space-around">
 
-                    <Title className="mb-6"><FormattedMessage id="recent" /></Title>
+                    <Title className="mb-6 content"><FormattedMessage id="recent" /></Title>
 
                     <PostsList posts={posts} />
 

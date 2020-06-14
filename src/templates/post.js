@@ -123,7 +123,7 @@ const Post = ({
                 {relatedPosts.length ?
                     <section className="container space-around mt-10">
 
-                        <Title className="mb-6"><FormattedMessage id="related" /></Title>
+                        <Title className="mb-6 content"><FormattedMessage id="related" /></Title>
 
                         <PostsList posts={relatedPosts} />
 
