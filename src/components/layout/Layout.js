@@ -48,7 +48,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
                         </h1>
 
                         {/* Keep the two elements far apart */}
-                        <hr className="border-0 flex-grow" />
+                        <hr className="border-0 my-0 flex-grow" />
 
                         {/* Locale switcher */}
                         <LocaleSwitcher />

@@ -18,7 +18,7 @@ html {
  */
 h1, h2, h3, h4, h5, h6 {
 	@apply leading-tight;
-	@apply mb-3;
+	@apply mb-4;
 	@apply font-bold;
 }
 p, ol, ul {
@@ -27,6 +27,17 @@ p, ol, ul {
 }
 p:last-child, ol:last-child, ul:last-child {
 	@apply mb-0;
+}
+
+h2 {
+	@apply text-2xl mt-10;
+}
+h3 {
+	@apply text-xl mt-6;
+}
+
+hr {
+	@apply my-6;
 }
 
 /**
