@@ -1,7 +1,6 @@
 const path = require(`path`)
 
 const config = require(`./src/utils/siteConfig`)
-const generateRSSFeed = require(`./src/utils/rss/generate-feed`)
 
 let ghostConfig
 
@@ -23,6 +22,31 @@ try {
 }
 
 /**
+ * Development-only plugins
+ */
+const devPlugins = [
+    {
+        resolve: `gatsby-plugin-create-client-paths`,
+        options: { prefixes: [`/preview/*`] },
+    },
+]
+
+/**
+ * Production-only plugins
+ */
+const prodPlugins = [
+    {
+        // This plugin is usually active by default, but by making it specific
+        // I can override its options. Namely, the ignore key.
+        resolve: `gatsby-plugin-page-creator`,
+        options: {
+            path: path.join(__dirname, `src`, `pages`),
+            ignore: [`preview.js`],
+        },
+    },
+]
+
+/**
 * This is the place where you can tell Gatsby which plugins to use
 * and set them up the way you want.
 *
@@ -35,15 +59,12 @@ module.exports = {
     },
     plugins: [
         /**
+         * Environment-dependent plugins
+         */
+        ...(process.env.NODE_ENV === `development` ? devPlugins : prodPlugins),
+        /**
          *  Content Plugins
          */
-        {
-            resolve: `gatsby-source-filesystem`,
-            options: {
-                path: path.join(__dirname, `src`, `pages`),
-                name: `pages`,
-            },
-        },
         {
             resolve: `gatsby-source-filesystem`,
             options: {
@@ -109,10 +130,6 @@ module.exports = {
         /**
          *  Utility Plugins
          */
-        {
-            resolve: `gatsby-plugin-create-client-paths`,
-            options: { prefixes: [`/preview/*`] },
-        },
         `gatsby-plugin-catch-links`,
         `gatsby-plugin-react-helmet`,
         `gatsby-plugin-force-trailing-slashes`,
