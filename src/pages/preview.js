@@ -10,8 +10,8 @@ import GhostAdminAPI from "@tryghost/admin-api"
 import { locales, defaultLocale } from "../utils/siteConfig"
 
 const api = new GhostAdminAPI({
-    url: `http://localhost:3001`,
-    key: `5e976db086825d0001f4f741:415f5ffdbe05917f4ae01a77079bb2a96381ff5439968c82d5118db0ca2a5716`,
+    url: process.env.GATSBY_GHOST_ADMIN_URL,
+    key: process.env.GATSBY_GHOST_ADMIN_KEY,
     version: `v3`,
 })
 

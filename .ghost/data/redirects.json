@@ -1,7 +1,7 @@
 [
 	{
 		"from": "/p/(.*)//",
-		"to": "http://localhost:8000/preview/$1/",
+		"to": "http://127.0.0.1:8000/preview/$1/",
 		"permanent": false
 	}
 ]
