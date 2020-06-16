@@ -12,6 +12,14 @@
 require('typeface-source-sans-pro')
 require('./src/styles/global.css')
 
+// Intl polyfills to support Safari
+require('@formatjs/intl-pluralrules/polyfill')
+require('@formatjs/intl-pluralrules/dist/locale-data/en') // locale-data for en
+require('@formatjs/intl-pluralrules/dist/locale-data/it') // locale-data for it
+require('@formatjs/intl-relativetimeformat/polyfill')
+require('@formatjs/intl-relativetimeformat/dist/locale-data/en') // Add locale data for en
+require('@formatjs/intl-relativetimeformat/dist/locale-data/it') // Add locale data for it
+
 var trustAllScripts = function () {
     var scriptNodes = document.querySelectorAll('.load-external-scripts script');
 
