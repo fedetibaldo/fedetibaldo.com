@@ -3,7 +3,7 @@ const visit = require(`unist-util-visit`)
 exports.default = ({
 	htmlAst,
 	htmlNode,
-	reporter
+	reporter,
 }, pluginOptions) => {
 	const {
 		cmsUrl,

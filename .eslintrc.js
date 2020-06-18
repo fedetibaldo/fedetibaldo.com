@@ -31,6 +31,7 @@ module.exports = {
         "require-jsdoc": "off",
         "quotes": ["error", "backtick"],
         "consistent-return": ["error"],
+        "indent": ["error", "tab"],
         "arrow-body-style": [
             "error",
             "as-needed",

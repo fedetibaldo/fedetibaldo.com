@@ -21,50 +21,50 @@ import { Title } from '../components/styled'
  *
  */
 const Index = ({ data, location, pageContext }) => {
-    const posts = data.allGhostPost.edges
-    const embed = data.markdownRemark
+	const posts = data.allGhostPost.edges
+	const embed = data.markdownRemark
 
-    return (
-        <>
-            <MetaData
-                location={location}
-                title="Home"
-            />
-            <Layout isHome={true}>
+	return (
+		<>
+			<MetaData
+				location={location}
+				title="Home"
+			/>
+			<Layout isHome={true}>
 
-                {/* markdown embed. Customize in `src/markdown-embeds` */}
-                <article className="content container space-around">
-                    <Title>
-                        {embed.frontmatter.title}
-                    </Title>
-                    <section className="mb-4" dangerouslySetInnerHTML={{ __html: embed.html }} />
-                    <Socials />
-                </article>
+				{/* markdown embed. Customize in `src/markdown-embeds` */}
+				<article className="content container space-around">
+					<Title>
+						{embed.frontmatter.title}
+					</Title>
+					<section className="mb-4" dangerouslySetInnerHTML={{ __html: embed.html }} />
+					<Socials />
+				</article>
 
-                {/* post feed */}
-                <section className="container space-around">
+				{/* post feed */}
+				<section className="container space-around">
 
-                    <Title className="mb-6 content"><FormattedMessage id="recent" /></Title>
+					<Title className="mb-6 content"><FormattedMessage id="recent" /></Title>
 
-                    <PostsList posts={posts} />
+					<PostsList posts={posts} />
 
-                </section>
+				</section>
 
-                <Pagination pageContext={pageContext} />
-            </Layout>
-        </>
-    )
+				<Pagination pageContext={pageContext} />
+			</Layout>
+		</>
+	)
 }
 
 Index.propTypes = {
-    data: PropTypes.shape({
-        allGhostPost: PropTypes.object.isRequired,
-        markdownRemark: PropTypes.object.isRequired,
-    }).isRequired,
-    location: PropTypes.shape({
-        pathname: PropTypes.string.isRequired,
-    }).isRequired,
-    pageContext: PropTypes.object,
+	data: PropTypes.shape({
+		allGhostPost: PropTypes.object.isRequired,
+		markdownRemark: PropTypes.object.isRequired,
+	}).isRequired,
+	location: PropTypes.shape({
+		pathname: PropTypes.string.isRequired,
+	}).isRequired,
+	pageContext: PropTypes.object,
 }
 
 export default withLocalization(Index)

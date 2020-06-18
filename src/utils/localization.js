@@ -1,16 +1,16 @@
 const { mainLocale } = require(`./siteConfig`)
 
 function getLocalizedUrl(locale = mainLocale, slug = ``) {
-    const path = []
+	const path = []
 
-    if (locale !== mainLocale) {
-        path.push(`${locale}`)
-    }
-    path.push(`${slug}`)
+	if (locale !== mainLocale) {
+		path.push(`${locale}`)
+	}
+	path.push(`${slug}`)
 
-    return `/${path.join(`/`)}`
+	return `/${path.join(`/`)}`
 }
 
 module.exports = {
-    getLocalizedUrl,
+	getLocalizedUrl,
 }

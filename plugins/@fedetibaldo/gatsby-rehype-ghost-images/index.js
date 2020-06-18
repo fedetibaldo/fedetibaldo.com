@@ -10,8 +10,8 @@ function getPublicUrl({ file, pathPrefix = `` }) {
 
 	if (!fs.existsSync(publicPath)) {
 		fs.copy(file.absolutePath, publicPath, {
-			dereference: true
-		}, err => {
+			dereference: true,
+		}, (err) => {
 			if (err) {
 				console.error(`error copying file from ${file.absolutePath} to ${publicPath}`, err)
 			}
@@ -27,16 +27,15 @@ exports.default = ({
 	getCache,
 	createNodeId,
 	reporter,
-	pathPrefix
-}, pluginOptions) => {
-
+	pathPrefix,
+}/* , pluginOptions */) => {
 	// Custom wrapper
 	visit(htmlAst, { tagName: `figcaption` }, (node) => {
 		const wrapper = {
 			type: `element`,
 			tagName: `span`,
 			properties: {},
-			children: node.children
+			children: node.children,
 		}
 		node.children = [wrapper]
 	})
@@ -52,7 +51,7 @@ exports.default = ({
 				getCache,
 				createNode: () => void 0,
 				createNodeId,
-				reporter
+				reporter,
 			})
 			node.properties.src = getPublicUrl({ file, pathPrefix })
 		}
