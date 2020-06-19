@@ -1,0 +1,26 @@
+{
+  "name": "@fedetibaldo/gatsby-ghost-l10n",
+  "version": "0.0.1",
+  "description": "Localize Ghost posts and pages based on internal tags.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build script setup\""
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "source",
+    "locale",
+    "localization",
+    "internationalization",
+    "language",
+    "translation",
+    "ghost",
+    "l10n",
+    "i18n"
+  ],
+  "author": "fedetibaldo",
+  "license": "MIT",
+  "dependencies": {}
+}

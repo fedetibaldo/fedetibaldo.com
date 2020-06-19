@@ -127,6 +127,12 @@ module.exports = {
 				],
 			},
 		},
+		{
+			resolve: `@fedetibaldo/gatsby-ghost-l10n`,
+			options: {
+				locales: config.locales,
+			},
+		},
 		/**
          *  Utility Plugins
          */
