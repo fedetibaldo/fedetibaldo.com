@@ -8,4 +8,7 @@ services:
     environment:
       url: http://localhost:3001
     volumes:
-      - .ghost:/var/lib/ghost/content
+      # Redirects and database data
+      - .ghost/data:/var/lib/ghost/content/data
+      # Uploaded images
+      - .ghost/images:/var/lib/ghost/content/images
