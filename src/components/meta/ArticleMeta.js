@@ -6,6 +6,7 @@ import _ from 'lodash'
 import url from 'url'
 
 import getAuthorProperties from './getAuthorProperties'
+import { getHeadInjections } from './getHeadInjections'
 import ImageMeta from './ImageMeta'
 import config from '../../utils/siteConfig'
 
@@ -111,6 +112,7 @@ const ArticleMetaGhost = ({ data, settings, canonical }) => {
 				{settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
 				{settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
 				<script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
+				{getHeadInjections(ghostPost.headAst)}
 			</Helmet>
 			<ImageMeta image={shareImageUrl} />
 		</>
@@ -141,6 +143,7 @@ ArticleMetaGhost.propTypes = {
 		twitter_title: PropTypes.string,
 		twitter_description: PropTypes.string,
 		excerpt: PropTypes.string.isRequired,
+		headAst: PropTypes.object,
 	}).isRequired,
 	settings: PropTypes.shape({
 		logo: PropTypes.object,

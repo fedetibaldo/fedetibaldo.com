@@ -115,6 +115,7 @@ export const ghostPostFields = graphql`
 		childHtmlRehype {
 			html
 		}
+		headAst
 
 		# Additional fields
 		url
@@ -209,6 +210,7 @@ export const ghostPageFields = graphql`
 		childHtmlRehype {
 			html
 		}
+		headAst
 
 		# Additional fields
 		url

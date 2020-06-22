@@ -6,6 +6,7 @@ import { StaticQuery, graphql } from 'gatsby'
 import url from 'url'
 
 import ImageMeta from './ImageMeta'
+import { getHeadInjections } from './getHeadInjections'
 import config from '../../utils/siteConfig'
 
 const WebsiteMeta = ({ data, settings, canonical, title, description, image, type }) => {
@@ -63,6 +64,7 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
 				{settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
 				{settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
 				<script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
+				{data.headAst ? getHeadInjections(data.headAst) : null}
 			</Helmet>
 			<ImageMeta image={shareImageUrl} />
 		</>
@@ -79,6 +81,7 @@ WebsiteMeta.propTypes = {
 		description: PropTypes.string,
 		bio: PropTypes.string,
 		profile_image: PropTypes.string,
+		headAst: PropTypes.object,
 	}).isRequired,
 	settings: PropTypes.shape({
 		logo: PropTypes.object,
