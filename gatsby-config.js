@@ -127,10 +127,19 @@ module.exports = {
 				],
 			},
 		},
+		// TODO: Do I really need this plugin?
+		// {
+		// 	resolve: `@fedetibaldo/gatsby-ghost-l10n`,
+		// 	options: {
+		// 		locales: config.locales,
+		// 	},
+		// },
 		{
-			resolve: `@fedetibaldo/gatsby-ghost-l10n`,
+			resolve: `@fedetibaldo/gatsby-transformer-lightweight-rehype`,
 			options: {
-				locales: config.locales,
+				filter: type => type.name === `GhostPost` || type.name === `GhostPage`,
+				sourceFieldName: `codeinjection_head`,
+				targetFieldName: `headAst`,
 			},
 		},
 		/**

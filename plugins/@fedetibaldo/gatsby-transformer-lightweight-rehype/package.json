@@ -1,0 +1,18 @@
+{
+  "name": "@fedetibaldo/gatsby-transformer-lightweight-rehype",
+  "version": "0.1.0",
+  "description": "Super-configurable and super-focused Gatsby rehype plugin that parses stringified HTML",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build script setup\""
+  },
+  "keywords": [
+    "gatsby",
+    "gatsby-plugin",
+    "rehype",
+    "html"
+  ],
+  "author": "fedetibaldo",
+  "license": "MIT"
+}
