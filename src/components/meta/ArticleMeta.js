@@ -111,7 +111,7 @@ const ArticleMetaGhost = ({ post = {}, settings, canonical }) => {
 				{settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
 				{settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
 				<script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
-				{getHeadInjections(post.headAst)}
+				{post.headAst ? getHeadInjections(post.headAst) : null}
 			</Helmet>
 			<ImageMeta image={shareImageUrl} />
 		</>
