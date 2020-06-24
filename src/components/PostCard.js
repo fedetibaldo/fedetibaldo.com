@@ -24,6 +24,7 @@ const PostCard = ({ post }) => {
 				fixed={post.localImage.childImageSharp.fixed}
 				objectFit="cover"
 				alt={post.title}
+				itemProp="image"
 			/>
 
 			<section className="content lg:pl-6">
