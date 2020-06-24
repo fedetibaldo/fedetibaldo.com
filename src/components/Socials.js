@@ -25,7 +25,7 @@ const SocialCard = ({ name, color, username, url, logo }) => {
 			title={name}
 			key={name}
 		>
-			<img className="inline h-4 mr-1" src={logo} ariaHidden="true" />
+			<img className="inline h-4 mr-1" src={logo} aria-hidden="true" />
 			<span className="align-middle">{username}</span>
 		</a>
 	)
