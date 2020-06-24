@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import url from 'url'
 
 import { FormattedMessage } from 'react-intl'
 
@@ -10,6 +11,9 @@ import { MetaData } from '../components/meta'
 
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'
+
+import siteConfig from '../utils/siteConfig'
+import { getLocalizedUrl } from '../utils/localization'
 
 /**
  * Main index page (home page)
@@ -24,11 +28,19 @@ const Index = ({ data, location, pageContext }) => {
 	const posts = data.allGhostPost.edges
 	const embed = data.markdownRemark
 
+	const alternates = siteConfig.locales.map((locale) => {
+		return {
+			href: url.resolve(siteConfig.siteUrl, getLocalizedUrl(locale)),
+			hrefLang: locale,
+		}
+	})
+
 	return (
 		<>
 			<MetaData
 				location={location}
 				title="Home"
+				alternates={alternates}
 			/>
 			<Layout isHome={true}>
 

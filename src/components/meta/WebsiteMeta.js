@@ -9,15 +9,15 @@ import ImageMeta from './ImageMeta'
 import { getHeadInjections } from './getHeadInjections'
 import config from '../../utils/siteConfig'
 
-const WebsiteMeta = ({ data, settings, canonical, title, description, image, type }) => {
+const WebsiteMeta = ({ page = {}, settings, alternates = [], canonical, title, description, image, type }) => {
 	settings = settings.allGhostSettings.edges[0].node
 
 	const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
-	const shareImage = image || data.localImage || _.get(settings, `localImage`, null)
+	const shareImage = image || page.localImage || _.get(settings, `localImage`, null)
 	const shareImageUrl = shareImage ? url.resolve(config.siteUrl, shareImage.childImageSharp.fixed.src) : null
 
-	description = description || data.meta_description || data.description || config.siteDescriptionMeta || settings.description
-	title = `${title || data.meta_title || data.name || data.title} - ${settings.title}`
+	description = description || page.meta_description || page.description || config.siteDescriptionMeta || settings.description
+	title = `${title || page.meta_title || page.name || page.title} - ${settings.title}`
 
 	const jsonLd = {
 		"@context": `https://schema.org/`,
@@ -64,7 +64,8 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
 				{settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
 				{settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
 				<script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
-				{data.headAst ? getHeadInjections(data.headAst) : null}
+				{page.headAst ? getHeadInjections(page.headAst) : null}
+				{alternates.map((alternate, index) => <link rel="alternate" key={index} hrefLang={alternate.hrefLang} href={alternate.href} />)}
 			</Helmet>
 			<ImageMeta image={shareImageUrl} />
 		</>
@@ -72,7 +73,7 @@ const WebsiteMeta = ({ data, settings, canonical, title, description, image, typ
 }
 
 WebsiteMeta.propTypes = {
-	data: PropTypes.shape({
+	page: PropTypes.shape({
 		title: PropTypes.string,
 		meta_title: PropTypes.string,
 		meta_description: PropTypes.string,
@@ -90,6 +91,10 @@ WebsiteMeta.propTypes = {
 		twitter: PropTypes.string,
 		allGhostSettings: PropTypes.object.isRequired,
 	}).isRequired,
+	alternates: PropTypes.arrayOf(PropTypes.shape({
+		hrefLang: PropTypes.string.isRequired,
+		href: PropTypes.string.isRequired,
+	})),
 	canonical: PropTypes.string.isRequired,
 	title: PropTypes.string,
 	description: PropTypes.string,
@@ -113,7 +118,7 @@ const WebsiteMetaQuery = props => (
 				}
 			}
 		`}
-		render={data => <WebsiteMeta settings={data} {...props} />}
+		render={settings => <WebsiteMeta settings={settings} {...props} />}
 	/>
 )
 

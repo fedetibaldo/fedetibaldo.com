@@ -14,6 +14,7 @@ import WebsiteMeta from './WebsiteMeta'
 */
 const MetaData = ({
 	data,
+	alternates,
 	settings,
 	title,
 	description,
@@ -28,14 +29,14 @@ const MetaData = ({
 	if (ghostPost) {
 		return (
 			<ArticleMeta
-				data={ghostPost}
+				post={ghostPost}
 				canonical={canonical}
 			/>
 		)
 	} else if (ghostPage) {
 		return (
 			<WebsiteMeta
-				data={ghostPage}
+				page={ghostPage}
 				canonical={canonical}
 				type="WebSite"
 			/>
@@ -49,7 +50,7 @@ const MetaData = ({
 
 		return (
 			<WebsiteMeta
-				data={{}}
+				alternates={alternates}
 				canonical={canonical}
 				title={title}
 				description={description}
@@ -71,6 +72,10 @@ MetaData.propTypes = {
 		ghostAuthor: PropTypes.object,
 		ghostPage: PropTypes.object,
 	}).isRequired,
+	alternates: PropTypes.arrayOf(PropTypes.shape({
+		hrefLang: PropTypes.string.isRequired,
+		href: PropTypes.string.isRequired,
+	})),
 	settings: PropTypes.shape({
 		allGhostSettings: PropTypes.object.isRequired,
 	}).isRequired,
