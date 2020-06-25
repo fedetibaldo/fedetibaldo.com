@@ -124,6 +124,10 @@ module.exports = {
 						resolve: `@fedetibaldo/gatsby-rehype-ghost-images`,
 						options: {},
 					},
+					{
+						resolve: `gatsby-rehype-prismjs`,
+						options: {},
+					},
 				],
 			},
 		},

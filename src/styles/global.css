@@ -5,7 +5,7 @@
  */
 html {
 	font-size: 19px;
-	color: theme('colors.gray.800');
+	color: theme("colors.gray.800");
 }
 @media (min-width: 800px) {
 	html {
@@ -16,16 +16,25 @@ html {
 /**
  * VERTICAL RHYTHM & TYPOGRAPHY
  */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
 	@apply leading-tight;
 	@apply mb-4;
 	@apply font-bold;
 }
-p, ol, ul {
+p,
+ol,
+ul {
 	@apply leading-relaxed;
 	@apply mb-6;
 }
-p:last-child, ol:last-child, ul:last-child {
+p:last-child,
+ol:last-child,
+ul:last-child {
 	@apply mb-0;
 }
 
@@ -41,16 +50,41 @@ hr {
 }
 
 /**
+ * LISTS
+ */
+ul {
+	@apply list-disc list-inside;
+}
+ol {
+	@apply list-decimal list-inside;
+}
+li::marker {
+	@apply font-bold;
+}
+
+/**
+ * CODE
+ */
+:not(pre) > code[class*="language-"] {
+	padding: 0.2rem 0.4rem !important;
+	font-size: 0.9rem;
+	margin: 0 0.1rem;
+}
+code[class*="language-"], pre[class*="language-"] {
+	color: white !important;
+}
+
+/**
  * LINKS
  */
 a {
-	@apply
-		font-bold
+	@apply font-bold
 		underline-teal-200 underline-thin bg-no-repeat
-		transition-bg-size duration-200 ease-in-out
-	;
+		transition-bg-size duration-200 ease-in-out;
 }
-a:hover, a:focus, a:active {
+a:hover,
+a:focus,
+a:active {
 	@apply underline-block;
 }
 
@@ -59,7 +93,7 @@ a:hover, a:focus, a:active {
  * I hate lowercase months
  */
 time {
-	@apply capitalize;	
+	@apply capitalize;
 }
 
 @tailwind components;
@@ -106,7 +140,7 @@ time {
 }
 .kg-image-card figcaption {
 	@apply absolute right-0 text-right w-3/4;
-	bottom: theme('spacing.2');
+	bottom: theme("spacing.2");
 }
 @media (min-width: 800px) {
 	.kg-image-card figcaption {
@@ -115,8 +149,19 @@ time {
 }
 /* Custom wrapper. See plugins/@fedetibaldo/gatsby-rehype-ghost-images */
 .kg-image-card figcaption span {
-	@apply bg-white;
-	box-shadow: 4px 4px 0 theme('colors.teal.200');
+	@apply bg-white shadow-teal-200 shadow-skewed;
+}
+
+/* Class of the Ghost multiline code blocks */
+.kg-code-card {
+	@apply relative;
+}
+.kg-code-card figcaption {
+	@apply absolute top-0 right-0
+		bg-white shadow-teal-200 shadow-skewed
+		px-2 mr-4;
+	/* Compensate the box-shadow offset */
+	margin-top: -4px;
 }
 
 @tailwind utilities;
@@ -135,11 +180,7 @@ time {
 	@variants hover, focus {
 		/* Ideally, every color should be generated. However, I'll focus on just this one */
 		.underline-teal-200 {
-			background-image: linear-gradient(
-				to top,
-				white 0 .15em,
-				theme("colors.teal.200") .15em
-			);
+			background-image: linear-gradient(to top, white 0 0.15em, theme("colors.teal.200") 0.15em);
 		}
 	}
 }
@@ -147,14 +188,14 @@ time {
 @responsive {
 	@variants hover, focus {
 		.underline-block {
-			background-size: 100% calc(100% - .3rem);
+			background-size: 100% calc(100% - 0.3rem);
 		}
 		.underline-thick {
-			background-size: 100% .6em;
+			background-size: 100% 0.6em;
 			background-position: left bottom;
 		}
 		.underline-thin {
-			background-size: 100% calc(.15em + 2px);
+			background-size: 100% calc(0.15em + 2px);
 			background-position: left bottom;
 		}
 	}
@@ -162,4 +203,12 @@ time {
 
 .underline-none {
 	background-image: none;
+}
+
+.shadow-teal-200 {
+	--box-shadow-color: theme("colors.teal.200");
+}
+
+.shadow-skewed {
+	box-shadow: 4px 4px 0 var(--box-shadow-color);
 }

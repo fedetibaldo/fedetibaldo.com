@@ -20,6 +20,9 @@ require('@formatjs/intl-relativetimeformat/polyfill')
 require('@formatjs/intl-relativetimeformat/dist/locale-data/en') // Add locale data for en
 require('@formatjs/intl-relativetimeformat/dist/locale-data/it') // Add locale data for it
 
+// Prism theme
+require("prismjs/themes/prism-tomorrow.css")
+
 var trustAllScripts = function () {
     var scriptNodes = document.querySelectorAll('.load-external-scripts script');
 
