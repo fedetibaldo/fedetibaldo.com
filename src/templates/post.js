@@ -10,7 +10,7 @@ import { Layout } from '../components/layout'
 import { MetaData } from '../components/meta'
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'
-import { PostsList, Socials } from '../components'
+import { PostsList, Socials, Newsletter } from '../components'
 
 function getPostBySlug(posts, slug) {
 	return posts.edges.find(edge => edge.node.slug === slug)
@@ -62,7 +62,7 @@ const Post = ({
 				<style type="text/css">{`${post.codeinjection_styles}`}</style>
 			</Helmet>
 			<Layout>
-				<article className="post-content">
+				<article>
 
 					{/* Featured image (previewed posts don't have the localImage node) */}
 					{post.localImage ?
@@ -93,7 +93,7 @@ const Post = ({
 
 						{/* Publish date */}
 						<time className="block text-gray-400 my-6" dateTime={post.published_at}>
-                            &#47;&#47;&nbsp;
+							&#47;&#47;&nbsp;
 							<FormattedDate
 								value={pubDate}
 								year="numeric"
@@ -103,7 +103,7 @@ const Post = ({
 						</time>
 
 						{/* The main post content */}
-						<section className="mb-6" dangerouslySetInnerHTML={{ __html: content }} />
+						<section className="post-content mb-6" dangerouslySetInnerHTML={{ __html: content }} />
 
 						{/* Farewell */}
 						<p className="italic mb-8">
@@ -114,6 +114,11 @@ const Post = ({
 						</p>
 
 						{/* Social buttons */}
+						<div className="mb-10">
+							<Newsletter />
+						</div>
+
+						{/* Newsletter */}
 						<Socials />
 
 					</section>
