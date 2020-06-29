@@ -62,7 +62,7 @@ const Post = ({
 				<style type="text/css">{`${post.codeinjection_styles}`}</style>
 			</Helmet>
 			<Layout>
-				<article>
+				<article className="post-content">
 
 					{/* Featured image (previewed posts don't have the localImage node) */}
 					{post.localImage ?
