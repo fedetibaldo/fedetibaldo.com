@@ -114,16 +114,16 @@ const Post = ({
 						</p>
 
 						{/* Social buttons */}
-						<div className="mb-10">
-							<Newsletter />
-						</div>
-
-						{/* Newsletter */}
 						<Socials />
 
 					</section>
 
 				</article>
+
+				{/* Newsletter */}
+				<section className="container space-around">
+					<Newsletter />
+				</section>
 
 				{relatedPosts.length ?
 					<section className="container space-around mt-10">
