@@ -121,7 +121,7 @@ const Post = ({
 				</article>
 
 				{/* Newsletter */}
-				<section className="container space-around">
+				<section className="container content space-around">
 					<Newsletter />
 				</section>
 
