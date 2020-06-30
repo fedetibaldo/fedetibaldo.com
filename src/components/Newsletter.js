@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import { Title } from './styled'
 
 const Newsletter = () => (
-	<form className="border-t border-l shadow-teal-200 shadow-skewed p-6 outline-teal-200" name="newsletter" netlify action="/newsletter-thank-you">
+	<form method="POST" className="border-t border-l shadow-teal-200 shadow-skewed p-6 outline-teal-200" name="newsletter" data-netlify action="/newsletter-thank-you">
 
 		<Title tagName="h2" className="mt-0">
 			<FormattedMessage id="newsletter" />
