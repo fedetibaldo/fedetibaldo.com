@@ -27,11 +27,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     fields: published_at
                 },
                 filter: {
-                    tags: {
-                        elemMatch: {
-                            slug: { eq: "${locale}" }
-                        }
-                    }
+                    locale: { eq: "${locale}" }
                 }
             ) {
                 edges {
@@ -46,11 +42,7 @@ exports.createPages = async ({ graphql, actions }) => {
                     fields: published_at
                 },
                 filter: {
-                    tags: {
-                        elemMatch: {
-                            slug: { eq: "${locale}" }
-                        }
-                    }
+                    locale: { eq: "${locale}" }
                 }
             ) {
                 edges {

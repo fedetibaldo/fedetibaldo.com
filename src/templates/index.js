@@ -89,7 +89,7 @@ export const pageQuery = graphql`
             sort: { order: DESC, fields: [published_at] },
             limit: $limit,
             skip: $skip,
-            filter: { tags: { elemMatch: { slug: { eq: $locale } } } }
+            filter: { locale: { eq: $locale } }
         ) {
             edges {
                 node {
