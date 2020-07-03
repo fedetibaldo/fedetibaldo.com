@@ -135,6 +135,8 @@ module.exports = {
 			resolve: `@fedetibaldo/gatsby-ghost-l10n`,
 			options: {
 				locales: config.locales,
+				// Filter out anything without an explicit language tag
+				defaultLocale: null,
 			},
 		},
 		{
