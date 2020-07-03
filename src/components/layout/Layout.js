@@ -5,7 +5,7 @@ import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
 import { useIntl } from 'react-intl'
 
-import { /*  Navigation, */ LocaleSwitcher } from '..'
+import { Navigation, LocaleSwitcher } from '..'
 import config from '../../utils/siteConfig'
 import { getLocalizedUrl } from '../../utils/localization'
 
@@ -65,7 +65,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
 				<footer className="content container text-center text-xs mb-3">
 
 					{/* A list of useful links */}
-					{/* <Navigation data={site.navigation} /> */}
+					<Navigation data={site.navigation} />
 
 					<div className="text-gray-400">
 						{/* Copyright and credits */}
