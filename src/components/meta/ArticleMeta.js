@@ -19,7 +19,6 @@ const ArticleMetaGhost = ({ post = {}, settings, canonical }) => {
 	const publicTags = _.map(tagsHelper(post, { visibility: `public`, fn: tag => tag }), `name`)
 	const primaryTag = publicTags[0] || ``
 	const shareImage = post.localImage ? post.localImage : _.get(settings, `localImage`, null)
-	const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
 	const shareImageUrl = shareImage ? url.resolve(config.siteUrl, shareImage.childImageSharp.fixed.src) : null
 
 	const jsonLd = {
@@ -43,14 +42,8 @@ const ArticleMetaGhost = ({ post = {}, settings, canonical }) => {
 			height: shareImage.childImageSharp.fixed.height,
 		} : undefined,
 		publisher: {
-			"@type": `Organization`,
-			name: settings.title,
-			logo: {
-				"@type": `ImageObject`,
-				url: publisherLogo,
-				width: 100,
-				height: 100,
-			},
+			"@type": `Person`,
+			name: config.owner,
 		},
 		description: post.meta_description || post.excerpt,
 		mainEntityOfPage: {
@@ -145,7 +138,6 @@ ArticleMetaGhost.propTypes = {
 		headAst: PropTypes.object,
 	}).isRequired,
 	settings: PropTypes.shape({
-		logo: PropTypes.object,
 		title: PropTypes.string,
 		twitter: PropTypes.string,
 		allGhostSettings: PropTypes.object.isRequired,

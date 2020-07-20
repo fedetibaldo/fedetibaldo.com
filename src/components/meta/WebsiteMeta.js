@@ -12,7 +12,6 @@ import config from '../../utils/siteConfig'
 const WebsiteMeta = ({ page = {}, settings, alternates = [], canonical, title, description, image, type }) => {
 	settings = settings.allGhostSettings.edges[0].node
 
-	const publisherLogo = url.resolve(config.siteUrl, config.siteIcon)
 	const shareImage = image || page.localImage || _.get(settings, `localImage`, null)
 	const shareImageUrl = shareImage ? url.resolve(config.siteUrl, shareImage.childImageSharp.fixed.src) : null
 
@@ -31,14 +30,8 @@ const WebsiteMeta = ({ page = {}, settings, alternates = [], canonical, title, d
 				height: shareImage.childImageSharp.fixed.height,
 			} : undefined,
 		publisher: {
-			"@type": `Organization`,
-			name: settings.title,
-			logo: {
-				"@type": `ImageObject`,
-				url: publisherLogo,
-				width: 100,
-				height: 100,
-			},
+			"@type": `Person`,
+			name: config.owner,
 		},
 		mainEntityOfPage: {
 			"@type": `WebPage`,
@@ -85,7 +78,6 @@ WebsiteMeta.propTypes = {
 		headAst: PropTypes.object,
 	}).isRequired,
 	settings: PropTypes.shape({
-		logo: PropTypes.object,
 		description: PropTypes.string,
 		title: PropTypes.string,
 		twitter: PropTypes.string,
