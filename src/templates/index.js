@@ -4,6 +4,7 @@ import { graphql } from 'gatsby'
 import url from 'url'
 
 import { FormattedMessage } from 'react-intl'
+import { Helmet } from 'react-helmet'
 
 import { Layout } from '../components/layout'
 import { PostsList, Pagination, Socials } from '../components'
