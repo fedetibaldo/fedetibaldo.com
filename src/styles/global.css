@@ -75,6 +75,9 @@ pre {
 	padding: 0.2rem 0.4rem !important;
 	font-size: 0.9rem;
 	margin: 0 0.1rem;
+	white-space: nowrap !important;
+	color: inherit !important;
+	background-color: theme('colors.gray.300') !important;
 }
 code[class*="language-"], pre[class*="language-"] {
 	color: white !important;
