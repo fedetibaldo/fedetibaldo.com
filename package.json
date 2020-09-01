@@ -25,6 +25,7 @@
   "main": "n/a",
   "scripts": {
     "serve": "gatsby build && NODE_ENV=production gatsby serve",
+    "publish-projects": "cp -r packages/connection/dist public/connection",
     "build": "gatsby build",
     "dev": "gatsby develop",
     "lint": "eslint . --ext .js --cache",
@@ -35,7 +36,8 @@
     "babel-eslint": "10.1.0",
     "eslint": "6.8.0",
     "eslint-plugin-ghost": "1.0.0",
-    "eslint-plugin-react": "7.18.3"
+    "eslint-plugin-react": "7.18.3",
+    "lerna": "^3.22.1"
   },
   "dependencies": {
     "@formatjs/intl-pluralrules": "^2.2.6",
