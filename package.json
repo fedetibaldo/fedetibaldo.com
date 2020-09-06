@@ -25,7 +25,7 @@
   "main": "n/a",
   "scripts": {
     "serve": "gatsby build && NODE_ENV=production gatsby serve",
-    "publish-projects": "cp -r packages/connection/dist public/connection",
+    "publish-projects": "cp -r packages/connection/dist/* public/connection",
     "build": "gatsby build",
     "dev": "gatsby develop",
     "lint": "eslint . --ext .js --cache",
