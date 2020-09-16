@@ -184,15 +184,17 @@ time {
 	margin-top: -4px;
 }
 
-/* Additional space to the right */
-:root {
-	--custom-margin: calc((100vw - theme('screens.lg')) / 4 * -1);
-}
-div.kg-code-card {
-	margin-right: min(0px, var(--custom-margin));
-}
-.kg-code-card figcaption {
-	right: var(--custom-margin);
+@screen lg {
+	/* Additional space to the right */
+	:root {
+		--custom-margin: calc((100vw - theme('screens.lg')) / 4 * -1);
+	}
+	div.kg-code-card {
+		margin-right: var(--custom-margin);
+	}
+	.kg-code-card figcaption {
+		right: var(--custom-margin);
+	}
 }
 
 /* ========= */
