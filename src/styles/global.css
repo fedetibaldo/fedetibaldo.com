@@ -1,3 +1,7 @@
+/* ==== */
+/* BASE */
+/* ==== */
+
 @tailwind base;
 
 /**
@@ -69,7 +73,7 @@ li::marker {
  * CODE
  */
 pre {
-	@apply overflow-x-auto my-6 !important;
+	@apply overflow-x-auto leading-none my-6 !important;
 }
 :not(pre) > code[class*="language-"] {
 	padding: 0.2rem 0.4rem !important;
@@ -81,6 +85,9 @@ pre {
 }
 code[class*="language-"], pre[class*="language-"] {
 	color: white !important;
+}
+pre > code[class*="language-"] {
+	@apply text-sm;
 }
 
 /**
@@ -99,11 +106,15 @@ a:active {
 
 /**
  * TIME
- * I hate lowercase months
+ * I dislike lowercase months
  */
 time {
 	@apply capitalize;
 }
+
+/* ========== */
+/* COMPONENTS */
+/* ========== */
 
 @tailwind components;
 
@@ -172,6 +183,21 @@ time {
 	/* Compensate the box-shadow offset */
 	margin-top: -4px;
 }
+
+/* Additional space to the right */
+:root {
+	--custom-margin: calc((100vw - theme('screens.lg')) / 4 * -1);
+}
+div.kg-code-card {
+	margin-right: min(0px, var(--custom-margin));
+}
+.kg-code-card figcaption {
+	right: var(--custom-margin);
+}
+
+/* ========= */
+/* UTILITIES */
+/* ========= */
 
 @tailwind utilities;
 
