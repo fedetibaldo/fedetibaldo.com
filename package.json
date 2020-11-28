@@ -25,7 +25,7 @@
   "main": "n/a",
   "scripts": {
     "deploy": "npm run deploy:gatsby && npm run deploy:projects",
-    "deploy:projects": "npm run projects:bootstrap && npm run projects:build && npm run projects:publish",
+    "deploy:projects": "mkdir public/connection && mkdir public/codepen-assets && npm run projects:bootstrap && npm run projects:build && npm run projects:publish",
     "deploy:gatsby": "npm run gatsby:build",
     "projects:bootstrap": "lerna bootstrap",
     "projects:build": "lerna run build",
