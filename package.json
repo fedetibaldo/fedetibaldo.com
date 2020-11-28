@@ -24,13 +24,16 @@
   ],
   "main": "n/a",
   "scripts": {
-    "serve": "gatsby build && NODE_ENV=production gatsby serve",
-    "publish-projects": "cp -r packages/connection/dist/* public/connection && cp -r packages/codepen-assets/assets/* public/codepen-assets",
-    "build": "gatsby build",
-    "deploy": "npm run build && npm run publish-projects",
-    "dev": "gatsby develop",
+    "deploy": "npm run deploy:gatsby && npm run deploy:projects",
+    "deploy:projects": "npm run projects:build && npm run projects:publish",
+    "deploy:gatsby": "npm run gatsby:build",
+    "projects:build": "lerna run build",
+    "projects:publish": "cp -r packages/connection/dist/* public/connection && cp -r packages/codepen-assets/assets/* public/codepen-assets",
+    "gatsby:build": "gatsby build",
+    "gatsby:dev": "gatsby develop",
+    "gatsby:serve": "gatsby build && NODE_ENV=production gatsby serve",
     "lint": "eslint . --ext .js --cache",
-    "fix-lint": "eslint . --ext .js --cache --fix",
+    "lint:fix": "eslint . --ext .js --cache --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
