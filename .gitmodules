@@ -6,4 +6,4 @@
 	url = https://github.com/fedetibaldo/codepen-assets.git
 [submodule "content"]
 	path = content
-	url = https://github.com/fedetibaldo/fedetibaldo.com-content
+	url = git@github.com:fedetibaldo/fedetibaldo.com-content
