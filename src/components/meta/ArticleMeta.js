@@ -145,24 +145,24 @@ ArticleMetaGhost.propTypes = {
 	canonical: PropTypes.string.isRequired,
 }
 
-const ArticleMetaQuery = props => (
-	<StaticQuery
-		query={graphql`
-			query GhostSettingsArticleMeta {
-				allGhostSettings {
-					edges {
-						node {
-							...GhostSettingsFields
-							localImage {
-								...SocialFeatureImage
-							}
-						}
-					}
-				}
-			}
-		`}
-		render={settings => <ArticleMetaGhost settings={settings} {...props} />}
-	/>
-)
+// const ArticleMetaQuery = props => (
+// 	<StaticQuery
+// 		query={graphql`
+// 			query GhostSettingsArticleMeta {
+// 				allGhostSettings {
+// 					edges {
+// 						node {
+// 							...GhostSettingsFields
+// 							localImage {
+// 								...SocialFeatureImage
+// 							}
+// 						}
+// 					}
+// 				}
+// 			}
+// 		`}
+// 		render={settings => <ArticleMetaGhost settings={settings} {...props} />}
+// 	/>
+// )
 
-export default ArticleMetaQuery
+export default ArticleMetaGhost

@@ -60,10 +60,10 @@ Page.propTypes = {
 
 export default withLocalization(Page)
 
-export const postQuery = graphql`
-    query($slug: String!) {
-        ghostPage(slug: { eq: $slug }) {
-            ...GhostPageFields
-        }
-    }
-`
+// export const postQuery = graphql`
+//     query($slug: String!) {
+//         ghostPage(slug: { eq: $slug }) {
+//             ...GhostPageFields
+//         }
+//     }
+// `

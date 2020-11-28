@@ -2,25 +2,6 @@ const path = require(`path`)
 
 const config = require(`./src/utils/siteConfig`)
 
-let ghostConfig
-
-try {
-	ghostConfig = require(`./.ghost`)
-} catch (e) {
-	ghostConfig = {
-		production: {
-			apiUrl: process.env.GHOST_API_URL,
-			contentApiKey: process.env.GHOST_CONTENT_API_KEY,
-		},
-	}
-} finally {
-	const { apiUrl, contentApiKey } = process.env.NODE_ENV === `development` ? ghostConfig.development : ghostConfig.production
-
-	if (!apiUrl || !contentApiKey || contentApiKey.match(/<key>/)) {
-		throw new Error(`GHOST_API_URL and GHOST_CONTENT_API_KEY are required to build. Check the README.`) // eslint-disable-line
-	}
-}
-
 /**
  * Development-only plugins
  */
@@ -28,7 +9,13 @@ const devPlugins = [
 	{
 		resolve: `gatsby-plugin-create-client-paths`,
 		options: { prefixes: [`/preview/*`] },
-	},
+    },
+    {
+        resolve: `gatsby-plugin-netlify-cms`,
+        options: {
+            modulePath: path.join(__dirname, `src/cms/cms.js`),
+        },
+    },
 ]
 
 /**
@@ -72,81 +59,17 @@ module.exports = {
 				name: `markdown-embeds`,
 			},
 		},
-		`gatsby-transformer-remark`,
-		{
-			resolve: `gatsby-source-ghost`,
-			options:
-				process.env.NODE_ENV === `development`
-					? ghostConfig.development
-					: ghostConfig.production,
-		},
-		// Setup for optimised images.
-		// See https://www.gatsbyjs.org/packages/gatsby-image/
-		{
-			resolve: `gatsby-plugin-remote-images`,
-			options: {
-				nodeType: `GhostPost`,
-				imagePath: `feature_image`,
-			},
-		},
-		{
-			resolve: `gatsby-plugin-remote-images`,
-			options: {
-				nodeType: `GhostSettings`,
-				imagePath: `cover_image`,
-			},
-		},
-		{
+        `gatsby-transformer-remark`,
+        {
 			resolve: `gatsby-source-filesystem`,
 			options: {
-				path: path.join(__dirname, `src`, `images`),
-				name: `images`,
+				path: path.join(__dirname, `content`, `posts`),
+				name: `posts`,
 			},
 		},
+		// Setup for optimised images.
 		`gatsby-plugin-sharp`,
 		`gatsby-transformer-sharp`,
-		// Ghost content
-		{
-			resolve: `gatsby-transformer-rehype`,
-			options: {
-				// Condition for selecting an existing GrapghQL node (optional)
-				// If not set, the transformer operates on file nodes.
-				filter: node => node.internal.type === `GhostPost` || node.internal.type === `GhostPage`,
-				// Plugins configs (optional but most likely you need one)
-				plugins: [
-					{
-						resolve: `@fedetibaldo/gatsby-rehype-ghost-links`,
-						options: {
-							cmsUrl: `http://localhost:3001/`,
-						},
-					},
-					{
-						resolve: `@fedetibaldo/gatsby-rehype-ghost-images`,
-						options: {},
-					},
-					{
-						resolve: `gatsby-rehype-prismjs`,
-						options: {},
-					},
-				],
-			},
-		},
-		{
-			resolve: `@fedetibaldo/gatsby-ghost-l10n`,
-			options: {
-				locales: config.locales,
-				// Filter out anything without an explicit language tag
-				defaultLocale: null,
-			},
-		},
-		{
-			resolve: `@fedetibaldo/gatsby-transformer-lightweight-rehype`,
-			options: {
-				filter: type => type.name === `GhostPost` || type.name === `GhostPage`,
-				sourceFieldName: `codeinjection_head`,
-				targetFieldName: `headAst`,
-			},
-		},
 		/**
          *  Utility Plugins
          */

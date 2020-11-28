@@ -1,6 +1,3 @@
 [build]
   publish = "public/"
-  command = "npm run build && npm run publish-projects"
-
-[build.environment]
-  NODE_VERSION = "13"
+  command = "npm run deploy"

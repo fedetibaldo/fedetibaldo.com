@@ -18,7 +18,7 @@ import { getLocalizedUrl } from '../../utils/localization'
 *
 */
 const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
-	const site = data.allGhostSettings.edges[0].node
+	const site = {}
 	const intl = useIntl()
 
 	return (
@@ -65,7 +65,7 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
 				<footer className="content container text-center text-xs mb-3">
 
 					{/* A list of useful links */}
-					<Navigation data={site.navigation} />
+					{/* <Navigation data={site.navigation} /> */}
 
 					<div className="text-gray-400">
 						{/* Copyright and credits */}
@@ -96,28 +96,28 @@ DefaultLayout.propTypes = {
 	isHome: PropTypes.bool,
 }
 
-const DefaultLayoutSettingsQuery = props => (
-	<StaticQuery
-		query={graphql`
-			query GhostSettings {
-				allGhostSettings {
-					edges {
-						node {
-							...GhostSettingsFields
-						}
-					}
-				}
-				file(relativePath: {eq: "ghost-icon.png"}) {
-					childImageSharp {
-						fixed(width: 30, height: 30) {
-							...GatsbyImageSharpFixed
-						}
-					}
-				}
-			}
-		`}
-		render={data => <DefaultLayout data={data} {...props} />}
-	/>
-)
+// const DefaultLayoutSettingsQuery = props => (
+// 	<StaticQuery
+// 		query={graphql`
+// 			query GhostSettings {
+// 				allGhostSettings {
+// 					edges {
+// 						node {
+// 							...GhostSettingsFields
+// 						}
+// 					}
+// 				}
+// 				file(relativePath: {eq: "ghost-icon.png"}) {
+// 					childImageSharp {
+// 						fixed(width: 30, height: 30) {
+// 							...GatsbyImageSharpFixed
+// 						}
+// 					}
+// 				}
+// 			}
+// 		`}
+// 		render={data => <DefaultLayout data={data} {...props} />}
+// 	/>
+// )
 
-export default DefaultLayoutSettingsQuery
+export default DefaultLayout

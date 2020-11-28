@@ -154,20 +154,20 @@ Post.propTypes = {
 
 export default withLocalization(Post)
 
-export const postQuery = graphql`
-    query($slug: String!, $next: String, $previous: String) {
-        allGhostPost(filter: {
-            slug: { in: [$slug, $next, $previous] }
-        }) {
-            edges {
-                node {
-                    ...GhostPostFields
-                    localImage {
-                        ...CardFeatureImage
-                        ...PostFeatureImage
-                    }
-                }
-            }
-        }
-    }
-`
+// export const postQuery = graphql`
+//     query($slug: String!, $next: String, $previous: String) {
+//         allGhostPost(filter: {
+//             slug: { in: [$slug, $next, $previous] }
+//         }) {
+//             edges {
+//                 node {
+//                     ...GhostPostFields
+//                     localImage {
+//                         ...CardFeatureImage
+//                         ...PostFeatureImage
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// `
