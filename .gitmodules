@@ -4,3 +4,6 @@
 [submodule "packages/codepen-assets"]
 	path = packages/codepen-assets
 	url = https://github.com/fedetibaldo/codepen-assets.git
+[submodule "content"]
+	path = content
+	url = https://github.com/fedetibaldo/fedetibaldo.com-content
