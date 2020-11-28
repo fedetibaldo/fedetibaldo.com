@@ -18,13 +18,13 @@ const PostCard = ({ post }) => {
 			<meta itemProp="author" content={post.primary_author.name} />
 			<meta itemProp="mainEntityOfPage" content="false" />
 			<meta itemProp="dateModified" content={post.updated_at} />
+			<meta itemProp="image" content={post.localImage.childImageSharp.fixed.src} />
 
 			<Img
 				className="card-image w-1/3 lg:w-40 flex-shrink-0 h-auto"
 				fixed={post.localImage.childImageSharp.fixed}
 				objectFit="cover"
 				alt={post.title}
-				itemProp="image"
 			/>
 
 			<section className="content lg:pl-6">
