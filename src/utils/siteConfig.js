@@ -48,7 +48,7 @@ module.exports = {
 		},
 	],
 
-	credits: `Designed with Figma; powered by Ghost, Gatsby, and Tailwind; hosted on Netlify`,
+	credits: `Designed with Figma; powered by Netlify CMS, Gatsby, and Tailwind; hosted on Netlify`,
 	owner: `Federico Tibaldo`,
 	copyright: `Some rights reserved`,
 }
