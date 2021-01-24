@@ -1,0 +1,61 @@
+development:
+  backend:
+    name: git-gateway
+  local_backend: true
+  site_url: http://localhost:8000
+
+media_folder: content/media
+public_folder: content/media
+site_url: https://fedetibaldo.com
+
+collections:
+
+  ########
+  # META #
+  ########
+
+  - name: meta
+    label: Meta
+    files:
+
+      # ----- #
+      # ABOUT #
+      # ----- #
+
+      - name: about
+        label: About
+        file: content/meta/about.md
+        public_folder: ../media
+        fields:
+          - label: Intro
+            name: intro
+            widget: text
+          - label: Socials
+            label_singular: Social
+            name: socials
+            widget: list
+            fields:
+              - { label: Icon, name: icon, widget: image }
+              - { label: Label, name: label, widget: string }
+              - { label: Color, name: color, widget: color }
+              - { label: URL, name: url, widget: string }
+
+  #########
+  # POSTS #
+  #########
+
+  - name: posts
+    label: Posts
+    folder: content/posts
+    public_folder: ../media
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Date
+        name: date
+        widget: datetime
+        i18n: duplicate
+      - label: Body
+        name: body
+        widget: markdown

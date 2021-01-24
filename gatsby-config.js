@@ -9,13 +9,13 @@ const devPlugins = [
 	{
 		resolve: `gatsby-plugin-create-client-paths`,
 		options: { prefixes: [`/preview/*`] },
-    },
-    {
-        resolve: `gatsby-plugin-netlify-cms`,
-        options: {
-            modulePath: path.join(__dirname, `src/cms/cms.js`),
-        },
-    },
+	},
+	{
+		resolve: `gatsby-plugin-netlify-cms`,
+		options: {
+			modulePath: path.join(__dirname, `src/cms/cms.js`),
+		},
+	},
 ]
 
 /**
@@ -45,13 +45,16 @@ module.exports = {
 		siteUrl: config.siteUrl,
 	},
 	plugins: [
+		`gatsby-plugin-postcss`,
+
 		/**
-         * Environment-dependent plugins
-         */
+		 * Environment-dependent plugins
+		 */
 		...(process.env.NODE_ENV === `development` ? devPlugins : prodPlugins),
+
 		/**
-         *  Content Plugins
-         */
+		 *  Content Plugins
+		 */
 		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
@@ -59,24 +62,25 @@ module.exports = {
 				name: `markdown-embeds`,
 			},
 		},
-        `gatsby-transformer-remark`,
-        {
+		{
 			resolve: `gatsby-source-filesystem`,
 			options: {
-				path: path.join(__dirname, `content`, `posts`),
-				name: `posts`,
+				path: path.join(__dirname, `content`),
+				name: `content`,
 			},
 		},
+		`gatsby-transformer-remark`,
+
 		// Setup for optimised images.
 		`gatsby-plugin-sharp`,
 		`gatsby-transformer-sharp`,
+
 		/**
-         *  Utility Plugins
-         */
+		 *  Utility Plugins
+		 */
 		`gatsby-plugin-catch-links`,
 		`gatsby-plugin-react-helmet`,
 		`gatsby-plugin-force-trailing-slashes`,
 		`gatsby-plugin-offline`,
-		`gatsby-plugin-postcss`,
 	],
 }
