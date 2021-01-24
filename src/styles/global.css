@@ -137,7 +137,7 @@ time {
 }
 @screen lg {
 	.space-around {
-		@apply my-32;
+		@apply my-24;
 	}
 }
 

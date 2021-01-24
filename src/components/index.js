@@ -1,3 +1,4 @@
+export { default as About } from './About'
 export { default as LocaleSwitcher } from './LocaleSwitcher'
 export { default as Navigation } from './Navigation'
 export { default as Newsletter } from './Newsletter'
