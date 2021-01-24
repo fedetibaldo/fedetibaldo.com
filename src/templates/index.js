@@ -11,7 +11,7 @@ import { PostsList, Pagination, Socials } from '../components'
 import { MetaData } from '../components/meta'
 
 import { withLocalization } from '../components/higher-order'
-import { Title } from '../components/styled'
+import { Title } from '../components/content'
 
 import siteConfig from '../utils/siteConfig'
 import { getLocalizedUrl } from '../utils/localization'

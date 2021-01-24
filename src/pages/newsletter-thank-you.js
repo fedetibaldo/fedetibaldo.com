@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import { Layout } from '../components/layout'
 import { withLocalization } from '../components/higher-order'
 import { FormattedMessage } from 'react-intl'
-import { Title } from '../components/styled'
+import { Title } from '../components/content'
 import { getLocalizedUrl } from '../utils/localization'
 
 const NewsletterThankYou = () => (

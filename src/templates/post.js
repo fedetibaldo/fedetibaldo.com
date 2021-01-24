@@ -9,7 +9,7 @@ import { FormattedDate, FormattedMessage } from 'react-intl'
 import { Layout } from '../components/layout'
 import { MetaData } from '../components/meta'
 import { withLocalization } from '../components/higher-order'
-import { Title } from '../components/styled'
+import { Title } from '../components/content'
 import { PostsList, Socials, Newsletter } from '../components'
 
 function getPostBySlug(posts, slug) {

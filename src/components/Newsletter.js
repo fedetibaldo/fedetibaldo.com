@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FormattedMessage } from 'react-intl'
-import { Title } from './styled'
+import { Title } from './content'
 
 const Newsletter = () => (
 	<form method="POST" className="border-t border-l shadow-teal-200 shadow-skewed p-6 outline-teal-200" name="newsletter" data-netlify action="/newsletter-thank-you">
