@@ -27,7 +27,7 @@
     "postinstall": "lerna bootstrap",
     "serve": "gatsby build && NODE_ENV=production gatsby serve",
     "publish-projects": "cp -r packages/connection/dist/* public/connection && cp -r packages/codepen-assets/assets/* public/codepen-assets",
-    "build": "gatsby build",
+    "build": "gatsby build --prefix-paths",
     "dev": "gatsby develop",
     "lint": "eslint . --ext .js --cache",
     "fix-lint": "eslint . --ext .js --cache --fix",
