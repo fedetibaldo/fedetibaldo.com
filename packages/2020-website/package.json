@@ -24,6 +24,7 @@
   ],
   "main": "n/a",
   "scripts": {
+    "postinstall": "lerna bootstrap",
     "serve": "gatsby build && NODE_ENV=production gatsby serve",
     "publish-projects": "cp -r packages/connection/dist/* public/connection && cp -r packages/codepen-assets/assets/* public/codepen-assets",
     "build": "gatsby build",

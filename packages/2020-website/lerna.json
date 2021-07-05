@@ -1,0 +1,7 @@
+{
+  "packages": [
+    "plugins/*",
+    "plugins/@fedetibaldo/*"
+  ],
+  "version": "indipendent"
+}
