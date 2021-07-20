@@ -1,2 +1,32 @@
 [build]
   publish = "public/"
+
+# Old 2020 website headers
+
+[[headers]]
+  for = "/2020/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+
+[[headers]]
+  for = "/2020/rss"
+  [headers.values]
+    content-type = "application/rss+xml; charset=UTF-8"
+
+[[headers]]
+  for = "/2020/*"
+  [headers.values]
+    Referrer-Policy = "no-referrer-when-downgrade"
+    Strict-Transport-Security = "max-age=31536000"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    X-Xss-Protection = "1; mode=block"
+    Feature-Policy = "accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'"
+
+# Old 2020 website redirects
+
+[[redirects]]
+  from = "/2020/"
+  to = "/2020/it/"
+  status = 302
+  conditions = {Language = ["it"]}
