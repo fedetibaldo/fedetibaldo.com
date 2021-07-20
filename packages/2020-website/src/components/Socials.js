@@ -1,8 +1,27 @@
 import React from 'react'
+import { graphql, useStaticQuery } from 'gatsby'
 import PropTypes from 'prop-types'
 import { socials } from '../utils/siteConfig'
 
 const SocialCard = ({ name, color, username, url, logo }) => {
+    const { site } = useStaticQuery(graphql`
+        {
+            site {
+                pathPrefix
+            }
+        }
+    `)
+    const { pathPrefix } = site;
+
+    const getPrefixedUrl = (url) => {
+        if (!url.startsWith(`http`)) {
+            if (process.env.GATSBY_ACTIVE_ENV == `production`) {
+                return `${pathPrefix}${url}`
+            }
+        }
+        return url
+    }
+
 	const backgroundColor = `#${color}`
 
 	const overallSaturation = color
@@ -19,13 +38,13 @@ const SocialCard = ({ name, color, username, url, logo }) => {
 		<a
 			className="block px-2 py-1 mr-2 mb-2 font-normal underline-none text-sm leading-none"
 			style={{ backgroundColor, color: foregroundColor }}
-			href={url}
+			href={getPrefixedUrl(url)}
 			target="_blank"
 			rel="nofollow noopener noreferrer"
 			title={name}
 			key={name}
 		>
-			<img className="inline h-4 mr-1" src={logo} aria-hidden="true" />
+			<img className="inline h-4 mr-1" src={getPrefixedUrl(logo)} aria-hidden="true" />
 			<span className="align-middle">{username}</span>
 		</a>
 	)
