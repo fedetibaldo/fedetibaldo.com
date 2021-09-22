@@ -29,3 +29,5 @@ if [ ! -d "./public/codepen-assets" ]; then
 fi
 
 cp -Rv packages/codepen-assets/assets/* public/codepen-assets/
+
+cp netlify.toml public/netlify.toml
