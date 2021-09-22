@@ -1,7 +1,7 @@
 const messages = {
 	en: {
 		goodbyeWebsite: `You're viewing an old version of my website.`,
-		mostRecentWebsite: `Jump to the current one.`,
+		mostRecentWebsite: `Switch to the current one.`,
 		recent: `Recent Articles`,
 		related: `Related Articles`,
 		eof: `EOF`,
