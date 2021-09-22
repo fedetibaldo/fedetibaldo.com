@@ -1,5 +1,7 @@
 const messages = {
 	en: {
+		goodbyeWebsite: `You're viewing an old version of my website.`,
+		mostRecentWebsite: `Jump to the current one.`,
 		recent: `Recent Articles`,
 		related: `Related Articles`,
 		eof: `EOF`,
@@ -16,6 +18,8 @@ const messages = {
 		returnHome: `Return home`,
 	},
 	it: {
+        goodbyeWebsite: `Stai vedendo una vecchia versione del mio sito.`,
+		mostRecentWebsite: `Torna a quella corrente.`,
 		recent: `Ultimi Articoli`,
 		related: `Articoli Correlati`,
 		eof: `EOF`,
