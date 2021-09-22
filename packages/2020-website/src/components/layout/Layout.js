@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import Helmet from 'react-helmet'
 import { Link, StaticQuery, graphql } from 'gatsby'
-import { useIntl } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 
 import { Navigation, LocaleSwitcher } from '..'
 import config from '../../utils/siteConfig'
@@ -37,8 +37,17 @@ const DefaultLayout = ({ data, children, bodyClass /*, isHome */ }) => {
 			<div className="flex flex-col min-h-screen">
 
 				{/* The header features a  bottom line that spans the whole width of the page */}
-				<header className="sticky top-0 z-10 bg-white border-b py-4 lg:py-3">
-					<div className="content container flex items-center">
+				<header className="sticky top-0 z-10 bg-white">
+                    <div className="bg-yellow-200 py-3 lg:py-2 border-b border-yellow-400">
+                        <p className="text-sm container content text-center">
+                            <FormattedMessage id="goodbyeWebsite" />{' '}
+                            <br className="lg:hidden" />
+                            <a className="underline-yellow-400" href="/" rel="nofollow">
+                                <FormattedMessage id="mostRecentWebsite" />
+                            </a>
+                        </p>
+                    </div>
+					<div className="content container flex items-center py-4 lg:py-3 border-b">
 
 						{/* Site name */}
 						<h1 className="logo">

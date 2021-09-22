@@ -219,6 +219,9 @@ time {
 		.underline-teal-200 {
 			background-image: linear-gradient(to top, white 0 0.15em, theme("colors.teal.200") 0.15em);
 		}
+		.underline-yellow-400 {
+			background-image: linear-gradient(to top, white 0 0.15em, theme("colors.yellow.400") 0.15em);
+		}
 	}
 }
 

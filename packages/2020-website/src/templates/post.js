@@ -10,7 +10,7 @@ import { Layout } from '../components/layout'
 import { MetaData } from '../components/meta'
 import { withLocalization } from '../components/higher-order'
 import { Title } from '../components/styled'
-import { PostsList, Socials, Newsletter } from '../components'
+import { PostsList, Socials } from '../components'
 
 function getPostBySlug(posts, slug) {
 	return posts.edges.find(edge => edge.node.slug === slug)
@@ -119,11 +119,6 @@ const Post = ({
 					</section>
 
 				</article>
-
-				{/* Newsletter */}
-				<section className="container content space-around">
-					<Newsletter />
-				</section>
 
 				{relatedPosts.length ?
 					<section className="container space-around mt-10">

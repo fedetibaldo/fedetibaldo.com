@@ -39,13 +39,6 @@ module.exports = {
 			url: `https://github.com/fedetibaldo`,
 			logo: `/images/social/github.png`,
 		},
-		{
-			name: `Resume`,
-			color: `F5F5F5`,
-			username: `Resume`,
-			url: `/resume.pdf`,
-			logo: `/images/social/pdf.png`,
-		},
 	],
 
 	credits: `Designed with Figma; powered by Ghost, Gatsby, and Tailwind; hosted on Netlify`,
