@@ -9,11 +9,6 @@
     Cache-Control = "no-cache"
 
 [[headers]]
-  for = "/2020/rss"
-  [headers.values]
-    content-type = "application/rss+xml; charset=UTF-8"
-
-[[headers]]
   for = "/2020/*"
   [headers.values]
     Referrer-Policy = "no-referrer-when-downgrade"
