@@ -57,7 +57,6 @@ module.exports = {
 	siteMetadata: {
 		siteUrl: config.siteUrl,
 	},
-    pathPrefix: `/2020`,
 	plugins: [
 		/**
          * Environment-dependent plugins
