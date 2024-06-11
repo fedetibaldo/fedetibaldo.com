@@ -1,15 +1,15 @@
 [build]
   publish = "public/"
 
-# Old 2020 website headers
+# Gatsby website headers
 
 [[headers]]
-  for = "/2020/sw.js"
+  for = "/sw.js"
   [headers.values]
     Cache-Control = "no-cache"
 
 [[headers]]
-  for = "/2020/*"
+  for = "/*"
   [headers.values]
     Referrer-Policy = "no-referrer-when-downgrade"
     Strict-Transport-Security = "max-age=31536000"
@@ -18,49 +18,10 @@
     X-Xss-Protection = "1; mode=block"
     Feature-Policy = "accelerometer 'none'; camera 'none'; geolocation 'none'; gyroscope 'none'; magnetometer 'none'; microphone 'none'; payment 'none'; usb 'none'"
 
-# Old 2020 website redirects
+# Gatsby website redirects
 
 [[redirects]]
-  from = "/2020/"
-  to = "/2020/it/"
+  from = "/"
+  to = "/it/"
   status = 302
   conditions = {Language = ["it"]}
-
-# Old 2020 articles redirects
-
-[[redirects]]
-  from = "/how-to-preview-ghosts-drafts-in-gatsbyjs-part-3"
-  to = "/2020/how-to-preview-ghosts-drafts-in-gatsbyjs-part-3"
-  status = 302
-[[redirects]]
-  from = "/how-to-preview-ghosts-drafts-in-gatsbyjs-part-2"
-  to = "/2020/how-to-preview-ghosts-drafts-in-gatsbyjs-part-2"
-  status = 302
-[[redirects]]
-  from = "/wordpress-is-bad-this-is-why"
-  to = "/2020/wordpress-is-bad-this-is-why"
-  status = 302
-[[redirects]]
-  from = "/how-to-preview-ghosts-drafts-in-gatsbyjs-part-1"
-  to = "/2020/how-to-preview-ghosts-drafts-in-gatsbyjs-part-1"
-  status = 302
-[[redirects]]
-  from = "/why-i-moved-from-wordpress-to-gatsbyjs"
-  to = "/2020/why-i-moved-from-wordpress-to-gatsbyjs"
-  status = 302
-[[redirects]]
-  from = "/case-study-my-website"
-  to = "/2020/case-study-my-website"
-  status = 302
-[[redirects]]
-  from = "/it/come-vedere-in-anteprima-le-bozze-ghost-con-gatsbyjs-parte-1"
-  to = "/2020/it/come-vedere-in-anteprima-le-bozze-ghost-con-gatsbyjs-parte-1"
-  status = 302
-[[redirects]]
-  from = "/it/perche-sono-passato-da-wordpress-a-gatsbyjs"
-  to = "/2020/it/perche-sono-passato-da-wordpress-a-gatsbyjs"
-  status = 302
-[[redirects]]
-  from = "/it/caso-studio-il-mio-sito"
-  to = "/2020/it/caso-studio-il-mio-sito"
-  status = 302

@@ -6,13 +6,9 @@ if [ ! -d "./public" ]; then
     mkdir public
 fi
 
-# 2020 website
+# Main website
 
-if [ ! -d "./public/2020" ]; then
-    mkdir public/2020
-fi
-
-cp -Rv packages/2020-website/public/* public/2020/
+cp -Rv packages/website/public/* public/
 
 # Connection
 
