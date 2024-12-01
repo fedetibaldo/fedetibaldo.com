@@ -1,6 +1,6 @@
 [submodule "packages/connection"]
 	path = packages/connection
-	url = https://github.com/fedetibaldo/connection-js13kgames2020
+	url = git@github.com:fedetibaldo/connection-js13kgames2020.git
 [submodule "packages/codepen-assets"]
 	path = packages/codepen-assets
-	url = https://github.com/fedetibaldo/codepen-assets.git
+	url = git@github.com:fedetibaldo/codepen-assets.git
