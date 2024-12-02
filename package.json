@@ -17,5 +17,5 @@
     "url": "https://github.com/fedetibaldo/fedetibaldo.com/issues"
   },
   "homepage": "https://github.com/fedetibaldo/fedetibaldo.com#readme",
-  "workspaces": [ "packages/connection", "packages/website" ]
+  "workspaces": [ "packages/website" ]
 }

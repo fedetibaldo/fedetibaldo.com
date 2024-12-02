@@ -10,14 +10,6 @@ fi
 
 cp -Rv packages/website/public/* public/
 
-# Connection
-
-if [ ! -d "./public/connection" ]; then
-    mkdir public/connection
-fi
-
-cp -Rv packages/connection/dist/* public/connection/
-
 # Codepen assets
 
 if [ ! -d "./public/codepen-assets" ]; then
