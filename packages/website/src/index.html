@@ -69,5 +69,12 @@
 				<p>This website doesn't use cookies.</p>
 			</footer>
 		</main>
+		<script>
+			navigator.serviceWorker.getRegistrations().then((registrations) => {
+				for (const registration of registrations) {
+					registration.unregister();
+				}
+			});
+		</script>
 	</body>
 </html>
