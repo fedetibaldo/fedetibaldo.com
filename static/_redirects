@@ -1,5 +1,0 @@
-# Netlify redirects file
-# https://www.netlify.com/docs/redirects/
-
-# Redirect users with Italian language preference from / to /it
-/  /it/  302  Language=it
