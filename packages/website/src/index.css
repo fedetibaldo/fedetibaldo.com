@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Poppins", "sans-serif";
+	--font-display: "Work Sans", "sans-serif";
+
+	--breakpoint-*: initial;
+	--breakpoint-lg: 960px;
+
+	--text-*: initial;
+	--text-small: 0.875rem;
+	--text-base: 1.125rem;
+	--text-large: 2rem;
+
+	--color-gray-*: initial;
+	--color-grey-100: #f2f2f2;
+	--color-grey-200: #e4e4e4;
+	--color-grey-500: #a1a1a1;
+	--color-grey-900: #181818;
+
+	--color-brand-discord: #5865f2;
+	--color-brand-itch_io: #fa5c5c;
+	--color-brand-bluesky: #1285fe;
+
+	--leading-*: initial;
+	--leading-tight: 1.1;
+	--leading-normal: 1.6;
+}
+
+@layer base {
+	html {
+		@apply bg-grey-900 text-grey-200 leading-normal;
+	}
+	html,
+	body {
+		@apply h-full;
+	}
+}
+
+@layer base {
+	@font-face {
+		font-family: "Poppins";
+		font-weight: 400;
+		src: url("./fonts/Poppins-Regular.ttf");
+	}
+	@font-face {
+		font-family: "Work Sans";
+		font-weight: 700;
+		src: url("./fonts/WorkSans-Bold.ttf");
+	}
+}
+
+@utility container {
+	@apply mx-auto px-6;
+}
+
+@layer components {
+	.title {
+		@apply font-display text-grey-100 font-bold text-large leading-tight;
+	}
+}
