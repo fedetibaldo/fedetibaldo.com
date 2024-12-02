@@ -8,7 +8,7 @@ fi
 
 # Main website
 
-# cp -Rv packages/website/public/* public/
+cp -Rv packages/website/dist/* public/
 
 # Codepen assets
 
