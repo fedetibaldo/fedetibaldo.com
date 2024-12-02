@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+@theme {
+	--font-sans: "Poppins", "sans-serif";
+	--font-display: "Noto Emoji Subset", "Work Sans", "sans-serif";
+
+	--breakpoint-*: initial;
+	--breakpoint-lg: 960px;
+
+	--text-*: initial;
+	--text-small: 0.875rem;
+	--text-base: 1.125rem;
+	--text-large: 2rem;
+
+	--color-gray-*: initial;
+	--color-grey-100: #f2f2f2;
+	--color-grey-200: #e4e4e4;
+	--color-grey-500: #a1a1a1;
+	--color-grey-900: #181818;
+
+	--color-brand-discord: #5865f2;
+	--color-brand-itch_io: #fa5c5c;
+	--color-brand-bluesky: #1285fe;
+
+	--background-image-custom-gradient: linear-gradient(
+			0deg,
+			rgba(255, 255, 255, 0.2),
+			rgba(255, 255, 255, 0.2)
+		),
+		radial-gradient(
+			61.39% 61.17% at 77.45% 27.66%,
+			#7bc7d7 0%,
+			rgba(239, 244, 245, 0.5) 100%
+		),
+		radial-gradient(
+			25.61% 30.11% at 17.07% 34.21%,
+			#890cc4 0%,
+			rgba(81, 10, 114, 0) 100%
+		),
+		radial-gradient(
+			68.42% 68.42% at 51.22% 25%,
+			rgba(116, 32, 32, 0) 0%,
+			#da3d3d 100%
+		);
+
+	--leading-*: initial;
+	--leading-tight: 1.1;
+	--leading-normal: 1.6;
+}
+
+@layer base {
+	html {
+		@apply bg-grey-900 text-grey-200 leading-normal;
+	}
+	html,
+	body {
+		@apply h-full;
+	}
+}
+
+@layer base {
+	@font-face {
+		font-family: "Poppins";
+		font-weight: 400;
+		src: url("./fonts/Poppins-Regular.ttf");
+	}
+	@font-face {
+		font-family: "Noto Emoji Subset";
+		font-weight: 700;
+		src: url("./fonts/NotoEmoji-Bold-subset.ttf");
+	}
+	@font-face {
+		font-family: "Work Sans";
+		font-weight: 700;
+		src: url("./fonts/WorkSans-Bold.ttf");
+	}
+}
+
+@utility container {
+	@apply mx-auto px-6;
+}
+
+@layer components {
+	.title {
+		@apply font-display text-grey-100 font-bold text-large leading-tight;
+	}
+}
+
+@layer utilities {
+	.text-custom-gradient {
+		@apply bg-custom-gradient bg-clip-text text-transparent;
+	}
+}

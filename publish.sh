@@ -8,15 +8,7 @@ fi
 
 # Main website
 
-cp -Rv packages/website/public/* public/
-
-# Connection
-
-if [ ! -d "./public/connection" ]; then
-    mkdir public/connection
-fi
-
-cp -Rv packages/connection/dist/* public/connection/
+cp -Rv packages/website/dist/* public/
 
 # Codepen assets
 

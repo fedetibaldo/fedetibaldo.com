@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "postinstall": "lerna bootstrap",
-    "build": "lerna run build",
-    "postbuild": "./publish.sh",
+    "build": "npm run build --workspaces",
+    "postbuild": "sh ./publish.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,7 +18,5 @@
     "url": "https://github.com/fedetibaldo/fedetibaldo.com/issues"
   },
   "homepage": "https://github.com/fedetibaldo/fedetibaldo.com#readme",
-  "devDependencies": {
-    "lerna": "^4.0.0"
-  }
+  "workspaces": [ "packages/website" ]
 }

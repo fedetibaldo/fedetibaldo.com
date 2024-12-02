@@ -1,8 +1,0 @@
-export { default as LocaleSwitcher } from './LocaleSwitcher'
-export { default as Navigation } from './Navigation'
-export { default as Newsletter } from './Newsletter'
-export { default as Pagination } from './Pagination'
-export { default as PostCard } from './PostCard'
-export { default as PostDivider } from './PostDivider'
-export { default as PostsList } from './PostsList'
-export { default as Socials } from './Socials'
