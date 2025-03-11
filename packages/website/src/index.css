@@ -62,17 +62,17 @@
 	@font-face {
 		font-family: "Poppins";
 		font-weight: 400;
-		src: url("./fonts/Poppins-Regular.ttf");
+		src: url("/fonts/Poppins-Regular.ttf");
 	}
 	@font-face {
 		font-family: "Noto Emoji Subset";
 		font-weight: 700;
-		src: url("./fonts/NotoEmoji-Bold-subset.ttf");
+		src: url("/fonts/NotoEmoji-Bold-subset.ttf");
 	}
 	@font-face {
 		font-family: "Work Sans";
 		font-weight: 700;
-		src: url("./fonts/WorkSans-Bold.ttf");
+		src: url("/fonts/WorkSans-Bold.ttf");
 	}
 }
 
