@@ -1,3 +1,0 @@
-[submodule "packages/website-content"]
-	path = packages/website-content
-	url = git@github.com:fedetibaldo/website-content.git
