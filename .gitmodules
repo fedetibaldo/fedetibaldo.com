@@ -1,6 +1,3 @@
-[submodule "packages/codepen-assets"]
-	path = packages/codepen-assets
-	url = git@github.com:fedetibaldo/codepen-assets.git
 [submodule "packages/website-content"]
 	path = packages/website-content
 	url = git@github.com:fedetibaldo/website-content.git

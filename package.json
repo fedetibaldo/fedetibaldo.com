@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run build --workspaces",
-    "postbuild": "sh ./publish.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
