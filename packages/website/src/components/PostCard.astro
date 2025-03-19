@@ -8,29 +8,41 @@ const post = Astro.props;
 
 <a
 	href={`/${post.data.slug}`}
-	class="relative rounded-2xl border border-grey-700 block overflow-hidden group"
+	class={`relative rounded-2xl border ${post.data.isOutdated ? "border-grey-700/50 hocus:border-grey-700" : "border-grey-700"} transition block overflow-hidden group`}
 >
 	{
 		post.data.cover && (
 			<Image
 				src={post.data.cover}
 				alt=""
-				class="absolute w-full h-full object-cover object-center opacity-20 transition-transform group-hover:scale-120 group-focus:scale-120"
+				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120`}
 			/>
 		)
 	}
 	<article class="relative p-6 space-y-4">
 		<h2
-			class="leading-tighter text-grey-100 font-bold lines-2 group-focus-visible:underline"
+			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-grey-100 font-bold lines-2 group-focus-visible:underline`}
 		>
 			{post.data.title}
 		</h2>
-		<time class="text-smallest" datetime={post.data.createdAt.toISOString()}>
+		<div class="flex justify-between">
+			<time
+				class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition text-smallest`}
+				datetime={post.data.createdAt.toISOString()}
+			>
+				{
+					post.data.createdAt.toLocaleDateString(undefined, {
+						dateStyle: "medium",
+					})
+				}
+			</time>
 			{
-				post.data.createdAt.toLocaleDateString(undefined, {
-					dateStyle: "medium",
-				})
+				post.data.isOutdated && (
+					<p class="text-yellow-400 uppercase text-smallest font-display font-bold group-hocus:opacity-50 transition">
+						Outdated
+					</p>
+				)
 			}
-		</time>
+		</div>
 	</article>
 </a>

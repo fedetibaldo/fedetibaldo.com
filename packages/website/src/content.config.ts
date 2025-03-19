@@ -19,6 +19,7 @@ const posts = defineCollection({
 			description: z.string().optional(),
 			createdAt: z.coerce.date(),
 			updatedAt: z.coerce.date().optional(),
+			isOutdated: z.boolean().default(false),
 		}),
 });
 

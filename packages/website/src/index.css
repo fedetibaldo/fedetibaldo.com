@@ -56,6 +56,9 @@
 	--leading-base: 1.6;
 }
 
+@custom-variant hocus (&:hover, &:focus);
+@custom-variant group-hocus (&:is(:where(.group):hover *), &:is(:where(.group):focus *));
+
 @layer base {
 	html {
 		@apply scheme-dark bg-grey-900 text-grey-200 leading-base;
