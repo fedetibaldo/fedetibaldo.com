@@ -22,14 +22,14 @@ const { Content } = await render(post);
 <Layout mainWidth="3/5">
 	{
 		post.data.isOutdated && (
-			<p class="bg-yellow-950 border-l-4 border-yellow-500 text-yellow-50 text-smallest rounded-r-xl px-4 py-3">
+			<p class="bg-yellow-950 border-l-4 border-yellow-500 text-yellow-50 text-smallest rounded-r-xl px-4 py-3 mb-8">
 				This post is outdated. The author might have changed their mind, the
 				content might be too old to be relevant, or both. It's preserved here
 				for archival purposes.
 			</p>
 		)
 	}
-	<article class="prose prose-lg prose-invert py-6">
+	<article class="prose prose-lg prose-invert max-w-none py-6">
 		<Content />
 	</article>
 </Layout>
