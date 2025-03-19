@@ -28,6 +28,7 @@ const games = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
+			url: z.string(),
 			logo: image(),
 			cover: image(),
 			description: z.string(),
