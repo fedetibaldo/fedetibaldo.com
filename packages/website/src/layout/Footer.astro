@@ -1,0 +1,12 @@
+---
+type Props = {
+	class?: string | undefined;
+};
+
+const { class: className = "" } = Astro.props;
+const { Content } = await import("../content/singletons/footer.md");
+---
+
+<footer class={`${className} text-smallest text-grey-500 py-6`}>
+	<Content />
+</footer>
