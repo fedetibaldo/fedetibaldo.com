@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import { tagEnum } from "./components/tag";
 
 const pages = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
@@ -14,6 +15,7 @@ const posts = defineCollection({
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
+			tag: tagEnum.exclude(["game"]),
 			slug: z.string(),
 			cover: image(),
 			description: z.string().optional(),

@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import EntryMeta from "./EntryMeta.astro";
 
 type Props = CollectionEntry<"posts">;
 const post = Astro.props;
@@ -26,16 +27,13 @@ const post = Astro.props;
 			{post.data.title}
 		</h2>
 		<div class="flex justify-between">
-			<time
-				class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition text-smallest`}
-				datetime={post.data.createdAt.toISOString()}
-			>
-				{
-					post.data.createdAt.toLocaleDateString(undefined, {
-						dateStyle: "medium",
-					})
-				}
-			</time>
+			<EntryMeta
+				class={post.data.isOutdated
+					? "opacity-50 group-hocus:opacity-100 transition"
+					: ""}
+				tag={post.data.tag}
+				date={post.data.createdAt}
+			/>
 			{
 				post.data.isOutdated && (
 					<p class="text-yellow-400 uppercase text-smallest font-display font-bold group-hocus:opacity-50 transition">

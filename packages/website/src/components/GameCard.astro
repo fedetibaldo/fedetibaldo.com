@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import EntryMeta from "./EntryMeta.astro";
 
 type Props = CollectionEntry<"games">;
 const game = Astro.props;
@@ -55,12 +56,6 @@ const game = Astro.props;
 				</dl>
 			)
 		}
-		<time class="text-smallest" datetime={game.data.createdAt.toISOString()}>
-			{
-				game.data.createdAt.toLocaleDateString(undefined, {
-					dateStyle: "medium",
-				})
-			}
-		</time>
+		<EntryMeta tag="game" date={game.data.createdAt} />
 	</article>
 </a>
