@@ -1,0 +1,29 @@
+---
+type Props = {
+	class: string;
+	label: string;
+};
+
+const { label, class: className } = Astro.props;
+---
+
+<span class={`${className} inline-flex`}>
+	<span class="pl-1 bg-current rounded-l leading-self">
+		<span class="font-display font-bold text-smallest text-white uppercase">
+			{label}
+		</span>
+	</span>
+	<svg
+		width="12"
+		height="22"
+		viewBox="0 0 12 22"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			fill-rule="evenodd"
+			clip-rule="evenodd"
+			d="M3.17157 1.17157L10.1716 8.17157C11.7337 9.73367 11.7337 12.2663 10.1716 13.8284L3.17157 20.8284C2.42143 21.5786 1.40401 22 0.343146 22H0V0H0.343146C1.40401 0 2.42143 0.421427 3.17157 1.17157ZM6 13C7.10457 13 8 12.1046 8 11C8 9.89543 7.10457 9 6 9C4.89543 9 4 9.89543 4 11C4 12.1046 4.89543 13 6 13Z"
+			fill="currentColor"></path>
+	</svg>
+</span>
