@@ -30,6 +30,20 @@ const {
 		<script is:inline>
 			document.body.classList.add("js");
 		</script>
+		<div class="container relative">
+			<a
+				href="#main"
+				class="absolute top-0 -translate-y-full focus:translate-0"
+			>
+				Jump to content
+			</a>
+			<a
+				href="#aside"
+				class="absolute top-0 -translate-y-full focus:translate-0"
+			>
+				Jump to sidebar
+			</a>
+		</div>
 		<div class="container lg:grid grid-cols-10 min-h-full items-end">
 			<div
 				class={`${mainWidth == "3/5" ? "col-span-6 lg:pr-8" : "col-span-5 lg:pr-3"} sticky bottom-0 min-h-fit max-h-dvh h-full flex flex-col justify-between`}
@@ -39,12 +53,13 @@ const {
 						{settings.siteTitle}
 					</a>
 				</header>
-				<main class="pt-8 pb-12">
+				<main id="main" class="pt-8 pb-12">
 					<slot />
 				</main>
 				<Footer class="hidden lg:block" />
 			</div>
 			<aside
+				id="aside"
 				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 pb-6"
 			>
 				<slot name="aside" />
