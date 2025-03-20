@@ -1,0 +1,58 @@
+---
+import type { TagEnum } from "../tag";
+import { getCollection } from "astro:content";
+import PostCard from "./PostCard.astro";
+import GameCard from "./GameCard.astro";
+
+const [posts, games] = await Promise.all([
+	getCollection("posts"),
+	getCollection("games"),
+]);
+
+const allEntries = [...posts, ...games].sort(
+	(entryA, entryZ) =>
+		entryZ.data.createdAt.getTime() - entryA.data.createdAt.getTime(),
+);
+
+type Props = {
+	filter: {
+		ids?: string[];
+		tags?: TagEnum[];
+		isOutdated?: boolean;
+	};
+	limit?: number;
+};
+
+const { filter, limit } = Astro.props;
+
+const filteredEntries = allEntries.filter((entry) => {
+	let isIncluded = true;
+	if (filter.ids) {
+		isIncluded = isIncluded && filter.ids.includes(entry.id);
+	}
+	if (filter.tags) {
+		const tag: TagEnum = entry.collection == "games" ? "game" : entry.data.tag;
+		isIncluded = isIncluded && filter.tags.includes(tag);
+	}
+	if (typeof filter.isOutdated != "undefined") {
+		if (entry.collection == "posts") {
+			isIncluded = isIncluded && entry.data.isOutdated == filter.isOutdated;
+		}
+	}
+	return isIncluded;
+});
+
+const entries = limit ? filteredEntries.slice(0, limit) : filteredEntries;
+---
+
+<div class="space-y-6">
+	{
+		entries.map((entry) =>
+			entry.collection == "posts" ? (
+				<PostCard {...entry} />
+			) : (
+				<GameCard {...entry} />
+			),
+		)
+	}
+</div>

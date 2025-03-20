@@ -1,10 +1,7 @@
 ---
 import { settings } from "../settings";
-import { entries } from "../entries";
 import Footer from "./Footer.astro";
 import "../index.css";
-import GameCard from "../components/GameCard.astro";
-import PostCard from "../components/PostCard.astro";
 
 interface Props {
 	title?: string | undefined;
@@ -30,6 +27,9 @@ const {
 	</head>
 
 	<body>
+		<script>
+			document.body.classList.add("js");
+		</script>
 		<div class="container lg:grid grid-cols-10 min-h-full items-end">
 			<div
 				class={`${mainWidth == "3/5" ? "col-span-6 lg:pr-8" : "col-span-5 lg:pr-3"} sticky bottom-0 min-h-fit max-h-dvh h-full flex flex-col justify-between`}
@@ -45,17 +45,9 @@ const {
 				<Footer class="hidden lg:block" />
 			</div>
 			<aside
-				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 space-y-6 lg:pt-20 pb-6"
+				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 pb-6"
 			>
-				{
-					entries.map((entry) =>
-						entry.collection == "posts" ? (
-							<PostCard {...entry} />
-						) : (
-							<GameCard {...entry} />
-						),
-					)
-				}
+				<slot name="aside" />
 			</aside>
 			<Footer class="lg:hidden" />
 		</div>

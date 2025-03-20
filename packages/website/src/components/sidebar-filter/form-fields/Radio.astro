@@ -1,0 +1,38 @@
+---
+export type RadioField<T extends string = string> = {
+	type: "radio";
+	label: string;
+	name: string;
+	value: T;
+	options: { value: T; label: string; message: string | null }[];
+};
+
+export const getMessage = (field: RadioField): string | null => {
+	return (
+		field.options.find((option) => option.value == field.value)?.message || null
+	);
+};
+
+type Props = RadioField;
+
+const { label, name, value, options } = Astro.props;
+---
+
+<p>{label}</p>
+{
+	options.map((option) => {
+		const id = `${name}-${option.value}`;
+		return (
+			<>
+				<input
+					type="radio"
+					name={name}
+					id={id}
+					value={option.value}
+					checked={option.value == value}
+				/>
+				<label for={id}>{option.label}</label>
+			</>
+		);
+	})
+}

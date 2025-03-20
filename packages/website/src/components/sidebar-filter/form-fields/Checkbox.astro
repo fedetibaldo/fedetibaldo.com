@@ -1,0 +1,21 @@
+---
+export type CheckboxField = {
+	type: "checkbox";
+	label: string;
+	name: string;
+	value: boolean;
+	checkedMessage: string | null;
+	uncheckedMessage: string | null;
+};
+
+export const getMessage = (field: CheckboxField): string | null => {
+	return field.value ? field.checkedMessage : field.uncheckedMessage;
+};
+
+type Props = CheckboxField;
+
+const { label, name, value } = Astro.props;
+---
+
+<input type="checkbox" name={name} id={name} value="true" checked={value} />
+<label for={name}>{label}</label>
