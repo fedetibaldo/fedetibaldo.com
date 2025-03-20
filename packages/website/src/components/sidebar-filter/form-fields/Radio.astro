@@ -1,8 +1,11 @@
 ---
+import { generateSuffix } from "../../../helpers";
+
 export type RadioField<T extends string = string> = {
 	type: "radio";
 	label: string;
 	name: string;
+	resetValue: T;
 	value: T;
 	options: { value: T; label: string; message: string | null }[];
 };
@@ -21,7 +24,7 @@ const { label, name, value, options } = Astro.props;
 <p>{label}</p>
 {
 	options.map((option) => {
-		const id = `${name}-${option.value}`;
+		const id = `${name}-${option.value}-${generateSuffix()}`;
 		return (
 			<>
 				<input

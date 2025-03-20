@@ -25,37 +25,21 @@ const action = Astro.url.pathname;
 ---
 
 <script>
+	import { SidebarFilterComponent } from "./SidebarFilterComponent";
+
 	document.addEventListener("alpine:init", () => {
-		window.Alpine.data("sidebarFilter", () => {
-			const prefix = "sidebar-filter";
-			const randomSuffix = Math.floor(Math.random() * 16 * 16 * 16).toString(
-				16,
-			);
-
-			const formId = `${prefix}-form-${randomSuffix}`;
-
-			const store = {
-				formId,
-				open: false,
-				close() {
-					this.open = false;
-				},
-				toggle() {
-					this.open = !this.open;
-				},
-			};
-
-			return store;
-		});
+		window.Alpine.data("SidebarFilter", SidebarFilterComponent);
 	});
 </script>
 
 <div
 	class={`${className} bg-grey-900 relative z-10`}
-	x-data="sidebarFilter"
-	@click.outside="close"
-	@keydown.escape="close"
-	@focusin.outside="close"
+	x-data="SidebarFilter"
+	x-bind:id="id.component"
+	data-form-fields={JSON.stringify(formFields)}
+	@click.outside="closeForm"
+	@keydown.escape="closeForm"
+	@focusin.outside="closeForm"
 >
 	<div class="flex justify-between items-center py-4">
 		<p class="text-grey-500 leading-tightest">
@@ -63,11 +47,11 @@ const action = Astro.url.pathname;
 		</p>
 		<button
 			class="hidden disabled:text-grey-700 cursor-pointer disabled:cursor-not-allowed rounded-full p-2 -mr-2 js:block"
-			x-bind:class="open && 'bg-grey-800'"
+			x-bind:class="form.isOpen && 'bg-grey-800'"
 			type="button"
-			x-bind:aria-expanded="open"
-			x-bind:aria-controls="formId"
-			@click="toggle"
+			x-bind:aria-expanded="form.isOpen"
+			x-bind:aria-controls="id.form"
+			@click="toggleForm"
 			disabled={!hasForm}
 		>
 			<FilterIcon alt="Edit filter" width={35} />
@@ -76,16 +60,28 @@ const action = Astro.url.pathname;
 	{
 		hasForm && (
 			<form
+				@submit="onSubmit"
+				@reset="onReset"
+				@change="onChange"
 				action={action}
 				method="get"
-				x-bind:id="formId"
+				x-bind:id="id.form"
 				class="js:hidden js:absolute right-0 top-full js:-translate-y-1 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 px-4 py-3 space-y-2"
-				x-bind:class="{ 'js:hidden': !open }"
+				x-bind:class="{ 'js:hidden': !form.isOpen }"
 			>
 				{formFields.map((field) => (
 					<FormField {...field} />
 				))}
-				<button>Apply</button>
+				<button
+					type="reset"
+					x-bind:disabled="!form.isResettable"
+					class="hidden js:block disabled:opacity-50"
+				>
+					Clear
+				</button>
+				<button x-bind:disabled="!form.isDirty" class="disabled:opacity-50">
+					Apply
+				</button>
 			</form>
 		)
 	}

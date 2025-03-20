@@ -28,6 +28,7 @@ const outdatedCheckbox: CheckboxField = {
 	type: "checkbox",
 	name: "show_outdated",
 	label: "Show outdated",
+	resetValue: false,
 	value: Boolean(Astro.url.searchParams.get("show_outdated")),
 	checkedMessage: null,
 	uncheckedMessage: "hide outdated",
@@ -45,6 +46,7 @@ const tagRadio: RadioField<TagEnum | "all"> = {
 		{ value: "all", label: "Show all", message: null },
 		...tagEnum.options.map((tag) => ({ value: tag, label: tag, message: tag })),
 	],
+	resetValue: "all",
 	value: tagEnum
 		.or(tagRadioFallback())
 		.parse(Astro.url.searchParams.get("tag")),
