@@ -1,4 +1,5 @@
 ---
+import FilterIcon from "./FilterIcon.astro";
 import FormField, { getMessage, type AnyFormField } from "./FormField.astro";
 
 type Props = {
@@ -17,18 +18,75 @@ const messages = formFields
 	.map(getMessage)
 	.filter((message): message is string => !!message)
 	.join(", ");
+
+const hasForm = formFields.length > 0;
+
+const action = Astro.url.pathname;
 ---
 
-<p class={`${className} text-grey-500 leading-tightest py-6 bg-grey-900 z-10`}>
-	{messages ? `filter: ${messages}` : emptyFilterMessage}
-</p>
-{
-	formFields.length > 0 && (
-		<form class="js:hidden">
-			{formFields.map((field) => (
-				<FormField {...field} />
-			))}
-			<button>Submit</button>
-		</form>
-	)
-}
+<script>
+	document.addEventListener("alpine:init", () => {
+		window.Alpine.data("sidebarFilter", () => {
+			const prefix = "sidebar-filter";
+			const randomSuffix = Math.floor(Math.random() * 16 * 16 * 16).toString(
+				16,
+			);
+
+			const formId = `${prefix}-form-${randomSuffix}`;
+
+			const store = {
+				formId,
+				open: false,
+				close() {
+					this.open = false;
+				},
+				toggle() {
+					this.open = !this.open;
+				},
+			};
+
+			return store;
+		});
+	});
+</script>
+
+<div
+	class={`${className} bg-grey-900 relative z-10`}
+	x-data="sidebarFilter"
+	@click.outside="close"
+	@keydown.escape="close"
+	@focusin.outside="close"
+>
+	<div class="flex justify-between items-center py-4">
+		<p class="text-grey-500 leading-tightest">
+			{messages ? `filter: ${messages}` : emptyFilterMessage}
+		</p>
+		<button
+			class="hidden disabled:text-grey-700 cursor-pointer disabled:cursor-not-allowed rounded-full p-2 -mr-2 js:block"
+			x-bind:class="open && 'bg-grey-800'"
+			type="button"
+			x-bind:aria-expanded="open"
+			x-bind:aria-controls="formId"
+			@click="toggle"
+			disabled={!hasForm}
+		>
+			<FilterIcon alt="Edit filter" width={35} />
+		</button>
+	</div>
+	{
+		hasForm && (
+			<form
+				action={action}
+				method="get"
+				x-bind:id="formId"
+				class="js:hidden js:absolute right-0 top-full js:-translate-y-1 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 px-4 py-3 space-y-2"
+				x-bind:class="{ 'js:hidden': !open }"
+			>
+				{formFields.map((field) => (
+					<FormField {...field} />
+				))}
+				<button>Apply</button>
+			</form>
+		)
+	}
+</div>
