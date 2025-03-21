@@ -5,6 +5,7 @@ import alpinejs from "@astrojs/alpinejs";
 
 export default defineConfig({
 	site: "https://fedetibaldo.com",
+	trailingSlash: "never",
 
 	vite: {
 		plugins: [tailwindcss()],
