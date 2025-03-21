@@ -20,7 +20,7 @@ const { imageSizes = {}, post } = Astro.props;
 				{...imageSizes}
 				src={post.data.cover}
 				alt=""
-				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120 group-hocus:blur-xs`}
+				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120`}
 			/>
 		)
 	}
