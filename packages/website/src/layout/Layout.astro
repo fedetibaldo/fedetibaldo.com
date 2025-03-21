@@ -41,7 +41,7 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 				Jump to content
 			</a>
 			<a
-				href="#aside"
+				href="#sidebar"
 				class="absolute top-0 -translate-y-full focus:translate-0"
 			>
 				Jump to sidebar
@@ -62,10 +62,10 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 				<Footer class="hidden lg:block" />
 			</div>
 			<aside
-				id="aside"
+				id="sidebar"
 				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 pb-6"
 			>
-				<slot name="aside" />
+				<slot name="sidebar" />
 			</aside>
 			<Footer class="lg:hidden" />
 		</div>

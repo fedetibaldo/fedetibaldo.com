@@ -38,7 +38,7 @@ const { Content } = await render(post);
 	<article class="prose prose-lg prose-invert max-w-none">
 		<Content />
 	</article>
-	<Fragment slot="aside">
+	<Fragment slot="sidebar">
 		<SidebarFilter emptyFilterMessage="filter: suggested" />
 		<Entries
 			filter={post.data.related

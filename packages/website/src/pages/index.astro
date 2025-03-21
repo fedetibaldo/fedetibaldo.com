@@ -59,10 +59,11 @@ const formFields = [tagRadio, outdatedCheckbox];
 	<article class="prose prose-lg prose-invert max-w-none">
 		{Content && <Content />}
 	</article>
-	<Fragment slot="aside">
+	<Fragment slot="sidebar">
 		<SidebarFilter
 			class="sticky top-0"
 			emptyFilterMessage="no filter"
+			action="/#sidebar"
 			formFields={formFields}
 		/>
 		<Entries
