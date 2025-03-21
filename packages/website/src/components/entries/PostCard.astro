@@ -1,10 +1,12 @@
 ---
-import { Image } from "astro:assets";
+import { Image, type LocalImageProps } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import EntryMeta from "./EntryMeta.astro";
 
-type Props = CollectionEntry<"posts">;
-const post = Astro.props;
+type Props = CollectionEntry<"posts"> & {
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
+};
+const { imageSizes = {}, ...post } = Astro.props;
 ---
 
 <a
@@ -14,9 +16,10 @@ const post = Astro.props;
 	{
 		post.data.cover && (
 			<Image
+				{...imageSizes}
 				src={post.data.cover}
 				alt=""
-				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120`}
+				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120 group-hocus:blur-xs`}
 			/>
 		)
 	}

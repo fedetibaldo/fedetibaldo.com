@@ -3,6 +3,11 @@ import { settings } from "../settings";
 import Footer from "./Footer.astro";
 import "../index.css";
 
+export const sidebarImageSizes = {
+	widths: [420, 640],
+	sizes: "(max-width: 640px) 640px, 420px",
+};
+
 interface Props {
 	title?: string | undefined;
 	description?: string | undefined;

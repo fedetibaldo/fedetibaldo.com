@@ -1,6 +1,6 @@
 ---
 import { getCollection } from "astro:content";
-import Layout from "../layout/Layout.astro";
+import Layout, { sidebarImageSizes } from "../layout/Layout.astro";
 import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
@@ -41,6 +41,7 @@ const { Content } = await render(post);
 	<Fragment slot="sidebar">
 		<SidebarFilter emptyFilterMessage="filter: suggested" />
 		<Entries
+			imageSizes={sidebarImageSizes}
 			filter={post.data.related
 				? { ids: post.data.related }
 				: { tags: [post.data.tag, "game"], isOutdated: false }}

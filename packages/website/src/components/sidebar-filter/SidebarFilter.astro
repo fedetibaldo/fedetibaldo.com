@@ -3,13 +3,16 @@ import FilterIcon from "./FilterIcon.astro";
 import FormField, { getMessage, type AnyFormField } from "./FormField.astro";
 
 type Props = {
+	id?: string;
 	class?: string | undefined;
+	action?: string;
 	emptyFilterMessage?: string;
 	formFields?: AnyFormField[];
 };
 
 const {
 	class: className = "",
+	action,
 	formFields = [],
 	emptyFilterMessage = "",
 } = Astro.props;
@@ -20,8 +23,6 @@ const messages = formFields
 	.join(", ");
 
 const hasForm = formFields.length > 0;
-
-const action = Astro.url.pathname;
 ---
 
 <script>

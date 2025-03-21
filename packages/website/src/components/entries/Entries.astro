@@ -3,6 +3,7 @@ import type { TagEnum } from "../tag";
 import { getCollection } from "astro:content";
 import PostCard from "./PostCard.astro";
 import GameCard from "./GameCard.astro";
+import type { LocalImageProps } from "astro:assets";
 
 const [posts, games] = await Promise.all([
 	getCollection("posts"),
@@ -15,6 +16,7 @@ const allEntries = [...posts, ...games].sort(
 );
 
 type Props = {
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
 	filter: {
 		ids?: string[];
 		tags?: TagEnum[];
@@ -23,7 +25,7 @@ type Props = {
 	limit?: number;
 };
 
-const { filter, limit } = Astro.props;
+const { imageSizes, filter, limit } = Astro.props;
 
 const filteredEntries = allEntries.filter((entry) => {
 	let isIncluded = true;
@@ -50,9 +52,9 @@ const entries = limit ? filteredEntries.slice(0, limit) : filteredEntries;
 		entries.length > 0 ? (
 			entries.map((entry) =>
 				entry.collection == "posts" ? (
-					<PostCard {...entry} />
+					<PostCard imageSizes={imageSizes} {...entry} />
 				) : (
-					<GameCard {...entry} />
+					<GameCard imageSizes={imageSizes} {...entry} />
 				),
 			)
 		) : (
