@@ -43,7 +43,7 @@ const tagRadio: RadioField<TagEnum | "all"> = {
 	name: "tag",
 	label: "Filter by tag",
 	options: [
-		{ value: "all", label: "Show all", message: null },
+		{ value: "all", label: "All", message: null },
 		...tagEnum.options.map((tag) => ({ value: tag, label: tag, message: tag })),
 	],
 	resetValue: "all",

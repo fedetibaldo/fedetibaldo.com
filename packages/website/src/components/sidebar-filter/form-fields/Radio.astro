@@ -21,11 +21,13 @@ type Props = RadioField;
 const { label, name, value, options } = Astro.props;
 ---
 
-<fieldset class="space-y-3">
-	<legend class="font-bold leading-tightest text-smallest text-grey-500">
+<fieldset class="space-y-4">
+	<legend
+		class="text-smaller font-display font-bold uppercase leading-tightest text-grey-200"
+	>
 		{label}
 	</legend>
-	<div class="flex gap-2">
+	<div class="flex gap-3">
 		{
 			options.map((option) => {
 				const id = `${name}-${option.value}-${generateSuffix()}`;
@@ -40,7 +42,7 @@ const { label, name, value, options } = Astro.props;
 							checked={option.value == value}
 						/>
 						<label
-							class="text-smallest leading-tightest text-grey-500 peer-checked:text-grey-200 pl-1 cursor-pointer"
+							class="leading-tightest text-grey-500 peer-checked:text-grey-200 pl-1 cursor-pointer"
 							for={id}
 						>
 							{option.label}

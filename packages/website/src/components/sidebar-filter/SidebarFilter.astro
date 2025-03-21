@@ -67,10 +67,10 @@ const hasForm = formFields.length > 0;
 				action={action}
 				method="get"
 				x-bind:id="id.form"
-				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-3 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 p-4 space-y-6"
+				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-2 js:translate-x-2 mb-6 bg-grey-900/80 backdrop-blur-xl rounded-2xl border border-grey-700 p-6 space-y-8"
 				x-bind:class="{ 'js:hidden': !form.isOpen }"
 			>
-				<div class="space-y-4">
+				<div class="space-y-6">
 					{formFields.map((field, index) => (
 						<>
 							{index > 0 && <hr class="border-grey-700" />}
@@ -82,13 +82,13 @@ const hasForm = formFields.length > 0;
 					<button
 						type="reset"
 						x-bind:disabled="!form.isResettable"
-						class="hidden js:block px-4 py-3 w-full text-smallest leading-tightest font-bold border border-grey-400 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+						class="hidden js:block px-4 py-3 w-full leading-tightest font-bold border border-grey-400 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						Clear
 					</button>
 					<button
 						x-bind:disabled="!form.isDirty"
-						class="px-4 py-3 w-full text-smallest leading-tightest font-bold bg-grey-100 text-grey-900 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+						class="px-4 py-3 w-full leading-tightest font-bold bg-grey-100 text-grey-900 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
 					>
 						Apply
 					</button>
