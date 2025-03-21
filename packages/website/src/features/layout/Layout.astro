@@ -57,7 +57,10 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 				class={`${mainWidth == "3/5" ? "col-span-6 lg:pr-8" : "col-span-5 lg:pr-3"} sticky bottom-0 min-h-fit max-h-dvh h-full flex flex-col justify-between`}
 			>
 				<header class="py-6">
-					<a class="title text-custom-gradient" href="/">
+					<a
+						class="font-display text-neutral-100 font-bold text-large leading-tightest text-custom-gradient"
+						href="/"
+					>
 						{settings.siteTitle}
 					</a>
 				</header>

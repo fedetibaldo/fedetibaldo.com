@@ -94,19 +94,11 @@
 	@apply mx-auto px-6;
 }
 
-@layer components {
-	.title {
-		@apply font-display text-neutral-100 font-bold text-large leading-tightest;
-	}
-}
-
 @layer utilities {
 	.text-custom-gradient {
 		@apply bg-custom-gradient bg-clip-text text-transparent;
 	}
-	.prose {
-		container: prose;
-	}
+
 	.badge {
 		/* Revert prose styles */
 		@apply no-underline;
