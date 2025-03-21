@@ -1,12 +1,13 @@
 ---
 import { Image, type LocalImageProps } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import EntryMeta from "./EntryMeta.astro";
+import type { EntryOfType } from "../types";
+import EntryMeta from "../shared/EntryMeta.astro";
 
-type Props = CollectionEntry<"games"> & {
+type Props = {
+	game: EntryOfType<"game">;
 	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
 };
-const { imageSizes = {}, ...game } = Astro.props;
+const { imageSizes = {}, game } = Astro.props;
 ---
 
 <a

@@ -19,43 +19,41 @@ const tags = defineCollection({
 		}),
 });
 
-const posts = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
+const entries = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/entries" }),
 	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			tag: reference("tags"),
-			slug: z.string(),
-			related: z.array(z.string()),
-			cover: image(),
-			description: z.string().optional(),
-			createdAt: z.coerce.date(),
-			updatedAt: z.coerce.date().optional(),
-			isOutdated: z.boolean().default(false),
-		}),
+		z.intersection(
+			z.object({ tag: reference("tags"), createdAt: z.coerce.date() }),
+			z.discriminatedUnion("type", [
+				z.object({
+					type: z.literal("post"),
+					title: z.string(),
+					slug: z.string(),
+					related: z.array(z.string()),
+					cover: image(),
+					description: z.string().optional(),
+					isOutdated: z.boolean().default(false),
+				}),
+				z.object({
+					type: z.literal("game"),
+					title: z.string(),
+					url: z.string(),
+					logo: image(),
+					cover: image(),
+					description: z.string(),
+					placements: z
+						.array(
+							z.object({
+								competitionName: z.string(),
+								competitionLogo: image(),
+								placement: z.number(),
+								category: z.string(),
+							}),
+						)
+						.optional(),
+				}),
+			]),
+		),
 });
 
-const games = defineCollection({
-	loader: glob({ pattern: "**/*.md", base: "./src/content/games" }),
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			url: z.string(),
-			logo: image(),
-			cover: image(),
-			description: z.string(),
-			createdAt: z.coerce.date(),
-			placements: z
-				.array(
-					z.object({
-						competitionName: z.string(),
-						competitionLogo: image(),
-						placement: z.number(),
-						category: z.string(),
-					}),
-				)
-				.optional(),
-		}),
-});
-
-export const collections = { pages, tags, posts, games };
+export const collections = { pages, entries, tags };

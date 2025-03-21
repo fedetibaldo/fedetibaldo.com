@@ -1,20 +1,24 @@
 ---
 import { getCollection } from "astro:content";
 import Layout, { sidebarImageSizes } from "../layout/Layout.astro";
-import type { CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
 import { SidebarFilter } from "../components/sidebar-filter";
-import { Entries } from "../components/entries";
+import { Entries, type EntryOfType } from "../components/entries";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-	return (await getCollection("posts")).map((post) => ({
+	return (
+		await getCollection(
+			"entries",
+			(entry): entry is EntryOfType<"post"> => entry.data.type == "post",
+		)
+	).map((post) => ({
 		params: { post: post.id },
 		props: post,
 	}));
 };
 
-type Props = CollectionEntry<"posts">;
+type Props = EntryOfType<"post">;
 
 const post = Astro.props;
 

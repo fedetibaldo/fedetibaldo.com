@@ -1,18 +1,8 @@
 ---
 import { getCollection } from "astro:content";
-import PostCard from "./PostCard.astro";
-import GameCard from "./GameCard.astro";
+import PostCard from "./cards/PostCard.astro";
+import GameCard from "./cards/GameCard.astro";
 import type { LocalImageProps } from "astro:assets";
-
-const [posts, games] = await Promise.all([
-	getCollection("posts"),
-	getCollection("games"),
-]);
-
-const allEntries = [...posts, ...games].sort(
-	(entryA, entryZ) =>
-		entryZ.data.createdAt.getTime() - entryA.data.createdAt.getTime(),
-);
 
 type Props = {
 	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
@@ -24,41 +14,49 @@ type Props = {
 	limit?: number;
 };
 
-const { imageSizes, filter, limit } = Astro.props;
+const { imageSizes, filter, limit = Infinity } = Astro.props;
 
-const filteredEntries = allEntries.filter((entry) => {
-	let isIncluded = true;
-	if (filter.ids) {
-		isIncluded = isIncluded && filter.ids.includes(entry.id);
-	}
-	if (filter.tags) {
-		const tag =
-			entry.collection == "games"
-				? { collection: "tags", id: "game" }
-				: entry.data.tag;
-		isIncluded = isIncluded && filter.tags.includes(tag.id);
-	}
-	if (typeof filter.isOutdated != "undefined") {
-		if (entry.collection == "posts") {
-			isIncluded = isIncluded && entry.data.isOutdated == filter.isOutdated;
+const entries = (
+	await getCollection("entries", (entry) => {
+		if (filter.ids && !filter.ids.includes(entry.id)) {
+			return false;
 		}
-	}
-	return isIncluded;
-});
-
-const entries = limit ? filteredEntries.slice(0, limit) : filteredEntries;
+		if (filter.tags && !filter.tags.includes(entry.data.tag.id)) {
+			return false;
+		}
+		if (
+			typeof filter.isOutdated != "undefined" &&
+			entry.data.type == "post" &&
+			entry.data.isOutdated != filter.isOutdated
+		) {
+			return false;
+		}
+		return true;
+	})
+)
+	.sort(
+		(entryA, entryZ) =>
+			entryZ.data.createdAt.getTime() - entryA.data.createdAt.getTime(),
+	)
+	.slice(0, limit);
 ---
 
 <div class="space-y-6">
 	{
 		entries.length > 0 ? (
-			entries.map((entry) =>
-				entry.collection == "posts" ? (
-					<PostCard imageSizes={imageSizes} {...entry} />
-				) : (
-					<GameCard imageSizes={imageSizes} {...entry} />
-				),
-			)
+			entries.map((entry) => {
+				const data = entry.data;
+				switch (data.type) {
+					case "post":
+						return (
+							<PostCard imageSizes={imageSizes} post={{ ...entry, data }} />
+						);
+					case "game":
+						return (
+							<GameCard imageSizes={imageSizes} game={{ ...entry, data }} />
+						);
+				}
+			})
 		) : (
 			<p>No entries matched your filter</p>
 		)
