@@ -14,6 +14,8 @@ const {
 	description = settings.siteDescription,
 	mainWidth = "1/2",
 } = Astro.props;
+
+const canonical = Astro.url.origin + Astro.url.pathname;
 ---
 
 <html lang="en">
@@ -24,6 +26,7 @@ const {
 
 		<title>{[title, settings.siteTitle].filter(Boolean).join(" | ")}</title>
 		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
 	</head>
 
 	<body>
