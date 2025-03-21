@@ -5,7 +5,7 @@ import alpinejs from "@astrojs/alpinejs";
 
 export default defineConfig({
 	site: "https://fedetibaldo.com",
-	trailingSlash: "never",
+	trailingSlash: "always", // Matches netlify's configuration anyway
 
 	vite: {
 		plugins: [tailwindcss()],
