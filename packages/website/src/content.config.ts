@@ -17,6 +17,7 @@ const posts = defineCollection({
 			title: z.string(),
 			tag: tagEnum.exclude(["game"]),
 			slug: z.string(),
+			related: z.array(z.string()),
 			cover: image(),
 			description: z.string().optional(),
 			createdAt: z.coerce.date(),

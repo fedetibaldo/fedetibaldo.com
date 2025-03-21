@@ -44,9 +44,9 @@ const { Content } = await render(post);
 			emptyFilterMessage="filter: suggested"
 		/>
 		<Entries
-			filter={/* post.data.relatedEntries
-				? { ids: post.data.relatedEntries }
-				:  */ { tags: [post.data.tag, "game"], isOutdated: false }}
+			filter={post.data.related
+				? { ids: post.data.related }
+				: { tags: [post.data.tag, "game"], isOutdated: false }}
 			limit={2}
 		/>
 	</Fragment>
