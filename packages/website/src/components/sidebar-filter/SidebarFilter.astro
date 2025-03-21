@@ -66,15 +66,17 @@ const action = Astro.url.pathname;
 				action={action}
 				method="get"
 				x-bind:id="id.form"
-				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-3 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 p-4 space-y-4"
+				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-3 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 p-4 space-y-6"
 				x-bind:class="{ 'js:hidden': !form.isOpen }"
 			>
-				{formFields.map((field, index) => (
-					<>
-						{index > 0 && <hr class="border-grey-700" />}
-						<FormField {...field} />
-					</>
-				))}
+				<div class="space-y-4">
+					{formFields.map((field, index) => (
+						<>
+							{index > 0 && <hr class="border-grey-700" />}
+							<FormField {...field} />
+						</>
+					))}
+				</div>
 				<div class="flex gap-3">
 					<button
 						type="reset"

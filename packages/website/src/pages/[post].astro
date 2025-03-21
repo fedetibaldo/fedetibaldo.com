@@ -39,10 +39,7 @@ const { Content } = await render(post);
 		<Content />
 	</article>
 	<Fragment slot="aside">
-		<SidebarFilter
-			class="sticky top-0 z-10"
-			emptyFilterMessage="filter: suggested"
-		/>
+		<SidebarFilter emptyFilterMessage="filter: suggested" />
 		<Entries
 			filter={post.data.related
 				? { ids: post.data.related }
