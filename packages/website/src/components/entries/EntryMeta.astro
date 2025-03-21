@@ -1,17 +1,21 @@
 ---
-import { Tag, type TagEnum } from "../tag";
+import type { ReferenceDataEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import Tag from "./Tag.astro";
 
 type Props = {
 	class?: string | undefined;
-	tag: TagEnum;
+	tag: ReferenceDataEntry<"tags">;
 	date: Date;
 };
 
 const { tag, class: className = "", date } = Astro.props;
+
+const { data } = await getEntry(tag);
 ---
 
 <p class={`${className} flex items-baseline gap-3`}>
-	<Tag tag={tag} />
+	<Tag color={data.color} label={data.label} />
 	<time class="text-smallest text-grey-200" datetime={date.toISOString()}>
 		{
 			date.toLocaleDateString(undefined, {

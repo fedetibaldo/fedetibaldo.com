@@ -1,5 +1,4 @@
 ---
-import type { TagEnum } from "../tag";
 import { getCollection } from "astro:content";
 import PostCard from "./PostCard.astro";
 import GameCard from "./GameCard.astro";
@@ -19,7 +18,7 @@ type Props = {
 	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
 	filter: {
 		ids?: string[];
-		tags?: TagEnum[];
+		tags?: string[];
 		isOutdated?: boolean;
 	};
 	limit?: number;
@@ -33,8 +32,11 @@ const filteredEntries = allEntries.filter((entry) => {
 		isIncluded = isIncluded && filter.ids.includes(entry.id);
 	}
 	if (filter.tags) {
-		const tag: TagEnum = entry.collection == "games" ? "game" : entry.data.tag;
-		isIncluded = isIncluded && filter.tags.includes(tag);
+		const tag =
+			entry.collection == "games"
+				? { collection: "tags", id: "game" }
+				: entry.data.tag;
+		isIncluded = isIncluded && filter.tags.includes(tag.id);
 	}
 	if (typeof filter.isOutdated != "undefined") {
 		if (entry.collection == "posts") {

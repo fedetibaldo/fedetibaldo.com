@@ -44,7 +44,7 @@ const { Content } = await render(post);
 			imageSizes={sidebarImageSizes}
 			filter={post.data.related
 				? { ids: post.data.related }
-				: { tags: [post.data.tag, "game"], isOutdated: false }}
+				: { tags: [post.data.tag.id, "game"], isOutdated: false }}
 			limit={2}
 		/>
 	</Fragment>

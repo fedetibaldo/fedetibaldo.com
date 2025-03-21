@@ -59,6 +59,9 @@ const { imageSizes = {}, ...game } = Astro.props;
 				</dl>
 			)
 		}
-		<EntryMeta tag="game" date={game.data.createdAt} />
+		<EntryMeta
+			tag={{ collection: "tags", id: "game" }}
+			date={game.data.createdAt}
+		/>
 	</article>
 </a>

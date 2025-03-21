@@ -1,6 +1,5 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
-import { tagEnum } from "./components/tag";
 
 const pages = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
@@ -10,12 +9,22 @@ const pages = defineCollection({
 	}),
 });
 
+const tags = defineCollection({
+	loader: glob({ pattern: "**/*.md", base: "./src/content/tags" }),
+	schema: () =>
+		z.object({
+			id: z.string(),
+			color: z.string(),
+			label: z.string(),
+		}),
+});
+
 const posts = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/posts" }),
 	schema: ({ image }) =>
 		z.object({
 			title: z.string(),
-			tag: tagEnum.exclude(["game"]),
+			tag: reference("tags"),
 			slug: z.string(),
 			related: z.array(z.string()),
 			cover: image(),
@@ -49,4 +58,4 @@ const games = defineCollection({
 		}),
 });
 
-export const collections = { pages, posts, games };
+export const collections = { pages, tags, posts, games };

@@ -3,14 +3,13 @@ import type { CollectionEntry } from "astro:content";
 import Layout, { sidebarImageSizes } from "../layout/Layout.astro";
 import { getEntry } from "astro:content";
 import { render } from "astro:content";
-import { tagEnum, type TagEnum } from "../components/tag";
 import {
 	SidebarFilter,
 	type CheckboxField,
 	type RadioField,
 } from "../components/sidebar-filter";
 import { Entries } from "../components/entries";
-import { z } from "astro:schema";
+import { getCollection } from "astro:content";
 
 export const prerender = false;
 
@@ -34,22 +33,20 @@ const outdatedCheckbox: CheckboxField = {
 	uncheckedMessage: "hide outdated",
 };
 
-const tagRadioFallback = () => {
-	return z.any().transform<"all">(() => "all");
-};
-
-const tagRadio: RadioField<TagEnum | "all"> = {
+const tagRadio: RadioField = {
 	type: "radio",
 	name: "tag",
 	label: "Filter by tag",
 	options: [
 		{ value: "all", label: "All", message: null },
-		...tagEnum.options.map((tag) => ({ value: tag, label: tag, message: tag })),
+		...(await getCollection("tags")).map((tag) => ({
+			value: tag.data.id,
+			label: tag.data.label,
+			message: tag.data.id,
+		})),
 	],
 	resetValue: "all",
-	value: tagEnum
-		.or(tagRadioFallback())
-		.parse(Astro.url.searchParams.get("tag")),
+	value: Astro.url.searchParams.get("tag") || "all",
 };
 
 const formFields = [tagRadio, outdatedCheckbox];
