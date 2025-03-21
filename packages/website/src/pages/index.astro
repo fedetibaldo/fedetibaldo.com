@@ -1,83 +1,76 @@
 ---
-import "../index.css";
+import type { CollectionEntry } from "astro:content";
+import { Layout, sidebarImageSizes } from "../features/layout";
+import { getEntry } from "astro:content";
+import { render } from "astro:content";
+import {
+	SidebarFilter,
+	type CheckboxField,
+	type RadioField,
+} from "../features/sidebar-filter";
+import { Entries } from "../features/entries";
+import { getCollection } from "astro:content";
+
+export const prerender = false;
+
+const home = await getEntry("pages", "home");
+
+const getPageContentOrNull = async (page?: CollectionEntry<"pages">) => {
+	if (!page) return null;
+	const { Content } = await render(page);
+	return Content;
+};
+
+const Content = await getPageContentOrNull(home);
+
+const outdatedCheckbox: CheckboxField = {
+	type: "checkbox",
+	name: "show_outdated",
+	label: "Show outdated",
+	resetValue: false,
+	value: Boolean(Astro.url.searchParams.get("show_outdated")),
+	checkedMessage: null,
+	uncheckedMessage: "hide outdated",
+};
+
+const tagRadio: RadioField = {
+	type: "radio",
+	name: "tag",
+	label: "Filter by tag",
+	options: [
+		{ value: "all", label: "All", message: null },
+		...(await getCollection("tags")).map((tag) => ({
+			value: tag.data.id,
+			label: tag.data.label,
+			message: tag.data.id,
+		})),
+	],
+	resetValue: "all",
+	value: Astro.url.searchParams.get("tag") || "all",
+};
+
+const formFields = [tagRadio, outdatedCheckbox];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>fedetibaldo</title>
-		<link rel="icon" href="/favicon.svg" />
-		<meta
-			name="description"
-			content="Hello 👋 I'm a web dev turned indie game dev. I make games that younger me would have loved."
+<Layout title={home?.data.title} description={home?.data.description}>
+	<article
+		class="prose prose-lg prose-h1:text-large prose-neutral prose-invert max-w-none"
+	>
+		{Content && <Content />}
+	</article>
+	<Fragment slot="sidebar">
+		<SidebarFilter
+			class="sticky top-0"
+			emptyFilterMessage="no filter"
+			action="/#sidebar"
+			formFields={formFields}
 		/>
-	</head>
-
-	<body>
-		<main class="container h-full flex flex-col justify-between">
-			<header class="py-6">
-				<h1 class="title">
-					<span class="text-custom-gradient">🎮</span>
-					<span class="text-custom-gradient">fedetibaldo</span>
-				</h1>
-			</header>
-			<article class="max-w-sm">
-				<h2 class="title mb-2">Hello 👋</h2>
-				<p class="mb-6">
-					I'm a web dev turned indie game dev. I make games that younger me
-					would have loved.
-				</p>
-				<div class="flex gap-2">
-					<a
-						href="https://discord.gg/38EakjxUr9"
-						rel="nofollow"
-						class="p-2 rounded-lg bg-brand-discord"
-					>
-						<img
-							class="w-7 h-7"
-							src="/images/discord.png"
-							alt="Discord logo"
-							title="Join my discord server"
-						/>
-					</a>
-					<a
-						href="https://fedetibaldo.itch.io"
-						rel="nofollow"
-						class="p-2 rounded-lg bg-brand-itch_io"
-					>
-						<img
-							class="w-7 h-7"
-							src="/images/itch_io.png"
-							alt="itch.io logo"
-							title="Check out my itch.io page"
-						/>
-					</a>
-					<a
-						href="https://bsky.app/profile/fedetibaldo.com"
-						rel="nofollow"
-						class="p-2 rounded-lg bg-brand-bluesky"
-					>
-						<img
-							class="w-7 h-7"
-							src="/images/bluesky.png"
-							alt="Bluesky logo"
-							title="Follow me on Bluesky"
-						/>
-					</a>
-				</div>
-			</article>
-			<footer class="text-small text-grey-500 py-6">
-				<p>All rights reserved.</p>
-				<p>This website doesn't use cookies.</p>
-			</footer>
-		</main>
-		<script>
-			navigator.serviceWorker.getRegistrations().then((registrations) => {
-				for (const registration of registrations) {
-					registration.unregister();
-				}
-			});
-		</script>
-	</body>
-</html>
+		<Entries
+			imageSizes={sidebarImageSizes}
+			filter={{
+				...(tagRadio.value == "all" ? {} : { tags: [tagRadio.value] }),
+				isOutdated: outdatedCheckbox.value,
+			}}
+		/>
+	</Fragment>
+</Layout>

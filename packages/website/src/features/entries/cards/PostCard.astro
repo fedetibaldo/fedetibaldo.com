@@ -1,0 +1,50 @@
+---
+import { Image, type LocalImageProps } from "astro:assets";
+import type { EntryOfType } from "../types";
+import EntryMeta from "../shared/EntryMeta.astro";
+
+type Props = {
+	post: EntryOfType<"post">;
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
+};
+const { imageSizes = {}, post } = Astro.props;
+---
+
+<a
+	href={`/${post.data.slug}`}
+	class={`relative rounded-2xl border ${post.data.isOutdated ? "border-neutral-700/50 hocus:border-neutral-700" : "border-neutral-700"} transition block overflow-hidden group`}
+>
+	{
+		post.data.cover && (
+			<Image
+				{...imageSizes}
+				src={post.data.cover}
+				alt=""
+				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120`}
+			/>
+		)
+	}
+	<article class="relative p-6 space-y-4">
+		<h2
+			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-neutral-100 font-bold lines-2 group-focus-visible:underline`}
+		>
+			{post.data.title}
+		</h2>
+		<div class="flex justify-between">
+			<EntryMeta
+				class={post.data.isOutdated
+					? "opacity-50 group-hocus:opacity-100 transition"
+					: ""}
+				tag={post.data.tag}
+				date={post.data.createdAt}
+			/>
+			{
+				post.data.isOutdated && (
+					<p class="text-yellow-400 uppercase text-smallest font-display font-bold group-hocus:opacity-50 transition">
+						Outdated
+					</p>
+				)
+			}
+		</div>
+	</article>
+</a>

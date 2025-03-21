@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import { sidebarImageSizes, Layout } from "../features/layout";
+import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
+import { SidebarFilter } from "../features/sidebar-filter";
+import { Entries, type EntryOfType } from "../features/entries";
+
+export const getStaticPaths: GetStaticPaths = async () => {
+	return (
+		await getCollection(
+			"entries",
+			(entry): entry is EntryOfType<"post"> => entry.data.type == "post",
+		)
+	).map((post) => ({
+		params: { post: post.id },
+		props: post,
+	}));
+};
+
+type Props = EntryOfType<"post">;
+
+const post = Astro.props;
+
+const { Content } = await render(post);
+---
+
+<Layout
+	mainWidth="3/5"
+	title={post.data.title}
+	description={post.data.description}
+>
+	{
+		post.data.isOutdated && (
+			<p class="bg-yellow-950 border-l-4 border-yellow-500 text-yellow-50 text-smallest rounded-r-xl px-4 py-3 mb-12">
+				This post is outdated. The author might have changed their mind, the
+				content might be too old to be relevant, or both. It's preserved here
+				for archival purposes.
+			</p>
+		)
+	}
+	<article class="prose prose-lg prose-neutral prose-invert max-w-none">
+		<Content />
+	</article>
+	<Fragment slot="sidebar">
+		<SidebarFilter emptyFilterMessage="filter: suggested" />
+		<Entries
+			imageSizes={sidebarImageSizes}
+			filter={post.data.related
+				? { ids: post.data.related }
+				: { tags: [post.data.tag.id, "game"], isOutdated: false }}
+			limit={2}
+		/>
+	</Fragment>
+</Layout>

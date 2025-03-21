@@ -1,0 +1,99 @@
+---
+import FilterIcon from "./FilterIcon.astro";
+import FormField, { getMessage, type AnyFormField } from "./FormField.astro";
+
+type Props = {
+	id?: string;
+	class?: string | undefined;
+	action?: string;
+	emptyFilterMessage?: string;
+	formFields?: AnyFormField[];
+};
+
+const {
+	class: className = "",
+	action,
+	formFields = [],
+	emptyFilterMessage = "",
+} = Astro.props;
+
+const messages = formFields
+	.map(getMessage)
+	.filter((message): message is string => !!message)
+	.join(", ");
+
+const hasForm = formFields.length > 0;
+---
+
+<script>
+	import { SidebarFilterComponent } from "./SidebarFilterComponent";
+
+	document.addEventListener("alpine:init", () => {
+		window.Alpine.data("SidebarFilter", SidebarFilterComponent);
+	});
+</script>
+
+<div
+	class={`${className} bg-neutral-900 relative z-10`}
+	x-data="SidebarFilter"
+	x-bind:id="id.component"
+	data-form-fields={JSON.stringify(formFields)}
+	@click.outside="closeForm"
+	@keydown.escape="closeForm"
+	@focusin.outside="closeForm"
+>
+	<div class="flex justify-between items-center py-4">
+		<p class="text-neutral-400 leading-tightest">
+			{messages ? `filter: ${messages}` : emptyFilterMessage}
+		</p>
+		<button
+			class="hidden disabled:text-neutral-700 cursor-pointer disabled:cursor-not-allowed rounded-full p-2 -mr-2 js:block"
+			x-bind:class="form.isOpen && 'bg-neutral-800'"
+			type="button"
+			x-bind:aria-expanded="form.isOpen"
+			x-bind:aria-controls="id.form"
+			@click="toggleForm"
+			disabled={!hasForm}
+		>
+			<FilterIcon alt="Edit filter" width={35} />
+		</button>
+	</div>
+	{
+		hasForm && (
+			<form
+				@submit="onSubmit"
+				@reset="onReset"
+				@change="onChange"
+				action={action}
+				method="get"
+				x-bind:id="id.form"
+				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-2 js:translate-x-2 mb-6 bg-neutral-900/80 backdrop-blur-xl rounded-2xl border border-neutral-700 p-6 space-y-8"
+				x-bind:class="{ 'js:hidden': !form.isOpen }"
+			>
+				<div class="space-y-6">
+					{formFields.map((field, index) => (
+						<>
+							{index > 0 && <hr class="border-neutral-700" />}
+							<FormField {...field} />
+						</>
+					))}
+				</div>
+				<div class="flex gap-3">
+					<button
+						type="reset"
+						x-bind:disabled="!form.isResettable"
+						class="hidden js:block px-4 py-3 w-full leading-tightest font-bold border border-grey-400 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+					>
+						Clear
+					</button>
+					<button
+						x-bind:disabled="!form.isDirty"
+						class="px-4 py-3 w-full leading-tightest font-bold bg-neutral-100 text-neutral-900 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+					>
+						Apply
+					</button>
+				</div>
+			</form>
+		)
+	}
+</div>

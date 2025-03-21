@@ -1,0 +1,30 @@
+---
+import type { CheckboxField } from "./form-fields/Checkbox.astro";
+import type { RadioField } from "./form-fields/Radio.astro";
+import Checkbox, {
+	getMessage as getCheckboxMessage,
+} from "./form-fields/Checkbox.astro";
+import Radio, {
+	getMessage as getRadioMessage,
+} from "./form-fields/Radio.astro";
+
+export type AnyFormField = CheckboxField | RadioField;
+
+export const getMessage = (field: AnyFormField): string | null => {
+	switch (field.type) {
+		case "checkbox":
+			return getCheckboxMessage(field);
+		case "radio":
+			return getRadioMessage(field);
+		default:
+			return null;
+	}
+};
+
+type Props = AnyFormField;
+
+const field = Astro.props;
+---
+
+{field.type == "checkbox" && <Checkbox {...field} />}
+{field.type == "radio" && <Radio {...field} />}

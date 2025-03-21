@@ -1,0 +1,38 @@
+---
+import { generateSuffix } from "../../../helpers";
+
+export type CheckboxField = {
+	type: "checkbox";
+	label: string;
+	name: string;
+	resetValue: boolean;
+	value: boolean;
+	checkedMessage: string | null;
+	uncheckedMessage: string | null;
+};
+
+export const getMessage = (field: CheckboxField): string | null => {
+	return field.value ? field.checkedMessage : field.uncheckedMessage;
+};
+
+type Props = CheckboxField;
+
+const { label, name, value } = Astro.props;
+
+const id = `${name}-${generateSuffix()}`;
+---
+
+<div class="flex">
+	<input
+		class="peer"
+		type="checkbox"
+		name={name}
+		id={id}
+		value="true"
+		checked={value}
+	/>
+	<label
+		class="text-smaller font-display font-bold uppercase leading-tightest text-neutral-200 pl-2 cursor-pointer"
+		for={id}>{label}</label
+	>
+</div>

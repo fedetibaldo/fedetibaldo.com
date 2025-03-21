@@ -1,25 +1,24 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
 	--font-sans: "Poppins", "sans-serif";
 	--font-display: "Noto Emoji Subset", "Work Sans", "sans-serif";
 
 	--breakpoint-*: initial;
+	--breakpoint-md: 640px;
 	--breakpoint-lg: 960px;
+	--breakpoint-xl: 1440px;
 
 	--text-*: initial;
-	--text-small: 0.875rem;
+	--text-smallest: 0.875rem;
+	--text-smaller: 1rem;
 	--text-base: 1.125rem;
 	--text-large: 2rem;
 
-	--color-gray-*: initial;
-	--color-grey-100: #f2f2f2;
-	--color-grey-200: #e4e4e4;
-	--color-grey-500: #a1a1a1;
-	--color-grey-900: #181818;
-
 	--color-brand-discord: #5865f2;
-	--color-brand-itch_io: #fa5c5c;
+	--color-brand-itch-io: #fa5c5c;
+	--color-brand-linkedin: #2867b2;
 	--color-brand-bluesky: #1285fe;
 
 	--background-image-custom-gradient: linear-gradient(
@@ -44,17 +43,27 @@
 		);
 
 	--leading-*: initial;
-	--leading-tight: 1.1;
-	--leading-normal: 1.6;
+	--leading-self: 1;
+	--leading-tightest: 1.1;
+	--leading-tighter: 1.4;
+	--leading-base: 1.6;
 }
+
+@custom-variant js (&:where(body.js *));
+
+@custom-variant hocus (&:hover, &:focus);
+@custom-variant group-hocus (&:is(:where(.group):hover *), &:is(:where(.group):focus *));
 
 @layer base {
 	html {
-		@apply bg-grey-900 text-grey-200 leading-normal;
+		@apply scheme-dark bg-neutral-900 text-neutral-200 leading-base;
 	}
 	html,
 	body {
 		@apply h-full;
+	}
+	body {
+		@apply text-base;
 	}
 }
 
@@ -63,6 +72,11 @@
 		font-family: "Poppins";
 		font-weight: 400;
 		src: url("/fonts/Poppins-Regular.ttf");
+	}
+	@font-face {
+		font-family: "Poppins";
+		font-weight: 700;
+		src: url("/fonts/Poppins-Bold.ttf");
 	}
 	@font-face {
 		font-family: "Noto Emoji Subset";
@@ -80,14 +94,28 @@
 	@apply mx-auto px-6;
 }
 
-@layer components {
-	.title {
-		@apply font-display text-grey-100 font-bold text-large leading-tight;
-	}
-}
-
 @layer utilities {
 	.text-custom-gradient {
 		@apply bg-custom-gradient bg-clip-text text-transparent;
+	}
+
+	.badge {
+		/* Revert prose styles */
+		@apply no-underline;
+		@apply inline-flex text-smaller items-baseline font-bold p-1 rounded-sm leading-self;
+		& img {
+			/* Revert prose styles */
+			@apply m-0;
+			@apply w-4 h-4 mr-1 self-end;
+		}
+	}
+
+	.lines-1 {
+		@apply line-clamp-1;
+		height: 1lh;
+	}
+	.lines-2 {
+		@apply line-clamp-2;
+		height: 2lh;
 	}
 }

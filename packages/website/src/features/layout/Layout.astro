@@ -1,0 +1,81 @@
+---
+import { settings } from "../../settings";
+import Footer from "./Footer.astro";
+import "../../index.css";
+
+export const sidebarImageSizes = {
+	widths: [420, 640],
+	sizes: "(max-width: 640px) 640px, 420px",
+};
+
+interface Props {
+	title?: string | undefined;
+	description?: string | undefined;
+	mainWidth?: "1/2" | "3/5";
+}
+
+const {
+	title,
+	description = settings.siteDescription,
+	mainWidth = "1/2",
+} = Astro.props;
+
+const canonical = Astro.url.origin + Astro.url.pathname;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="/favicon.svg" />
+
+		<title>{[title, settings.siteTitle].filter(Boolean).join(" | ")}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+	</head>
+
+	<body>
+		<script is:inline>
+			document.body.classList.add("js");
+		</script>
+		<div class="container relative">
+			<a
+				href="#main"
+				class="absolute top-0 -translate-y-full focus:translate-0"
+			>
+				Jump to content
+			</a>
+			<a
+				href="#sidebar"
+				class="absolute top-0 -translate-y-full focus:translate-0"
+			>
+				Jump to sidebar
+			</a>
+		</div>
+		<div class="container lg:grid grid-cols-10 min-h-full items-end">
+			<div
+				class={`${mainWidth == "3/5" ? "col-span-6 lg:pr-8" : "col-span-5 lg:pr-3"} sticky bottom-0 min-h-fit max-h-dvh h-full flex flex-col justify-between`}
+			>
+				<header class="py-6">
+					<a
+						class="font-display text-neutral-100 font-bold text-large leading-tightest text-custom-gradient"
+						href="/"
+					>
+						{settings.siteTitle}
+					</a>
+				</header>
+				<main id="main" class="pt-8 pb-12">
+					<slot />
+				</main>
+				<Footer class="hidden lg:block" />
+			</div>
+			<aside
+				id="sidebar"
+				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 pb-6"
+			>
+				<slot name="sidebar" />
+			</aside>
+			<Footer class="lg:hidden" />
+		</div>
+	</body>
+</html>

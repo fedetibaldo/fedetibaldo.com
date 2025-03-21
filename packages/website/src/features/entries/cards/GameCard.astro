@@ -1,0 +1,68 @@
+---
+import { Image, type LocalImageProps } from "astro:assets";
+import type { EntryOfType } from "../types";
+import EntryMeta from "../shared/EntryMeta.astro";
+
+type Props = {
+	game: EntryOfType<"game">;
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
+};
+const { imageSizes = {}, game } = Astro.props;
+---
+
+<a
+	href={game.data.url}
+	target="_blank"
+	class="relative rounded-2xl border border-neutral-700 block overflow-hidden group lg:aspect-square"
+>
+	{
+		game.data.cover && (
+			<Image
+				{...imageSizes}
+				src={game.data.cover}
+				alt=""
+				class="absolute w-full h-full object-cover object-center opacity-20 transition-transform group-hocus:scale-120"
+			/>
+		)
+	}
+	<article class="relative p-6 flex flex-col h-full gap-y-6">
+		<header
+			class="max-w-64 basis-0 flex-grow flex flex-col gap-y-4 justify-center"
+		>
+			<h2 class="flex-grow max-h-32 lg:basis-0 min-h-0 lg:max-h-fit">
+				<Image
+					src={game.data.logo}
+					alt={game.data.title}
+					class="w-fit max-h-full"
+				/>
+			</h2>
+			<p class="text-smallest">{game.data.description}</p>
+		</header>
+		{
+			game.data.placements && (
+				<dl class="text-smallest leading-tighter">
+					{game.data.placements.map(
+						({ competitionName, competitionLogo, placement, category }) => (
+							<div class="flex justify-between pb-2 not-first:pt-2 border-b border-neutral-700">
+								<dt>
+									<Image
+										class="lines-1 w-fit"
+										src={competitionLogo}
+										alt={competitionName}
+									/>
+								</dt>
+								<dd>
+									<strong>#{placement}</strong> {category}
+								</dd>
+							</div>
+						),
+					)}
+				</dl>
+			)
+		}
+		<EntryMeta
+			tag={{ collection: "tags", id: "game" }}
+			date={game.data.createdAt}
+		/>
+	</article>
+</a>
