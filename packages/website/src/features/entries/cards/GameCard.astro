@@ -13,7 +13,7 @@ const { imageSizes = {}, game } = Astro.props;
 <a
 	href={game.data.url}
 	target="_blank"
-	class="relative rounded-2xl border border-grey-700 block overflow-hidden group lg:aspect-square"
+	class="relative rounded-2xl border border-neutral-700 block overflow-hidden group lg:aspect-square"
 >
 	{
 		game.data.cover && (
@@ -43,7 +43,7 @@ const { imageSizes = {}, game } = Astro.props;
 				<dl class="text-smallest leading-tighter">
 					{game.data.placements.map(
 						({ competitionName, competitionLogo, placement, category }) => (
-							<div class="flex justify-between pb-2 not-first:pt-2 border-b border-grey-700">
+							<div class="flex justify-between pb-2 not-first:pt-2 border-b border-neutral-700">
 								<dt>
 									<Image
 										class="lines-1 w-fit"

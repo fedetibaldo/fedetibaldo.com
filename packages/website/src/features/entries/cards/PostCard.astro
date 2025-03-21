@@ -12,7 +12,7 @@ const { imageSizes = {}, post } = Astro.props;
 
 <a
 	href={`/${post.data.slug}`}
-	class={`relative rounded-2xl border ${post.data.isOutdated ? "border-grey-700/50 hocus:border-grey-700" : "border-grey-700"} transition block overflow-hidden group`}
+	class={`relative rounded-2xl border ${post.data.isOutdated ? "border-neutral-700/50 hocus:border-neutral-700" : "border-neutral-700"} transition block overflow-hidden group`}
 >
 	{
 		post.data.cover && (
@@ -26,7 +26,7 @@ const { imageSizes = {}, post } = Astro.props;
 	}
 	<article class="relative p-6 space-y-4">
 		<h2
-			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-grey-100 font-bold lines-2 group-focus-visible:underline`}
+			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-neutral-100 font-bold lines-2 group-focus-visible:underline`}
 		>
 			{post.data.title}
 		</h2>

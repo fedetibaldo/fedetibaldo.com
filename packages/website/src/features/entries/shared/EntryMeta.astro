@@ -16,7 +16,7 @@ const { data } = await getEntry(tag);
 
 <p class={`${className} flex items-baseline gap-3`}>
 	<Tag color={data.color} label={data.label} />
-	<time class="text-smallest text-grey-200" datetime={date.toISOString()}>
+	<time class="text-smallest text-neutral-200" datetime={date.toISOString()}>
 		{
 			date.toLocaleDateString(undefined, {
 				dateStyle: "medium",

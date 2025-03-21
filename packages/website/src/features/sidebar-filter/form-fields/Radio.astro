@@ -23,7 +23,7 @@ const { label, name, value, options } = Astro.props;
 
 <fieldset class="space-y-4">
 	<legend
-		class="text-smaller font-display font-bold uppercase leading-tightest text-grey-200"
+		class="text-smaller font-display font-bold uppercase leading-tightest text-neutral-200"
 	>
 		{label}
 	</legend>
@@ -42,7 +42,7 @@ const { label, name, value, options } = Astro.props;
 							checked={option.value == value}
 						/>
 						<label
-							class="leading-tightest text-grey-500 peer-checked:text-grey-200 pl-1 cursor-pointer"
+							class="leading-tightest text-neutral-400 peer-checked:text-neutral-200 pl-1 cursor-pointer"
 							for={id}
 						>
 							{option.label}
