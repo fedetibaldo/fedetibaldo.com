@@ -22,5 +22,17 @@ const { label, name, value } = Astro.props;
 const id = `${name}-${generateSuffix()}`;
 ---
 
-<input type="checkbox" name={name} id={id} value="true" checked={value} />
-<label for={id}>{label}</label>
+<div class="flex">
+	<input
+		class="peer"
+		type="checkbox"
+		name={name}
+		id={id}
+		value="true"
+		checked={value}
+	/>
+	<label
+		class="text-smallest leading-tightest text-grey-500 peer-checked:text-grey-200 pl-1 cursor-pointer"
+		for={id}>{label}</label
+	>
+</div>

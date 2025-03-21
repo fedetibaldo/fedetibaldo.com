@@ -47,12 +47,16 @@ const entries = limit ? filteredEntries.slice(0, limit) : filteredEntries;
 
 <div class="space-y-6">
 	{
-		entries.map((entry) =>
-			entry.collection == "posts" ? (
-				<PostCard {...entry} />
-			) : (
-				<GameCard {...entry} />
-			),
+		entries.length > 0 ? (
+			entries.map((entry) =>
+				entry.collection == "posts" ? (
+					<PostCard {...entry} />
+				) : (
+					<GameCard {...entry} />
+				),
+			)
+		) : (
+			<p>No entries matched your filter</p>
 		)
 	}
 </div>

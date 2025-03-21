@@ -66,22 +66,30 @@ const action = Astro.url.pathname;
 				action={action}
 				method="get"
 				x-bind:id="id.form"
-				class="js:hidden js:absolute right-0 top-full js:-translate-y-1 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 px-4 py-3 space-y-2"
+				class="js:hidden js:absolute right-0 top-full w-full max-w-md js:-translate-y-3 js:translate-x-2 mb-6 bg-grey-900 rounded-2xl border border-grey-700 p-4 space-y-4"
 				x-bind:class="{ 'js:hidden': !form.isOpen }"
 			>
-				{formFields.map((field) => (
-					<FormField {...field} />
+				{formFields.map((field, index) => (
+					<>
+						{index > 0 && <hr class="border-grey-700" />}
+						<FormField {...field} />
+					</>
 				))}
-				<button
-					type="reset"
-					x-bind:disabled="!form.isResettable"
-					class="hidden js:block disabled:opacity-50"
-				>
-					Clear
-				</button>
-				<button x-bind:disabled="!form.isDirty" class="disabled:opacity-50">
-					Apply
-				</button>
+				<div class="flex gap-3">
+					<button
+						type="reset"
+						x-bind:disabled="!form.isResettable"
+						class="hidden js:block px-4 py-3 w-full text-smallest leading-tightest font-bold border border-grey-400 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+					>
+						Clear
+					</button>
+					<button
+						x-bind:disabled="!form.isDirty"
+						class="px-4 py-3 w-full text-smallest leading-tightest font-bold bg-grey-100 text-grey-900 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+					>
+						Apply
+					</button>
+				</div>
 			</form>
 		)
 	}
