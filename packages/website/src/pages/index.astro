@@ -6,8 +6,6 @@ import { render } from "astro:content";
 import { Sidebar } from "../features/sidebar";
 import { CardList } from "../features/card-list";
 
-export const prerender = false;
-
 const home = await getEntry("pages", "home");
 
 const getPageContentOrNull = async (page?: CollectionEntry<"pages">) => {
