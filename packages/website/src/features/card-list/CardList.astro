@@ -1,0 +1,35 @@
+---
+import PostCard from "./variants/PostCard.astro";
+import GameCard from "./variants/GameCard.astro";
+import type { LocalImageProps } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
+	entries: CollectionEntry<"entries">[];
+};
+
+const { imageSizes, entries } = Astro.props;
+---
+
+<div class="space-y-6">
+	{
+		entries.length > 0 ? (
+			entries.map((entry) => {
+				const data = entry.data;
+				switch (data.type) {
+					case "post":
+						return (
+							<PostCard imageSizes={imageSizes} post={{ ...entry, data }} />
+						);
+					case "game":
+						return (
+							<GameCard imageSizes={imageSizes} game={{ ...entry, data }} />
+						);
+				}
+			})
+		) : (
+			<p>No entries to display</p>
+		)
+	}
+</div>

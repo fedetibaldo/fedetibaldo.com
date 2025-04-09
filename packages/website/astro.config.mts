@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import tailwindcss from "@tailwindcss/vite";
 import netlify from "@astrojs/netlify";
-import alpinejs from "@astrojs/alpinejs";
+import preact from '@astrojs/preact';
 
 export default defineConfig({
 	site: "https://fedetibaldo.com",
@@ -15,5 +15,5 @@ export default defineConfig({
 		imageCDN: false,
 	}),
 
-	integrations: [alpinejs()],
+	integrations: [preact()],
 });

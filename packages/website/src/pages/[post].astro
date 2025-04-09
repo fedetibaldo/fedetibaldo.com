@@ -3,8 +3,9 @@ import { getCollection } from "astro:content";
 import { sidebarImageSizes, Layout } from "../features/layout";
 import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
-import { SidebarFilter } from "../features/sidebar-filter";
-import { Entries, type EntryOfType } from "../features/entries";
+import { CardList } from "../features/card-list";
+import { Sidebar } from "../features/sidebar";
+import { getEntries, type EntryOfType } from "../features/entries";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	return (
@@ -23,6 +24,13 @@ type Props = EntryOfType<"post">;
 const post = Astro.props;
 
 const { Content } = await render(post);
+
+const sidebarEntries = await getEntries({
+	filter: post.data.related
+		? { ids: post.data.related }
+		: { tags: [post.data.tag.id, "game"], isOutdated: false },
+	limit: 2,
+});
 ---
 
 <Layout
@@ -42,14 +50,12 @@ const { Content } = await render(post);
 	<article class="prose prose-lg prose-neutral prose-invert max-w-none">
 		<Content />
 	</article>
-	<Fragment slot="sidebar">
-		<SidebarFilter emptyFilterMessage="filter: suggested" />
-		<Entries
-			imageSizes={sidebarImageSizes}
-			filter={post.data.related
-				? { ids: post.data.related }
-				: { tags: [post.data.tag.id, "game"], isOutdated: false }}
-			limit={2}
-		/>
-	</Fragment>
+	<Sidebar
+		isFormDisabled
+		emptyFilterMessage="filter: suggested"
+		slot="sidebar"
+		client:idle
+	>
+		<CardList imageSizes={sidebarImageSizes} entries={sidebarEntries} />
+	</Sidebar>
 </Layout>

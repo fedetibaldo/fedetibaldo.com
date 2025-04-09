@@ -1,7 +1,8 @@
 ---
 import { Image, type LocalImageProps } from "astro:assets";
-import type { EntryOfType } from "../types";
+import type { EntryOfType } from "../../entries/helpers";
 import EntryMeta from "../shared/EntryMeta.astro";
+import Card from "../shared/Card.astro";
 
 type Props = {
 	game: EntryOfType<"game">;
@@ -10,21 +11,13 @@ type Props = {
 const { imageSizes = {}, game } = Astro.props;
 ---
 
-<a
+<Card
 	href={game.data.url}
 	target="_blank"
-	class="relative rounded-2xl border border-neutral-700 block overflow-hidden group lg:aspect-square"
+	class=`lg:aspect-square entry--tag-${game.data.tag.id}`
+	imageSizes={imageSizes}
+	cover={game.data.cover}
 >
-	{
-		game.data.cover && (
-			<Image
-				{...imageSizes}
-				src={game.data.cover}
-				alt=""
-				class="absolute w-full h-full object-cover object-center opacity-20 transition-transform group-hocus:scale-120"
-			/>
-		)
-	}
 	<article class="relative p-6 flex flex-col h-full gap-y-6">
 		<header
 			class="max-w-64 basis-0 flex-grow flex flex-col gap-y-4 justify-center"
@@ -65,4 +58,4 @@ const { imageSizes = {}, game } = Astro.props;
 			date={game.data.createdAt}
 		/>
 	</article>
-</a>
+</Card>

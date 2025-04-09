@@ -1,7 +1,8 @@
 ---
-import { Image, type LocalImageProps } from "astro:assets";
-import type { EntryOfType } from "../types";
+import { type LocalImageProps } from "astro:assets";
+import type { EntryOfType } from "../../entries/helpers";
 import EntryMeta from "../shared/EntryMeta.astro";
+import Card from "../shared/Card.astro";
 
 type Props = {
 	post: EntryOfType<"post">;
@@ -10,20 +11,16 @@ type Props = {
 const { imageSizes = {}, post } = Astro.props;
 ---
 
-<a
-	href={`/${post.data.slug}`}
-	class={`relative rounded-2xl border ${post.data.isOutdated ? "border-neutral-700/50 hocus:border-neutral-700" : "border-neutral-700"} transition block overflow-hidden group`}
+<Card
+	href={`/${post.data.slug}/`}
+	class={`entry--tag-${post.data.tag.id} ${
+		post.data.isOutdated
+			? "border-neutral-700/50 hocus:border-neutral-700 entry--outdated"
+			: "border-neutral-700"
+	}`}
+	imageSizes={imageSizes}
+	cover={post.data.cover}
 >
-	{
-		post.data.cover && (
-			<Image
-				{...imageSizes}
-				src={post.data.cover}
-				alt=""
-				class={`absolute w-full h-full object-cover object-center ${post.data.isOutdated ? "opacity-10 group-hocus:opacity-20" : "opacity-20"} transition group-hocus:scale-120`}
-			/>
-		)
-	}
 	<article class="relative p-6 space-y-4">
 		<h2
 			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-neutral-100 font-bold lines-2 group-focus-visible:underline`}
@@ -47,4 +44,4 @@ const { imageSizes = {}, post } = Astro.props;
 			}
 		</div>
 	</article>
-</a>
+</Card>
