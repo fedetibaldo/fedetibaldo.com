@@ -3,13 +3,8 @@ import type { CollectionEntry } from "astro:content";
 import { Layout, sidebarImageSizes } from "../features/layout";
 import { getEntry } from "astro:content";
 import { render } from "astro:content";
-import {
-	SidebarFilter,
-	type CheckboxField,
-	type RadioField,
-} from "../features/sidebar-filter";
-import { Entries } from "../features/entries";
-import { getCollection } from "astro:content";
+import { Sidebar } from "../features/sidebar";
+import { CardList } from "../features/card-list";
 
 export const prerender = false;
 
@@ -22,34 +17,6 @@ const getPageContentOrNull = async (page?: CollectionEntry<"pages">) => {
 };
 
 const Content = await getPageContentOrNull(home);
-
-const outdatedCheckbox: CheckboxField = {
-	type: "checkbox",
-	name: "show_outdated",
-	label: "Show outdated",
-	resetValue: false,
-	value: Boolean(Astro.url.searchParams.get("show_outdated")),
-	checkedMessage: null,
-	uncheckedMessage: "hide outdated",
-};
-
-const tagRadio: RadioField = {
-	type: "radio",
-	name: "tag",
-	label: "Filter by tag",
-	options: [
-		{ value: "all", label: "All", message: null },
-		...(await getCollection("tags")).map((tag) => ({
-			value: tag.data.id,
-			label: tag.data.label,
-			message: tag.data.id,
-		})),
-	],
-	resetValue: "all",
-	value: Astro.url.searchParams.get("tag") || "all",
-};
-
-const formFields = [tagRadio, outdatedCheckbox];
 ---
 
 <Layout title={home?.data.title} description={home?.data.description}>
@@ -58,19 +25,12 @@ const formFields = [tagRadio, outdatedCheckbox];
 	>
 		{Content && <Content />}
 	</article>
-	<Fragment slot="sidebar">
-		<SidebarFilter
-			class="sticky top-0"
-			emptyFilterMessage="no filter"
-			action="/#sidebar"
-			formFields={formFields}
-		/>
-		<Entries
-			imageSizes={sidebarImageSizes}
-			filter={{
-				...(tagRadio.value == "all" ? {} : { tags: [tagRadio.value] }),
-				isOutdated: outdatedCheckbox.value,
-			}}
-		/>
-	</Fragment>
+	<Sidebar
+		slot="sidebar"
+		defaultFilter={{ showOutdated: false, tag: "all" }}
+		emptyFilterMessage="filter: none"
+		client:idle
+	>
+		<CardList imageSizes={sidebarImageSizes} filter={{}} />
+	</Sidebar>
 </Layout>

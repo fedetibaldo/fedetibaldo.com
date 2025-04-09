@@ -1,6 +1,6 @@
-export const generateSuffix = () =>
-	Math.floor(Math.random() * Math.pow(16, 4)).toString(16);
+import type { CollectionEntry } from "astro:content";
 
-export type DistributivePick<T, K extends keyof T> = T extends any
-	? Pick<T, K>
-	: never;
+export type EntryOfType<T extends CollectionEntry<"entries">["data"]["type"]> =
+	Omit<CollectionEntry<"entries">, "data"> & {
+		data: Extract<CollectionEntry<"entries">["data"], { type: T }>;
+	};

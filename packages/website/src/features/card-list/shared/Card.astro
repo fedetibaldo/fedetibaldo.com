@@ -1,0 +1,38 @@
+---
+import type { ImageMetadata } from "astro";
+import { Image, type LocalImageProps } from "astro:assets";
+
+type Props = {
+	href: string;
+	class?: string | undefined;
+	target?: "_blank";
+	cover: ImageMetadata;
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths">;
+};
+
+const {
+	href,
+	target,
+	cover,
+	imageSizes = {},
+	class: className = "",
+} = Astro.props;
+---
+
+<a
+	href={href}
+	target={target}
+	class={`${className} relative rounded-2xl border border-neutral-700 block overflow-hidden group`}
+>
+	{
+		cover && (
+			<Image
+				{...imageSizes}
+				src={cover}
+				alt=""
+				class="absolute w-full h-full object-cover object-center opacity-20 transition-transform group-hocus:scale-120"
+			/>
+		)
+	}
+	<slot />
+</a>
