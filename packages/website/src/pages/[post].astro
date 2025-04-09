@@ -5,7 +5,7 @@ import type { GetStaticPaths } from "astro";
 import { render } from "astro:content";
 import { CardList } from "../features/card-list";
 import { Sidebar } from "../features/sidebar";
-import type { EntryOfType } from "../helpers";
+import { getEntries, type EntryOfType } from "../features/entries";
 
 export const getStaticPaths: GetStaticPaths = async () => {
 	return (
@@ -24,6 +24,13 @@ type Props = EntryOfType<"post">;
 const post = Astro.props;
 
 const { Content } = await render(post);
+
+const sidebarEntries = await getEntries({
+	filter: post.data.related
+		? { ids: post.data.related }
+		: { tags: [post.data.tag.id, "game"], isOutdated: false },
+	limit: 2,
+});
 ---
 
 <Layout
@@ -49,12 +56,6 @@ const { Content } = await render(post);
 		slot="sidebar"
 		client:idle
 	>
-		<CardList
-			imageSizes={sidebarImageSizes}
-			filter={post.data.related
-				? { ids: post.data.related }
-				: { tags: [post.data.tag.id, "game"], isOutdated: false }}
-			limit={2}
-		/>
+		<CardList imageSizes={sidebarImageSizes} entries={sidebarEntries} />
 	</Sidebar>
 </Layout>

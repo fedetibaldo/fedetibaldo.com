@@ -1,12 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { Layout, sidebarImageSizes } from "../features/layout";
-import { getEntry } from "astro:content";
+import { getEntry as getAstroEntry } from "astro:content";
 import { render } from "astro:content";
 import { Sidebar } from "../features/sidebar";
 import { CardList } from "../features/card-list";
+import { getEntries as getWebsiteEntries } from "../features/entries";
 
-const home = await getEntry("pages", "home");
+const home = await getAstroEntry("pages", "home");
 
 const getPageContentOrNull = async (page?: CollectionEntry<"pages">) => {
 	if (!page) return null;
@@ -15,6 +16,8 @@ const getPageContentOrNull = async (page?: CollectionEntry<"pages">) => {
 };
 
 const Content = await getPageContentOrNull(home);
+
+const sidebarEntries = await getWebsiteEntries();
 ---
 
 <Layout title={home?.data.title} description={home?.data.description}>
@@ -29,6 +32,6 @@ const Content = await getPageContentOrNull(home);
 		emptyFilterMessage="filter: none"
 		client:idle
 	>
-		<CardList imageSizes={sidebarImageSizes} filter={{}} />
+		<CardList imageSizes={sidebarImageSizes} entries={sidebarEntries} />
 	</Sidebar>
 </Layout>
