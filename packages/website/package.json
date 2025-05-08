@@ -6,6 +6,7 @@
 	"scripts": {
 		"dev": "astro dev",
 		"build": "astro build",
+		"build:ci": "mkdir public/uploads/ && cp src/content/uploads/* public/uploads/ && npm run build",
 		"preview": "astro preview",
 		"format": "prettier . --write",
 		"test": "echo \"Error: no test specified\" && exit 1"
