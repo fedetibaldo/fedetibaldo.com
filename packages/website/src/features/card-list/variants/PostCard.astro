@@ -14,16 +14,14 @@ const { imageSizes = {}, post } = Astro.props;
 <Card
 	href={`/${post.data.slug}/`}
 	class={`entry--tag-${post.data.tag.id} ${
-		post.data.isOutdated
-			? "border-neutral-700/50 hocus:border-neutral-700 entry--outdated"
-			: "border-neutral-700"
+		post.data.isOutdated ? "entry--outdated" : ""
 	}`}
 	imageSizes={imageSizes}
 	cover={post.data.cover}
 >
 	<article class="relative p-6 space-y-4">
 		<h2
-			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-neutral-100 font-bold lines-2 group-focus-visible:underline`}
+			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-contrast-high font-bold lines-2 group-focus-visible:underline`}
 		>
 			{post.data.title}
 		</h2>

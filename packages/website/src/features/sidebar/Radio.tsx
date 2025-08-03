@@ -11,7 +11,7 @@ export function Radio({ label, value, options, onChange }: RadioProps) {
 	const id = useId();
 	return (
 		<fieldset class="space-y-4">
-			<legend class="text-smaller font-display font-bold uppercase leading-tightest text-neutral-200">
+			<legend class="text-ds-small font-display font-semibold uppercase">
 				{label}
 			</legend>
 			<div class="flex gap-3">
@@ -28,7 +28,7 @@ export function Radio({ label, value, options, onChange }: RadioProps) {
 								onChange={(ev) => onChange(ev.currentTarget.value)}
 							/>
 							<label
-								class="leading-tightest text-neutral-400 peer-checked:text-neutral-200 pl-1 cursor-pointer"
+								class="text-contrast-low peer-checked:text-contrast-base pl-1 cursor-pointer"
 								for={optionId}
 							>
 								{option.label}

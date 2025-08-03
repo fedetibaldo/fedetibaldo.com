@@ -1,8 +1,25 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+@layer base {
+	@font-face {
+		font-family: "Figtree";
+		src: url("/fonts/Figtree-VariableFont_wght.ttf");
+	}
+	@font-face {
+		font-family: "Noto Emoji Subset";
+		font-weight: 600;
+		src: url("/fonts/NotoEmoji-Bold-subset.ttf");
+	}
+	@font-face {
+		font-family: "Work Sans";
+		font-weight: 600;
+		src: url("/fonts/WorkSans-SemiBold.ttf");
+	}
+}
+
 @theme {
-	--font-sans: "Poppins", "sans-serif";
+	--font-sans: "Figtree", "sans-serif";
 	--font-display: "Noto Emoji Subset", "Work Sans", "sans-serif";
 
 	--breakpoint-*: initial;
@@ -21,32 +38,30 @@
 	--color-brand-linkedin: #2867b2;
 	--color-brand-bluesky: #1285fe;
 
-	--background-image-custom-gradient: linear-gradient(
-			0deg,
-			rgba(255, 255, 255, 0.2),
-			rgba(255, 255, 255, 0.2)
+	--background-image-custom-gradient: radial-gradient(
+			56.08% 287.5% at 94.75% -66.67%,
+			rgba(123, 199, 215, 0.7) 0%,
+			rgba(239, 244, 245, 0.35) 100%
 		),
 		radial-gradient(
-			61.39% 61.17% at 77.45% 27.66%,
-			#7bc7d7 0%,
-			rgba(239, 244, 245, 0.5) 100%
-		),
-		radial-gradient(
-			25.61% 30.11% at 17.07% 34.21%,
-			#890cc4 0%,
+			98.76% 540.28% at -1.93% 347.22%,
+			rgba(137, 12, 196, 0.6) 0%,
 			rgba(81, 10, 114, 0) 100%
-		),
-		radial-gradient(
-			68.42% 68.42% at 51.22% 25%,
-			rgba(116, 32, 32, 0) 0%,
-			#da3d3d 100%
 		);
 
 	--leading-*: initial;
+	--leading-none: 0;
 	--leading-self: 1;
-	--leading-tightest: 1.1;
-	--leading-tighter: 1.4;
-	--leading-base: 1.6;
+	--leading-tightest: 1.125rem;
+	--leading-tighter: 1.4rem;
+	--leading-base: 1.6rem;
+}
+
+@theme inline {
+	--color-contrast-lowest: var(--color-contrast-lowest);
+	--color-contrast-low: var(--color-contrast-low);
+	--color-contrast-base: var(--color-contrast-base);
+	--color-contrast-high: var(--color-contrast-high);
 }
 
 @custom-variant js (&:where(body.js *));
@@ -56,42 +71,47 @@
 
 @layer base {
 	html {
-		@apply scheme-dark bg-neutral-900 text-neutral-200 leading-base;
+		@apply scheme-dark surface;
 	}
 	html,
 	body {
 		@apply h-full;
 	}
 	body {
-		@apply text-base;
-	}
-}
-
-@layer base {
-	@font-face {
-		font-family: "Poppins";
-		font-weight: 400;
-		src: url("/fonts/Poppins-Regular.ttf");
-	}
-	@font-face {
-		font-family: "Poppins";
-		font-weight: 700;
-		src: url("/fonts/Poppins-Bold.ttf");
-	}
-	@font-face {
-		font-family: "Noto Emoji Subset";
-		font-weight: 700;
-		src: url("/fonts/NotoEmoji-Bold-subset.ttf");
-	}
-	@font-face {
-		font-family: "Work Sans";
-		font-weight: 700;
-		src: url("/fonts/WorkSans-Bold.ttf");
+		@apply text-ds-body;
 	}
 }
 
 @utility container {
 	@apply mx-auto px-6;
+}
+
+@utility text-ds-headline {
+	@apply text-large leading-tightest font-display font-semibold text-contrast-high;
+}
+
+@utility text-ds-body {
+	@apply text-base leading-base;
+}
+
+@utility text-ds-small {
+	@apply text-smallest leading-tighter;
+}
+
+@utility surface {
+	@apply bg-neutral-950 text-contrast-base;
+	--color-contrast-lowest: var(--color-neutral-700);
+	--color-contrast-low: var(--color-neutral-400);
+	--color-contrast-base: var(--color-neutral-200);
+	--color-contrast-high: var(--color-neutral-100);
+}
+
+@utility surface-inverted {
+	@apply bg-neutral-100 text-contrast-base;
+	--color-contrast-lowest: var(--color-neutral-400);
+	--color-contrast-low: var(--color-neutral-700);
+	--color-contrast-base: var(--color-neutral-900);
+	--color-contrast-high: var(--color-neutral-950);
 }
 
 @layer utilities {
@@ -102,11 +122,11 @@
 	.badge {
 		/* Revert prose styles */
 		@apply no-underline;
-		@apply inline-flex text-smaller items-baseline font-bold p-1 rounded-sm leading-self;
+		@apply inline-flex items-baseline text-smaller font-bold leading-self p-0.5 gap-0.5 rounded-sm;
 		& img {
 			/* Revert prose styles */
 			@apply m-0;
-			@apply w-4 h-4 mr-1 self-end;
+			@apply w-4 h-4 self-end;
 		}
 	}
 

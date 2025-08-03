@@ -106,14 +106,14 @@ export function Sidebar({
 
 	return (
 		<aside class={getFilterClassName()}>
-			<div class="sticky top-0 bg-neutral-900 z-10">
+			<div class="sticky top-0 surface z-10">
 				<div class="flex justify-between items-center py-4">
-					<p class="text-neutral-400 leading-tightest">
+					<p class="text-contrast-low leading-self">
 						<span class="hidden js:inline">{getMessage(filter)}</span>
 						<noscript>{emptyFilterMessage}</noscript>
 					</p>
 					<button
-						class="hidden disabled:text-neutral-700 cursor-pointer disabled:cursor-not-allowed rounded-full p-2 -mr-2 js:block"
+						class="hidden disabled:text-contrast-low cursor-pointer disabled:cursor-not-allowed rounded-full p-2 -mr-2 js:block"
 						type="button"
 						disabled={isFormDisabled}
 						aria-expanded={isFormVisible}
@@ -134,7 +134,7 @@ export function Sidebar({
 							ev.preventDefault();
 							submitForm();
 						}}
-						class="absolute right-0 top-full w-full max-w-md -translate-y-2 translate-x-2 mb-6 bg-neutral-900/80 backdrop-blur-xl rounded-2xl border border-neutral-700 p-6 space-y-8"
+						class="absolute right-0 top-full w-full max-w-md -translate-y-2 translate-x-2 mb-6 surface rounded-2xl border border-contrast-lowest p-6 space-y-8"
 					>
 						<div class="space-y-6">
 							<Radio
@@ -147,7 +147,7 @@ export function Sidebar({
 								value={draftFilter.tag}
 								onChange={onTagChange}
 							/>
-							<hr class="border-neutral-700" />
+							<hr class="border-contrast-lowest" />
 							<Checkbox
 								label="Show outdated"
 								value={draftFilter.showOutdated}
@@ -158,13 +158,13 @@ export function Sidebar({
 							<button
 								type="reset"
 								disabled={!isFormResettable()}
-								class="px-4 py-3 w-full leading-tightest font-bold border border-grey-400 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+								class="px-4 py-3 w-full leading-tightest font-bold border border-contrast-low rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
 							>
 								Clear
 							</button>
 							<button
 								disabled={!isFormDirty}
-								class="px-4 py-3 w-full leading-tightest font-bold bg-neutral-100 text-neutral-900 rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+								class="px-4 py-3 w-full leading-tightest font-bold surface-inverted rounded-lg cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
 							>
 								Apply
 							</button>
