@@ -18,10 +18,7 @@ export function Checkbox({ label, value, onChange }: CheckboxProps) {
 				checked={value}
 				onChange={(ev) => onChange(ev.currentTarget.checked)}
 			/>
-			<label
-				class="text-ds-small font-display font-semibold uppercase pl-2 cursor-pointer"
-				for={id}
-			>
+			<label class="text-ds-label pl-2 cursor-pointer" for={id}>
 				{label}
 			</label>
 		</div>

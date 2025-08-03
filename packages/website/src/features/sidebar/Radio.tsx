@@ -11,9 +11,7 @@ export function Radio({ label, value, options, onChange }: RadioProps) {
 	const id = useId();
 	return (
 		<fieldset class="space-y-4">
-			<legend class="text-ds-small font-display font-semibold uppercase">
-				{label}
-			</legend>
+			<legend class="text-ds-label">{label}</legend>
 			<div class="flex gap-3">
 				{options.map((option) => {
 					const optionId = `${id}-${option.value}`;
