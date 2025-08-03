@@ -150,7 +150,11 @@
 		}
 
 		:not(pre) code {
-			@apply text-ds-badge bg-contrast-lowest p-1 rounded;
+			@apply text-ds-badge bg-contrast-lowest/50 p-1 rounded;
+		}
+
+		pre {
+			@apply text-ds-small;
 		}
 	}
 }
