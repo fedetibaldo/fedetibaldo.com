@@ -28,6 +28,13 @@ export async function getEntries({
 			) {
 				return false;
 			}
+			if (
+				!import.meta.env.DEV &&
+				entry.data.type == "post" &&
+				entry.data.isDraft
+			) {
+				return false;
+			}
 			return true;
 		})
 	)

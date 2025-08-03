@@ -33,6 +33,7 @@ const entries = defineCollection({
 					cover: image(),
 					description: z.string().optional(),
 					isOutdated: z.boolean().default(false),
+					isDraft: z.boolean().default(false),
 				}),
 				z.object({
 					type: z.literal("game"),
