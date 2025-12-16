@@ -1,10 +1,8 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { Layout, sidebarImageSizes } from "../features/layout";
+import { Layout } from "../features/layout";
 import { getEntry as getAstroEntry } from "astro:content";
 import { render } from "astro:content";
-import { Sidebar } from "../features/sidebar";
-import { CardList } from "../features/card-list";
 import { getEntries as getWebsiteEntries } from "../features/entries";
 
 const home = await getAstroEntry("pages", "home");
@@ -20,17 +18,17 @@ const Content = await getPageContentOrNull(home);
 const sidebarEntries = await getWebsiteEntries();
 ---
 
-<Layout title={home?.data.title} description={home?.data.description}>
-	<article class="prose">
+<Layout
+	title={home?.data.title}
+	description={home?.data.description}
+	sidebar={{
+		type: "filterable",
+		defaultFilter: { showOutdated: false },
+		entries: sidebarEntries,
+	}}
+>
+	<article class="prose max-w-2xl">
 		<h1 class="text-ds-headline-1 mb-4">Hello</h1>
 		{Content && <Content />}
 	</article>
-	<Sidebar
-		slot="sidebar"
-		defaultFilter={{ showOutdated: false, tag: "all" }}
-		emptyFilterMessage="filter: none"
-		client:idle
-	>
-		<CardList imageSizes={sidebarImageSizes} entries={sidebarEntries} />
-	</Sidebar>
 </Layout>

@@ -67,7 +67,9 @@
 }
 
 @theme inline {
+	--color-surface: var(--color-surface);
 	--color-contrast-lowest: var(--color-contrast-lowest);
+	--color-contrast-lower: var(--color-contrast-lower);
 	--color-contrast-low: var(--color-contrast-low);
 	--color-contrast-base: var(--color-contrast-base);
 	--color-contrast-high: var(--color-contrast-high);
@@ -138,7 +140,7 @@
 		}
 
 		pre {
-			@apply p-4;
+			@apply py-4 px-4 -mx-4 lg:px-8 lg:-mx-8;
 		}
 
 		:where(p, ul, ol, pre):not(:has(+ :is(p, ul, ol, pre))) {
@@ -150,7 +152,7 @@
 		}
 
 		:not(pre) code {
-			@apply text-ds-badge bg-contrast-lowest/50 p-1 rounded;
+			@apply text-ds-badge bg-contrast-lower/50 p-1 rounded;
 		}
 
 		pre {
@@ -164,7 +166,11 @@
 }
 
 @utility container {
-	@apply mx-auto px-6;
+	@apply mx-auto;
+}
+
+@utility subgrid {
+	@apply grid grid-cols-subgrid grid-rows-subgrid;
 }
 
 @utility font-display {
@@ -196,19 +202,23 @@
 }
 
 @utility surface {
-	@apply bg-neutral-950 text-contrast-base;
-	--color-contrast-lowest: var(--color-neutral-700);
+	--color-surface: var(--color-neutral-950);
+	--color-contrast-lowest: var(--color-neutral-800);
+	--color-contrast-lower: var(--color-neutral-700);
 	--color-contrast-low: var(--color-neutral-400);
 	--color-contrast-base: var(--color-neutral-200);
 	--color-contrast-high: var(--color-neutral-100);
+	@apply bg-surface text-contrast-base;
 }
 
 @utility surface-inverted {
-	@apply bg-neutral-100 text-contrast-base;
-	--color-contrast-lowest: var(--color-neutral-400);
+	--color-surface: var(--color-neutral-100);
+	--color-contrast-lowest: var(--color-neutral-300);
+	--color-contrast-lower: var(--color-neutral-400);
 	--color-contrast-low: var(--color-neutral-700);
 	--color-contrast-base: var(--color-neutral-900);
 	--color-contrast-high: var(--color-neutral-950);
+	@apply bg-surface text-contrast-base;
 }
 
 @layer utilities {

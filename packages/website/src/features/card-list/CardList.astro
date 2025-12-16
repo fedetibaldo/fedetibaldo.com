@@ -5,14 +5,15 @@ import type { LocalImageProps } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 
 type Props = {
+	class?: string | undefined;
 	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
 	entries: CollectionEntry<"entries">[];
 };
 
-const { imageSizes, entries } = Astro.props;
+const { imageSizes, entries, class: className = "" } = Astro.props;
 ---
 
-<div class="space-y-6">
+<div class={`flex flex-col gap-6 py-6 ${className}`}>
 	{
 		entries.length > 0 ? (
 			entries.map((entry) => {

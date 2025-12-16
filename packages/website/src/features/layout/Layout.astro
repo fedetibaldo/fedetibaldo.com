@@ -2,23 +2,29 @@
 import { settings } from "../../settings";
 import Footer from "./Footer.astro";
 import "../../index.css";
+import type { CollectionEntry } from "astro:content";
+import { CardList } from "../card-list";
+import type { FilterValue } from "../filter";
+import { Filter } from "../filter";
 
 export const sidebarImageSizes = {
 	widths: [420, 640],
 	sizes: "(max-width: 640px) 640px, 420px",
 };
 
+export type SidebarType = "filterable" | "suggested";
+
 interface Props {
 	title?: string | undefined;
 	description?: string | undefined;
-	mainWidth?: "1/2" | "3/5";
+	sidebar: {
+		type: SidebarType;
+		defaultFilter?: Partial<FilterValue>;
+		entries: CollectionEntry<"entries">[];
+	};
 }
 
-const {
-	title,
-	description = settings.siteDescription,
-	mainWidth = "1/2",
-} = Astro.props;
+const { title, description = settings.siteDescription, sidebar } = Astro.props;
 
 const canonical = Astro.url.origin + Astro.url.pathname;
 ---
@@ -38,25 +44,16 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 		<script is:inline>
 			document.body.classList.add("js");
 		</script>
-		<div class="container relative">
-			<a
-				href="#main"
-				class="absolute top-0 -translate-y-full focus:translate-0"
-			>
-				Jump to content
-			</a>
-			<a
-				href="#sidebar"
-				class="absolute top-0 -translate-y-full focus:translate-0"
-			>
-				Jump to sidebar
-			</a>
-		</div>
-		<div class="container lg:grid grid-cols-10 min-h-full items-end">
+
+		<div
+			class="container px-2 lg:px-0 lg:grid grid-cols-10 min-h-full items-end"
+		>
 			<div
-				class={`${mainWidth == "3/5" ? "col-span-6 lg:pr-8" : "col-span-5 lg:pr-3"} sticky bottom-0 min-h-fit max-h-dvh h-full flex flex-col justify-between`}
+				class="col-span-6 xl:col-span-7 flex flex-col h-full min-h-fit max-h-dvh lg:sticky bottom-0"
 			>
-				<header class="py-6">
+				<header
+					class="sticky top-0 z-10 h-20 flex items-center bg-surface border-x border-b border-contrast-lowest px-4 lg:px-8"
+				>
 					<a
 						class="text-ds-headline-1 bg-contrast-high text-custom-gradient"
 						href="/"
@@ -64,18 +61,42 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 						{settings.siteTitle}
 					</a>
 				</header>
-				<main id="main" class="pt-8 pb-12">
+
+				<slot name="hero" />
+
+				<main
+					class="grow flex flex-col justify-center border-x border-b border-contrast-lowest px-4 lg:px-8 pt-12"
+				>
 					<slot />
 				</main>
-				<Footer class="hidden lg:block" />
+
+				<Footer
+					class="hidden lg:block border-x border-contrast-lowest px-4 lg:px-8"
+				/>
 			</div>
+
 			<aside
-				id="sidebar"
-				class="col-start-7 xl:col-start-8 h-full col-span-4 xl:col-span-3 lg:pl-8 pb-6"
+				class="col-span-4 xl:col-span-3 flex flex-col h-full min-h-fit max-h-dvh lg:sticky bottom-0"
 			>
-				<slot name="sidebar" />
+				<div
+					class="sticky top-0 h-20 flex items-center bg-surface border-x lg:border-l-0 border-y lg:border-t-0 border-contrast-lowest px-4 lg:px-8 z-10"
+				>
+					{
+						sidebar.type == "filterable" ? (
+							<Filter client:idle defaultValue={sidebar.defaultFilter} />
+						) : (
+							<p class="text-contrast-low">Suggested items</p>
+						)
+					}
+				</div>
+				<CardList
+					class="grow bg-surface border-x lg:border-l-0 border-b lg:border-b-0 border-contrast-lowest px-4 lg:px-8"
+					imageSizes={sidebarImageSizes}
+					entries={sidebar.entries}
+				/>
 			</aside>
-			<Footer class="lg:hidden" />
+
+			<Footer class="lg:hidden border-x border-contrast-lowest px-4 lg:px-8" />
 		</div>
 	</body>
 </html>
