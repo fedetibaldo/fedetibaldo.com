@@ -68,7 +68,7 @@ const tag = await getEntry(post.data.tag);
 	</div>
 
 	<article>
-		<p class="flex items-baseline gap-4 mb-4">
+		<p class="flex items-center gap-4 mb-4">
 			<Tag color={tag.data.color} label={tag.data.label} />
 			<time class="text-ds-body" datetime={post.data.createdAt.toISOString()}>
 				{
