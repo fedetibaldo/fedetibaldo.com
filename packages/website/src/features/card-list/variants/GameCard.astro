@@ -26,7 +26,7 @@ const { imageSizes = {}, game } = Astro.props;
 				<Image
 					src={game.data.logo}
 					alt={game.data.title}
-					class="w-fit max-h-full"
+					class="w-fit max-h-full object-contain object-left"
 				/>
 			</h2>
 			<p class="text-ds-small">{game.data.description}</p>
