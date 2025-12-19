@@ -38,12 +38,6 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 		<title>{[title, settings.siteTitle].filter(Boolean).join(" | ")}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonical} />
-
-		<!-- Privacy-friendly analytics by Plausible -->
-		<script
-			defer
-			data-domain={settings.siteDomain}
-			src="https://plausible.io/js/script.js"></script>
 	</head>
 
 	<body>
