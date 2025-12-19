@@ -123,7 +123,7 @@
 		}
 		ul,
 		ol {
-			@apply pl-6;
+			@apply pl-6 mb-4;
 		}
 
 		p,
@@ -157,6 +157,16 @@
 
 		pre {
 			@apply text-ds-small;
+		}
+
+		.prose__gallery {
+			@apply flex flex-wrap md:flex-nowrap h-min my-12;
+			& * {
+				@apply w-full m-0;
+			}
+			& img {
+				@apply aspect-video object-cover;
+			}
 		}
 	}
 }
