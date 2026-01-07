@@ -25,6 +25,6 @@
 		"@astrojs/netlify": "^6.2.3",
 		"@astrojs/preact": "^4.0.8",
 		"astro": "^5.4.3",
-		"preact": "^10.26.5"
+		"preact": "^10.26.10"
 	}
 }
