@@ -143,12 +143,12 @@
 			@apply py-4 px-4 -mx-4 lg:px-8 lg:-mx-8;
 		}
 
-		:where(p, ul, ol, pre):not(:has(+ :is(p, ul, ol, pre))) {
+		hr, table, :where(p, ul, ol, pre):not(:has(+ :is(p, ul, ol, pre))) {
 			@apply mb-12;
 		}
 
 		hr {
-			@apply mb-12;
+			@apply border-contrast-lowest border-t-4 border-dotted;
 		}
 
 		:not(pre) code {
@@ -166,6 +166,17 @@
 			}
 			& img {
 				@apply aspect-video object-cover;
+			}
+		}
+
+		blockquote {
+			@apply border-l-4 border-contrast-lowest text-contrast-low pl-4;
+		}
+
+		table {
+			@apply table-fixed text-left;
+			& td, th {
+				@apply p-3 border border-contrast-lowest;
 			}
 		}
 	}
