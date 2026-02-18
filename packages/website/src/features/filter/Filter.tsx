@@ -1,16 +1,18 @@
-import { useEffect, useId, useState } from "preact/hooks";
+import { useId, useState } from "preact/hooks";
 import { Checkbox } from "./Checkbox";
 import { Radio } from "./Radio";
 import { FilterIcon } from "./FilterIcon";
+import type { CollectionEntry } from "astro:content";
 
 export type FilterValue = { showOutdated: boolean; tag: string };
 
 type FilterProps = {
 	defaultValue?: Partial<FilterValue> | undefined;
+	availableTags: CollectionEntry<"tags">[];
 	className?: string;
 };
 
-export function Filter({ defaultValue, className = "" }: FilterProps) {
+export function Filter({ defaultValue, availableTags }: FilterProps) {
 	const formId = useId();
 	const [isFormOpen, setIsFormOpen] = useState(false);
 	const [isFormDirty, setIsFormDirty] = useState(false);
@@ -64,34 +66,6 @@ export function Filter({ defaultValue, className = "" }: FilterProps) {
 
 	const [value, setValue] = useState(initialFilter);
 
-	useEffect(() => {
-		const tagClassNames = [
-			"**:[.entry--tag-tech]:hidden",
-			"**:[.entry--tag-game]:hidden",
-		].map(
-			(className) =>
-				[className, value.tag != "all" && !className.includes(value.tag)] as [
-					string,
-					boolean,
-				],
-		);
-
-		const classNames: [string, boolean][] = [
-			["**:[.entry--outdated]:hidden", !value.showOutdated],
-			...tagClassNames,
-		];
-
-		const bodyClassList = document.body.classList;
-		for (const [className, isEnabled] of classNames) {
-			const isActive = bodyClassList.contains(className);
-			if (isEnabled && !isActive) {
-				bodyClassList.add(className);
-			} else if (!isEnabled && isActive) {
-				bodyClassList.remove(className);
-			}
-		}
-	}, [value]);
-
 	const [draftValue, setDraftValue] = useState(value);
 
 	const getMessage = (filter: FilterValue) => {
@@ -107,6 +81,24 @@ export function Filter({ defaultValue, className = "" }: FilterProps) {
 
 	return (
 		<>
+			<style
+				dangerouslySetInnerHTML={{
+					__html: `
+				${
+					value.tag != "all"
+						? availableTags
+								.filter((availableTag) => availableTag.id != value.tag)
+								.map(
+									(excludedTag) =>
+										`.entry--tag-${excludedTag.id} { display: none; }`,
+								)
+								.join(" ")
+						: ""
+				}
+				${value.showOutdated ? "" : ".entry--outdated { display: none; }"}
+			`,
+				}}
+			></style>
 			<div class="flex justify-between items-center w-full">
 				<p class="text-contrast-low leading-self">
 					<span class="hidden js:inline">{getMessage(value)}</span>
@@ -139,8 +131,10 @@ export function Filter({ defaultValue, className = "" }: FilterProps) {
 						<Radio
 							options={[
 								{ label: "All", value: "all" },
-								{ label: "Game", value: "game" },
-								{ label: "Tech", value: "tech" },
+								...availableTags.map((tag) => ({
+									label: tag.data.label,
+									value: tag.id,
+								})),
 							]}
 							label="Filter by tag"
 							value={draftValue.tag}

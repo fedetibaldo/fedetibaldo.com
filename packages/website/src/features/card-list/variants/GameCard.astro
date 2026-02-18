@@ -18,7 +18,7 @@ const { imageSizes = {}, game } = Astro.props;
 	imageSizes={imageSizes}
 	cover={game.data.cover}
 >
-	<article class="relative p-6 flex flex-col h-full gap-y-6">
+	<article class="relative p-6 flex flex-col h-full gap-y-6 bg-surface/80">
 		<header
 			class="max-w-64 basis-0 flex-grow flex flex-col gap-y-4 justify-center"
 		>
@@ -36,7 +36,7 @@ const { imageSizes = {}, game } = Astro.props;
 				<dl class="text-ds-small">
 					{game.data.placements.map(
 						({ competitionName, competitionLogo, placement, category }) => (
-							<div class="flex justify-between pb-2 not-first:pt-2 border-b border-contrast-lowest">
+							<div class="flex justify-between pb-2 not-first:pt-2 border-b border-contrast-low">
 								<dt>
 									<Image
 										class="lines-1 w-fit"

@@ -6,6 +6,7 @@ import type { CollectionEntry } from "astro:content";
 import { CardList } from "../card-list";
 import type { FilterValue } from "../filter";
 import { Filter } from "../filter";
+import { getCollection } from "astro:content";
 
 export const sidebarImageSizes = {
 	widths: [420, 640],
@@ -27,6 +28,8 @@ interface Props {
 const { title, description = settings.siteDescription, sidebar } = Astro.props;
 
 const canonical = Astro.url.origin + Astro.url.pathname;
+
+const tags = await getCollection('tags');
 ---
 
 <html lang="en">
@@ -83,7 +86,7 @@ const canonical = Astro.url.origin + Astro.url.pathname;
 				>
 					{
 						sidebar.type == "filterable" ? (
-							<Filter client:idle defaultValue={sidebar.defaultFilter} />
+							<Filter client:idle defaultValue={sidebar.defaultFilter} availableTags={tags} />
 						) : (
 							<p class="text-contrast-low">Suggested items</p>
 						)

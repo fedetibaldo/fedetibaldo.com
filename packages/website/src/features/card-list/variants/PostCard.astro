@@ -19,7 +19,7 @@ const { imageSizes = {}, post } = Astro.props;
 	imageSizes={imageSizes}
 	cover={post.data.cover}
 >
-	<article class="relative p-6 space-y-4">
+	<article class="relative p-6 space-y-4 bg-surface/80">
 		<h2
 			class={`${post.data.isOutdated ? "opacity-50 group-hocus:opacity-100" : ""} transition leading-tighter text-contrast-high font-bold lines-2 group-focus-visible:underline`}
 		>
