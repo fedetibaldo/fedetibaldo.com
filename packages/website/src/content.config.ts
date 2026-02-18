@@ -53,6 +53,18 @@ const entries = defineCollection({
 						)
 						.optional(),
 				}),
+				z.object({
+					type: z.literal("promo"),
+					title: z.string(),
+					url: z.string(),
+					logo: z
+						.object({
+							url: image(),
+							alt: z.string(),
+						})
+						.optional(),
+					cover: image(),
+				}),
 			]),
 		),
 });

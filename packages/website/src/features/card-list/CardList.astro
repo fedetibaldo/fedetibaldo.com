@@ -3,6 +3,7 @@ import PostCard from "./variants/PostCard.astro";
 import GameCard from "./variants/GameCard.astro";
 import type { LocalImageProps } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
+import PromoCard from "./variants/PromoCard.astro";
 
 type Props = {
 	class?: string | undefined;
@@ -26,6 +27,10 @@ const { imageSizes, entries, class: className = "" } = Astro.props;
 					case "game":
 						return (
 							<GameCard imageSizes={imageSizes} game={{ ...entry, data }} />
+						);
+					case "promo":
+						return (
+							<PromoCard imageSizes={imageSizes} promo={{ ...entry, data }} />
 						);
 				}
 			})

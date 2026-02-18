@@ -1,0 +1,40 @@
+---
+import { Image, type LocalImageProps } from "astro:assets";
+import type { EntryOfType } from "../../entries/helpers";
+import EntryMeta from "../shared/EntryMeta.astro";
+import Card from "../shared/Card.astro";
+
+type Props = {
+	promo: EntryOfType<"promo">;
+	imageSizes?: Pick<LocalImageProps, "sizes" | "widths"> | undefined;
+};
+const { imageSizes = {}, promo } = Astro.props;
+---
+
+<Card
+	href={promo.data.url}
+	target="_blank"
+	class=`lg:aspect-[4/3] entry--tag-${promo.data.tag.id}`
+	imageSizes={imageSizes}
+	cover={promo.data.cover}
+>
+	<article class="relative p-6 flex flex-col h-full gap-y-6 bg-radial-[ellipse_150%_75%_at_center_25%] from-surface/0 to-surface">
+		<header
+			class="flex-grow flex flex-col gap-y-4 justify-between"
+		>
+			{promo.data.logo && (
+				<h2>
+					<Image
+						src={promo.data.logo.url}
+						alt={promo.data.logo.alt}
+					/>
+				</h2>
+			)}
+			<p class="font-bold max-w-64">{promo.data.title}</p>
+		</header>
+		<EntryMeta
+			tag={promo.data.tag}
+			date={promo.data.createdAt}
+		/>
+	</article>
+</Card>
