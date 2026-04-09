@@ -23,7 +23,11 @@ const entries = defineCollection({
 	loader: glob({ pattern: "**/*.md", base: "./src/content/entries" }),
 	schema: ({ image }) =>
 		z.intersection(
-			z.object({ tag: reference("tags"), createdAt: z.coerce.date() }),
+			z.object({
+				tag: reference("tags"),
+				isDraft: z.boolean().default(false),
+				createdAt: z.coerce.date(),
+			}),
 			z.discriminatedUnion("type", [
 				z.object({
 					type: z.literal("post"),
@@ -33,7 +37,6 @@ const entries = defineCollection({
 					cover: image(),
 					description: z.string().optional(),
 					isOutdated: z.boolean().default(false),
-					isDraft: z.boolean().default(false),
 				}),
 				z.object({
 					type: z.literal("game"),
